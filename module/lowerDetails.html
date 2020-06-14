@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>我的邀请</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/icons-extra.css">
+		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/swiper.min.css"/>
+	</head>
+	<style type="text/css">
+		.l-title{padding: 15px;background-color: #fff;border-bottom: 1px solid #e2e2e2;text-align: center;color: #242424;font-size: 14px}
+		.l-title div:nth-child(1){width: 20%;float: left;}
+		.l-title div:nth-child(2){width: 30%;float: left;}
+		.l-title div:nth-child(3){width: 20%;float: left;}
+		.l-title div:nth-child(4){width: 30%;float: left;}
+		.l-title:after{content: '';display: block;clear: both;}
+		.l-item{text-align: center;background: #fff;border-bottom:1px solid #F5F5F5;height: 70px;line-height: 70px;padding: 0px 15px;color: #4c4c4c;font-size: 14px}
+		.l-item img{width: 40px;height: 40px;border-radius: 50%;}
+		.l-item div:nth-child(1){width: 20%;float: left;padding-top: 10px;line-height: 0px;margin-top: 5px;}
+		.l-item div:nth-child(2){width: 30%;float: left;}
+		.l-item div:nth-child(3){width: 20%;float: left;}
+		.l-item div:nth-child(4){width: 30%;float: left;line-height: 20px;padding-top: 10px;padding-top: 14px;}
+	</style>
+	<body>
+		<header>
+			<span class="mui-icon mui-icon-undo do_back"></span> 
+			<h1>我的邀请</h1>
+		</header>
+		 
+		<content>
+			   <div class="l-title">
+				   <div>头像</div>
+				   <div>昵称</div>
+				   <div>总获佣金</div>
+				   <div>邀请时间</div>
+			   </div>
+			   <div class="list">
+				   <div class="l-item">
+					   <div><img src="../images/shuijiao.jpg" alt=""></div>
+					   <div>沧海一声笑</div>
+					   <div>¥0</div>
+					   <div>2019-02-02 <br> 12:12</div>
+				   </div>
+				   <div class="l-item">
+					   <div><img src="../images/shuijiao.jpg" alt=""></div>
+					   <div>沧海一声笑</div>
+					   <div>¥0</div>
+					   <div>2019-02-02 <br> 12:12</div>
+				   </div>
+			   </div>
+			    
+		</content>
+		</div>
+		<script src="../js/mui.js"></script>
+		<script src="../js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/swiper.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script> 
+		<script type="text/javascript">
+			mui.init()
+			mui.plusReady(function(){
+
+			})
+			
+			mui("body").on("tap",'.current-date',function(){
+				$(".date-list").fadeToggle(100);
+			})
+			
+			mui("body").on("tap",'.date-list li',function(){
+				$(".date-list").fadeToggle(100);
+				$('.current-date').html($(this).text()+' ▾');
+			})
+		</script>
+	</body>
+
+</html>

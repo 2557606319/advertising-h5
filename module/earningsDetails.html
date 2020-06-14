@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>收益明细</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/icons-extra.css">
+		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/swiper.min.css"/>
+	</head>
+	<style type="text/css">
+		 content{} 
+		 .top-wrap{padding: 15px;background-color: #fff;border-bottom: 1px solid #e6e6e6;width: 100%;position: fixed;
+		 top: 59px;z-index: 999;;}
+		 .top-wrap span{font-size: 14px}
+		 .top-wrap ul{list-style: none;position: fixed;left: 4px;margin-top: 30px;background-color: #fff;
+		 box-shadow: 0px 2px 10px #eee;padding: 0px;display: none;}
+		 .top-wrap ul li{padding: 5px 12px;font-size: 14px;font-weight: 300;}
+		 .top-wrap ul li:active{background-color: #eee;}
+	</style>
+	<body>
+		<header>
+			<span class="mui-icon mui-icon-undo do_back"></span> 
+			<h1>收益明细</h1>
+		</header>
+		<style type="text/css">
+			.details-list{margin-top: 52px;}
+			.details-list .dl-item{
+				padding:15px 15px 15px 45px;position: relative;background-color: #fff;border-bottom: 1px solid #f3f3f3;
+			}
+			.details-list .dl-item img{width: 35px;height: 35px;position: absolute;left: 10px;border-radius: 50%;margin-top: 4px;}
+			.details-list .dl-item span{width: 20%;float: left;text-align: center;font-size: 12px;font-weight: 400;color: #242424;}
+			.details-list .dl-item span:nth-child(2){line-height: 42px;}
+			.details-list .dl-item span:nth-child(5){color: #ffa901;}
+			.details-list .dl-item:after{content: '';display: block;clear: both;}
+		</style>
+		<content>
+			  <div class="top-wrap">
+				  <span class="current-date" style="float: left;" >2020.03 ▾</span>
+				  <ul class="date-list">
+				  	<li>2020.03</li>
+				  	<li>2020.02</li>
+				  	<li>2020.01</li>
+				  </ul>
+				  <span style="float: right;">
+					  月总收益
+					  <span>¥0</span>
+					  = 
+					  <span style="color: #FFA901;font-weight: 400;"> 0 金币</span>
+					  
+				  </span>
+				  <div style="clear: both;"></div>
+			  </div>
+			  <div class="details-list">
+				   
+				  <div class="dl-item">
+						  <img src="../images/shuijiao.jpg" alt="">
+						  <span>昵称</span>
+						  <span>年V <br>￥199</span>
+						  <span>佣金<br>￥79.6</span>
+						  <span>金币 <br>+796</span>
+						  <span>02-21<br>12:12</span>
+				  </div>
+				  <div class="dl-item">
+						  <img src="../images/shuijiao.jpg" alt="">
+						  <span>昵称</span>
+						  <span>年V <br>￥199</span>
+						  <span>佣金<br>￥79.6</span>
+						  <span>金币 <br>+796</span>
+						  <span>02-21<br>12:12</span>
+				  </div>
+			  </div>
+		</content>
+		</div>
+		<script src="../js/mui.js"></script>
+		<script src="../js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/swiper.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script> 
+		<script type="text/javascript">
+			mui.init()
+			mui.plusReady(function(){
+
+			})
+			
+			mui("body").on("tap",'.current-date',function(){
+				$(".date-list").fadeToggle(100);
+			})
+			
+			mui("body").on("tap",'.date-list li',function(){
+				$(".date-list").fadeToggle(100);
+				$('.current-date').html($(this).text()+' ▾');
+			})
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,934 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>我的</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/icons-extra.css">
+		<link rel="stylesheet" type="text/css" href="css/common.css" />
+	</head>
+	<style type="text/css">
+		content {
+			padding: 15px 15px 70px 15px;
+		}
+
+		.me-top {
+			padding: 15px;
+			padding-top: 30px;
+			position: relative;
+			background-color: #fff;
+			border: 1px solid #eee;
+			box-shadow: 0px 2px 10px rgba(237, 52, 103, 0.08);
+			border-radius: 5px;
+		}
+
+		.top-right {
+			padding-left: 100px;
+		}
+
+		.top-right h4 {
+			font-weight: 400;
+			font-size: 18px;
+			margin-bottom: 12px;
+		}
+
+		.top-right .flags {
+			font-size: 16px;
+			font-weight: 300;
+		}
+
+		.top-right .btns {
+			position: absolute;
+			right: 15px;
+			margin-top: -20px;
+		}
+
+		.top-right .btns img {
+			width: 28px;
+			height: 28px;
+			;
+		}
+
+		.avatar {
+			width: 85px;
+			height: 85px;
+			border-radius: 50%;
+			position: absolute;
+			left: 17px;
+			box-shadow: 2px 2px 5px rgba(238, 72, 85, 0.22);
+		}
+
+		.vip-icon {
+			width: 24px;
+			height: 20px;
+			position: absolute;
+			z-index: 99;
+			margin-left: 33px;
+			margin-top: -17px;
+		}
+
+		.gold-panel {
+			float: right;
+		}
+
+		.gold-panel img {
+			width: 16px;
+			height: 16px;
+		}
+
+		.gold-panel span {
+			font-size: 16px;
+		}
+
+		.gold-panel span:nth-child(2) {
+			font-size: 18px;
+		}
+
+		.top-bottom {
+			margin-top: 40px;
+			margin-bottom: 0px;
+		}
+
+		.top-bottom .in-gold {
+			color: #fff;
+			padding: 1px 12px;
+			border-radius: 12px;
+			font-size: 12px;
+			font-weight: 400;
+			position: absolute;
+			right: 15px;
+			margin-top: -2px;
+		}
+
+		.top-bottom .vip-text {
+			font-size: 18px;
+			font-weight: bold;
+			color: #a9a9a9;
+			padding-left: 13px;
+		}
+
+		.top-bottom .vip-text.vip-ok {
+			color: #FFA000;
+		}
+
+		/* 开通vip提示栏 */
+		.open-vip {
+			width: 100%;
+			border-bottom-left-radius: 10px;
+			border-bottom-right-radius: 10px;
+			background-color: #FEF1E0;
+			position: relative;
+			padding: 10px 15px 10px 15px;
+			margin: 0 auto;
+			z-index: -1;
+		}
+
+		.open-vip img {
+			width: 16px;
+			height: 15px;
+		}
+
+		.open-vip h4 {
+			font-size: 18px;
+			font-weight: 400;
+			color: #FFA000;
+			margin-top: 0px;
+		}
+
+		.open-vip p {
+			font-size: 12px;
+			font-weight: 400;
+			color: #FD9F00;
+			margin-bottom: 0px;
+		}
+
+		.open-vip button {
+			font-size: 12px;
+			font-weight: 400;
+			color: #fff;
+			padding: 2px 15px;
+			position: absolute;
+			right: 0px;
+			top: 7px;
+			border: none;
+			background: linear-gradient(136deg, rgba(255, 169, 126, 1) 0%, rgba(254, 209, 138, 1) 100%);
+			border-radius: 0px;
+		}
+
+
+		.agency-panel {
+			background: #fff;
+			margin: 0 auto;
+			padding: 15px;
+			position: relative;
+			box-shadow: 0px 2px 10px rgba(237, 52, 103, 0.05);
+			margin-top: 10px;
+			;
+		}
+
+		.agency-item {
+			float: left;
+			margin-right: 8px;
+		}
+
+
+		.agency-item p {
+			margin-bottom: 2px;
+		}
+
+		.agency-me {
+			text-align: center;
+			padding-top: 5px;
+		}
+
+		.agency-me img {
+			width: 38px;
+			height: 38px;
+			border-radius: 50%;
+		}
+
+		.agency-me h4 {
+			font-weight: 400;
+			font-size: 14px;
+			margin-top: 3px;
+		}
+
+		.agency-tg p:nth-child(1),
+		.agency-sy p:nth-child(1) {
+			font-size: 12px;
+			color: #333;
+			font-weight: 300;
+		}
+
+		.agency-tg p:nth-child(2),
+		.agency-sy p:nth-child(2) {
+			font-size: 14px;
+			color: #5f5f5f;
+		}
+
+		.agency-item p:nth-child(2) span,
+		.agency-item p:nth-child(3) span {
+			font-size: 18px;
+			color: #5f5f5f;
+		}
+
+		.agency-tg p:nth-child(3) {
+			font-size: 14px;
+			font-weight: 300;
+		}
+
+		.agency-level.level0 p {
+			color: #c3776a;
+		}
+
+		.agency-level.level1 p {
+			color: #e8ad3a;
+		}
+
+		.agency-level.level2 p {
+			color: #748faf;
+		}
+
+		.agency-level {
+			display: none;
+			position: absolute;
+			right: 15px;
+			top: 0px;
+			text-align: center;
+		}
+
+		.agency-level img {
+			width: 30px;
+			height: 38px;
+		}
+
+		.agency-level p {
+			font-size: 12px;
+			margin-top: -4px;
+		}
+
+		.agency-panel button {
+			border: 1px solid #e8ad3a;
+			color: #e8ad3a;
+			padding: 2px 10px;
+			position: absolute;
+			right: 10px;
+			bottom: 20px;
+			font-size: 12px;
+			border-radius: 5px;
+		}
+
+		.agency-menu {
+			background: #fee2cb;
+			padding: 8px 0px;
+			z-index: -1;
+			width: 90%;
+			font-size: 12px;
+			margin: 0 auto;
+			height: 36px;
+			border-bottom-left-radius: 10px;
+			border-bottom-right-radius: 10px;
+		}
+
+		.agency-menu div {
+			color: #90765d;
+			border-right: 1px solid #e8c2a4;
+			width: 32.4%;
+			display: inline-block;
+			text-align: center;
+		}
+
+		.agency-menu div:nth-child(3) {
+			border: none;
+		}
+
+		@media (max-width:414px) {
+			.agency-item {
+				margin-right: 22px;
+			}
+
+			.agency-panel {
+				padding: 15px 20px;
+			}
+
+			.agency-level {
+				right: 20px;
+			}
+		}
+
+		@media (max-width:375px) {
+			.agency-item {
+				margin-right: 12px;
+			}
+		}
+
+		@media (max-width:320px) {
+			.agency-item {
+				margin-right: 8px;
+			}
+
+			.agency-item p:nth-child(2) span,
+			.agency-item p:nth-child(3) span {
+				font-size: 14px;
+			}
+
+			.agency-tg p:nth-child(2),
+			.agency-sy p:nth-child(2) {
+				font-size: 12px
+			}
+
+			body .gain-vip .btns span {
+				font-size: 12px;
+				padding: 6px 10px;
+			}
+		}
+
+
+		.menus {
+			border-radius: 10px;
+			padding: 10px;
+			background-color: #fff;
+			margin-top: 10px;
+			border: 1px solid #eee;
+		}
+
+		.menus .menus-item {
+			width: 25%;
+			text-align: center;
+			float: left;
+		}
+
+		.menus .menus-item:nth-child(1) img {
+			height: 25px;
+			width: 28px;
+			margin-top: 3px;
+		}
+
+		.menus .menus-item:nth-child(2) img {
+			height: 25px;
+			width: 22px;
+			margin-top: 3px;
+		}
+
+		.menus .menus-item:nth-child(3) img {
+			height: 25px;
+			width: 22px;
+			margin-top: 3px;
+		}
+
+		.menus .menus-item:nth-child(4) img {
+			height: 22px;
+			width: 25px;
+			margin-top: 6px;
+		}
+
+		.menus .menus-item p {
+			margin-bottom: 0px;
+			color: #464646;
+		}
+
+		.bottom-menus {
+			position: relative;
+			padding-left: 15px;
+			background-color: #fff;
+			border-radius: 10px;
+			margin-top: 10px;
+			border: 1px solid #eee;
+		}
+
+		.bottom-menus .bm-item {
+			padding: 15px;
+			padding-left: 40px;
+			position: relative;
+			border-bottom: 1px solid #eee;
+		}
+
+		.bottom-menus .bm-item:last-child {
+			border-bottom: 0px;
+		}
+
+		.bottom-menus .bm-item p {
+			margin-bottom: 0px;
+		}
+
+		.bottom-menus .bm-item p:nth-child(2) {
+			font-size: 14px;
+			color: #464646;
+		}
+
+		.bottom-menus .bm-item .mui-icon {
+			position: absolute;
+			left: 0px;
+			margin-top: 4px;
+			font-size: 34px;
+		}
+
+		.bottom-menus .bm-item .wx-qr-btn {
+			color: #2AC845;
+			padding: 2px 15px;
+			font-size: 12px;
+			position: absolute;
+			right: 15px;
+			border-radius: 5px;
+			border: 1px solid #2AC845;
+			margin-top: -34px;
+			font-weight: 400;
+		}
+
+		.bottom-menus .bm-item .wx-qr-btn:active {
+			background-color: #2AC845;
+			color: #fff;
+		}
+
+		.wx-qr {
+			position: fixed;
+			z-index: 999;
+			text-align: center;
+			width: 100%;
+			display: none;
+			top: 0px;
+			bottom: 0px;
+			background: rgba(0, 0, 0, .5);
+		}
+
+		.wx-qr img {
+			width: 80%;
+			margin-top: 40%;
+			border-radius: 10px;
+		}
+
+		.wx-qr span {
+			font-size: 30px;
+			color: #fff;
+			font-weight: bold;
+			margin-top: 10px;
+			display: block;
+		}
+
+		#qrcode {
+			margin-top: 20px;
+			margin-bottom: 20px;
+		}
+	</style>
+	<body>
+		<header>
+			<span class="mui-icon mui-icon-undo"></span>
+			<h1>我的</h1>
+			<span class="mui-icon mui-icon-compose right-icon do_page" page-url="module/settingMeInfo.html"></span>
+		</header>
+		<content>
+
+			<div class="me-top">
+				<img src="images/vip-no.png" class="vip-icon" alt="">
+				<img class="avatar avatar_field" src="images/default_avatarx2.png" alt="">
+				<div class="top-right">
+					<div class="btns">
+						<img src="images/qrcode.png" alt="" onclick="$('.share-qr').fadeIn(200)">
+					</div>
+					<h4 class="nick">昵称</h4>
+					<p class="flags industry">行业</p>
+					<span class="gold-panel">
+						<span><span class="goldBalance">0</span>金币</span>
+						<span class="mui-icon-extra mui-icon-extra-gold" style="color: #FFA000;"></span>
+						<!-- <img src="images/gold.png" > -->
+					</span>
+				</div>
+				<p class="top-bottom">
+					<span class="vip-text">VIP会员</span>
+					<span class="in-gold comm-bg1" onclick="$('.gold-extract').fadeIn(200)">金币提现</span>
+				</p>
+			</div>
+
+			<div class="open-vip">
+				<h4>
+					<img src="images/vip-yes.png" alt="">
+					VIP会员
+				</h4>
+				<p>解锁文章、视屏引流分享次数限制，金币任务分享赚钱次数，定制内容推送服务</p>
+				<button type="button" class="" onclick="$('.gain-vip').fadeIn(200)">立即加入</button>
+			</div>
+			<div class="agency-panel">
+				<div class="agency-me agency-item">
+					<img class="avatar_field" src="images/default_avatarx2.png" alt="">
+					<h4 class="nick">昵称</h4>
+				</div>
+				<div class="agency-tg agency-item">
+					<p>收益分成</p>
+					<p>直推 <span class="earnings1">0%</span></p>
+				</div>
+				<div class="agency-sy agency-item">
+					<p>下级分成</p>
+					<p>二层 <span class="earnings2">0%</span>
+						<br>三层 <span class="earnings3">0%</span>
+					</p>
+				</div>
+				<div style="clear: both;"></div>
+				<div class="agency-level level0">
+					<img src="images/agency-l-1.png">
+					<p>青铜代理</p>
+				</div>
+				<div class="agency-level level1">
+					<img class="agency-level-icon" src="images/agency-l-2.png">
+					<p>黄金代理</p>
+				</div>
+				<div class="agency-level level2">
+					<img class="agency-level-icon" src="images/agency-l-3.png">
+					<p>钻石代理</p>
+				</div>
+				<button type="button" id="promote" class="do_page" page-url="module/agencyLevel.html">立即升级</button>
+			</div>
+			<div class="agency-menu">
+				<div class="do_page" page-url="module/meEarnings.html">查看收益</div>
+				<div class="do_page" page-url="module/lowerDetails.html">我的邀请</div>
+				<div>推广赚钱</div>
+				<div style="clear: both;"></div>
+			</div>
+			<div class="menus">
+				<div class="menus-item do_page" page-url="module/friend.html">
+					<img src="images/users.png" alt="">
+					<p>我的人脉</p>
+				</div>
+				<div class="menus-item do_page" page-url="module/releaseList.html">
+					<img src="images/list-icon.png" alt="">
+					<p>我的推文</p>
+				</div>
+				<div class="menus-item" onclick="$('.gold-extract').fadeIn(200)">
+					<img src="images/money1.png" alt="">
+					<p>收益提现</p>
+				</div>
+				<div class="menus-item">
+					<img src="images/ticket.png" alt="">
+					<p>分享赚钱</p>
+				</div>
+				<div style="clear: both;"></div>
+			</div>
+
+			<div class="bottom-menus">
+				<div class="bm-item">
+					<span class="mui-icon mui-icon-phone" style="color: #007AFF;"></span>
+					<p>电话号码</p>
+					<p class="phone">--</p>
+				</div>
+				<div class="bm-item">
+					<span class="mui-icon mui-icon-weixin" style="color: #2AC845;"></span>
+					<p>微信号</p>
+					<p class="wxAccount">--</p>
+					<span class="wx-qr-btn" onclick="$('.wx-qr').fadeIn(200)">微信二维码</span>
+				</div>
+				<div class="bm-item">
+					<span class="mui-icon mui-icon-email" style="color: #E81F54;"></span>
+					<p>邮箱</p>
+					<p class="email">--</p>
+				</div>
+			</div>
+		</content>
+
+		<!-- 微信二维码 -->
+		<div class="wx-qr">
+			<img class="wxqr-img" src="images/wx-qr.jpg" alt="">
+			<span class="mui-icon mui-icon-close" onclick="$(this).parent().fadeOut(200)"></span>
+		</div>
+
+		<style type="text/css">
+			.share-qr {
+				width: 100%;
+				top: 0px;
+				bottom: 0px;
+				background: rgba(0, 0, 0, .5);
+				z-index: 999;
+				position: fixed;
+				display: none;
+			}
+
+			.share-qr .sq-panel {
+				width: 85%;
+				margin: 0 auto;
+				margin-top: 20%;
+				border-radius: 10px;
+				background: #fff;
+				padding: 20px 15px;
+				text-align: center;
+				position: relative;
+			}
+
+			.share-qr .sq-panel img {
+				width: 80%;
+				margin-top: 10px;
+				margin-bottom: 10px;
+				box-shadow: 0px 2px 15px rgba(221, 82, 77, 0.25)
+			}
+
+			.share-qr .sq-panel p {
+				margin-top: 10px;
+			}
+
+			.share-qr .sq-panel p:last-child {
+				color: #DD524D;
+			}
+
+			.share-qr .sq-panel h4 {
+				font-size: 22px;
+				font-weight: 400;
+			}
+
+			.share-qr .sq-panel .mui-icon-close {
+				position: absolute;
+				right: 15px;
+				font-size: 28px;
+				margin-top: -5px;
+				color: #DD524D;
+			}
+
+
+			/* 金币提现 */
+			.gold-extract .mui-icon {
+				position: absolute;
+				right: 15px;
+				font-size: 28px;
+				margin-top: -5px;
+			}
+
+			.gold-extract {
+				display: none;
+				position: fixed;
+				z-index: 999;
+				width: 100%;
+				top: 0px;
+				bottom: 0px;
+				background: rgba(0, 0, 0, .5);
+			}
+
+			.gold-extract .ge-panel {
+				width: 85%;
+				position: absolute;
+				margin: 0 auto;
+				left: 0;
+				right: 0;
+				margin-top: 25%;
+				background: #fff;
+				border-radius: 10px;
+				padding: 20px 15px;
+			}
+
+			.gold-extract .sygz {
+				color: #DD524D;
+			}
+
+			.gold-extract .sygz,
+			.gold-extract .checkbox,
+			.gold-extract .btns {
+				text-align: center;
+				margin-bottom: 15px;
+			}
+
+			.gold-extract .btns {
+				margin-bottom: 0px;
+			}
+
+			.gold-extract .btns span {
+				font-weight: 400;
+				padding: 8px 22px;
+			}
+
+			.ge-type {
+				float: right;
+			}
+
+			.ge-type span {
+				font-weight: 400;
+			}
+
+			.ge-type .sed {
+				color: #DD524D;
+				border-bottom: 1px solid #DD524D;
+			}
+
+			.gain-vip {
+				display: none;
+				position: fixed;
+				z-index: 999;
+				width: 100%;
+				top: 0px;
+				bottom: 0px;
+				background: rgba(0, 0, 0, .5);
+			}
+
+			.gain-vip .gv-panel {
+				width: 85%;
+				position: absolute;
+				margin: 0 auto;
+				left: 0;
+				right: 0;
+				margin-top: 45%;
+				background: #fff;
+				border-radius: 10px;
+				padding: 20px 26px;
+			}
+
+			.gain-vip .mui-icon {
+				position: absolute;
+				right: 15px;
+				font-size: 28px;
+				margin-top: -5px;
+			}
+
+			.gain-vip h4 {
+				text-align: center;
+				margin-bottom: 20px;
+				font-weight: 400;
+			}
+
+			.gain-vip .btns {
+				margin-bottom: 0px;
+				text-align: center;
+			}
+
+			.gain-vip .gv-labels {
+				border: 1px solid #ff8472;
+				padding: 15px;
+				font-size: 14px;
+				font-weight: 300;
+				margin-bottom: 20px;
+				line-height: 30px;
+				background: #f5f5f5;
+			}
+
+			.gain-vip .checkbox {
+				text-align: center;
+				margin-bottom: 15px;
+			}
+
+			.gain-vip .btns span {
+				font-weight: 400;
+				padding: 8px 15px;
+			}
+		</style>
+		<!-- 分享二维码 -->
+		<div class="share-qr">
+			<div class="sq-panel">
+				<span class="mui-icon mui-icon-close" onclick="$(this).parent().parent().fadeOut(200)"></span>
+				<h4>推广二维码</h4>
+				<div id="qrcode"></div>
+				<button type="button">保存二维码</button>
+				<p>分享至
+					<i>
+						<span class="mui-icon mui-icon-weixin"></span>好友
+					</i>
+					&nbsp;&nbsp;
+					<i>
+						<span class="mui-icon mui-icon-pengyouquan"></span>朋友圈
+					</i>
+				</p>
+				<p class="do_page" page-url="module/agencyRule.html">查看代理收益规则</p>
+			</div>
+		</div>
+
+		<!-- 金币提现 -->
+		<div class="gold-extract">
+			<div class="ge-panel">
+				<span class="mui-icon mui-icon-close" onclick="$(this).parent().parent().fadeOut(200)"></span>
+				<div class="form-div">
+					<div class="input-item">
+						<p class="input-label">金币余额（10金币 = 1元）</p>
+						<input type="number" class="bbottom" name="" id="goldBalance" value="0" disabled />
+					</div>
+					<div class="input-item">
+						<p class="input-label"><span class="must">*</span>金币提现数量（<span>1000</span>起提）</p>
+						<input type="number" placeholder="输入提现数量" value="0">
+					</div>
+					<div class="input-item">
+						<p class="input-label"><span class="must">*</span>提现到哪里
+							<span class="ge-type">
+								<span class="sed" plac="输入支付宝手机号">支付宝</span>
+								<span plac="输入微信账号">微信</span>
+							</span>
+						</p>
+						<input type="text" id="ge-target" placeholder="输入支付宝账号">
+					</div>
+					<p class="sygz">点击查看代理收益规则</p>
+					<p class="checkbox">
+						<input type="checkbox" name="" id="" value="" />阅读并同意用户协议</p>
+
+					<p class="btns">
+						<span class="comm-bg1 comm-btn">分享赚钱</span>&nbsp;&nbsp;
+						<span class="comm-bg2 comm-btn">收益提现</span>
+					</p>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- 充值vip  -->
+		<div class="gain-vip">
+			<div class="gv-panel">
+				<span class="mui-icon mui-icon-close" onclick="$(this).parent().parent().fadeOut(200)"></span>
+				<h4>VIP会员权益</h4>
+				<div class="gv-labels">
+					1、不限次数热文、视频采集引流分享。<br>
+					2、不限 "金币任务" 中分享赚钱次数。<br>
+					3、监控用户浏览、广告点击、引流统计 推送服务
+				</div>
+				<p class="checkbox"><input type="checkbox" name="" id="" value="" />阅读并同意开通VIP协议</p>
+				<p class="btns">
+					<span class="comm-bg1 comm-btn">支付 199元/年</span>&nbsp;&nbsp;
+					<span class="comm-bg2 comm-btn">支付 19.9元/月</span>
+				</p>
+			</div>
+		</div>
+		<bottom>
+			<div class="b-item do_page" page-url="home1.html" open-anim="fade-in">
+				<span class="mui-icon mui-icon-home"></span>
+				<p>首页</p>
+			</div>
+			<div class="b-item do_page" page-url="home2.html" open-anim="fade-in">
+				<span class="mui-icon mui-icon-bars"></span>
+				<p>金币任务</p>
+			</div>
+			<div class="b-item do_page" page-url="home3.html" open-anim="fade-in">
+				<span class="mui-icon mui-icon-plus"></span>
+				<p>发布</p>
+			</div>
+			<div class="b-item do_page" page-url="home4.html" open-anim="fade-in">
+				<span class="mui-icon mui-icon-upload"></span>
+				<p>我的广告</p>
+			</div>
+			<div class="b-item select">
+				<span class="mui-icon-extra mui-icon-extra-people"></span>
+				<p>我的</p>
+			</div>
+		</bottom>
+		<script src="js/mui.js"></script>
+		<script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery.qrcode.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+			if (!mui.os.plus) {
+				_auth();
+			} else {
+				_auth("login.html");
+			}
+			mui.plusReady(function() {
+				//savePicture('https://dss0.baidu.com/73F1bjeh1BF3odCf/it/u=1532486136,2866336138&fm=85&s=F6809543FAEC9CCE08C8BC1F030090C1');
+				// 保存图片至本地相册
+				function savePicture(imgUrl) {
+					var imgDtask = plus.downloader.createDownload(imgUrl, {
+						method: 'GET'
+					}, function(d, status) {
+						if (status == 200) {
+							plus.gallery.save(d.filename, function() { //保存到相册
+								plus.io.resolveLocalFileSystemURL(d.filename, function(enpty) {
+									// 关闭弹框
+									mui.toast('保存成功')
+								});
+							})
+						} else {
+							mui.toast('保存失败')
+						}
+					});
+					imgDtask.start()
+				}
+			})
+
+
+			mui("body").on('tap', '.ge-type span', function() {
+				$(".ge-type span").removeClass('sed');
+				$(this).addClass('sed');
+				$('#ge-target').attr('placeholder', $(this).attr('plac'));
+				$('#ge-target').val('');
+			})
+
+			initData();
+
+			function initData() {
+				_ajx({
+					url: '/auth/user/info',
+					isAuth: true,
+					type: "get",cache:false,
+					suc: function(data) {
+						$(".nick").text(data.message.nick);
+						$(".industry").text(data.message.industry.length>0? data.message.industry:"未设置");
+						$("#goldBalance").val(data.message.goldBalance);
+						$(".goldBalance").text(data.message.goldBalance);
+						$(".earnings1").text(data.message.earnings1 * 100 + "%");
+						$(".earnings2").text(data.message.earnings2 * 100 + "%");
+						$(".earnings3").text(data.message.earnings3 * 100 + "%");
+						$(".phone").text(data.message.phone.length > 0 ? data.message.phone : '--');
+						$(".wxAccount").text(data.message.wxAccount.length > 0 ? data.message.wxAccount : '--');
+						$(".email").text(data.message.email.length > 0 ? data.message.email : '--');
+
+						var avatarUrl = formatterImgUrl(data.message.avatar);
+						$('.avatar_field').attr("src", avatarUrl);
+
+						var wxqr = formatterImgUrl(data.message.wxqr);
+						$(".wxqr-img").attr("src", wxqr);
+
+						if (data.message.vip == 1) {
+							$(".vip-icon").attr('src', 'images/vip-yes.png');
+							$(".vip-text ").addClass('vip-ok');
+							$(".open-vip").hide();
+
+						}
+						if (data.message.agencyLevel == 2) $("#promote").hide();
+						$('.agency-level.level' + data.message.agencyLevel).show();
+
+						var url = _CFG.webServer + "/home5.html?code=" + data.message.id;
+						//生成二维码
+						$("#qrcode").qrcode({
+							width: 180, //宽度
+							height: 180, //高度
+							text: url //url
+						});
+
+					},
+					err: function() {
+
+					}
+				})
+			}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,286 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>金币任务</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/icons-extra.css">
+		<link rel="stylesheet" type="text/css" href="css/common.css"/>
+	</head>
+	<style type="text/css">
+		content{top: 80px;background-color: #fff;padding-bottom: 50px;}
+		.top-tab {
+			text-align: center;position: fixed;width: 100%;height: 30px;z-index: 999;top: 50px;
+			text-align: center;padding: 0px 0px 8px 0px;
+			background:linear-gradient(90deg,rgba(237,50,105,1) 0%,rgba(240,95,62,1) 100%);
+		}
+		.top-tab span{
+			color: #fff;padding:4px 25px;
+			font-size: 14px;
+			border-radius: 12px;}
+		.top-tab span.select{
+			background-color:rgb(255, 128, 143);
+		}
+		
+		.type-list{
+			position: fixed;width: 100%;z-index: 999;top: 80px;
+			background: #fff;
+			border-bottom: 1px solid #fbfbfb;
+			overflow-y: hidden;
+			overflow-x: auto;padding-top: 5px;padding-left: 5px;padding-bottom: 5px;
+			white-space: nowrap;
+		}
+		.type-list::-webkit-scrollbar {
+		        display: none;/*隐藏滚动条*/
+		    }
+		.type-list span{
+			padding: 3px 18px;font-size: 12px;
+			border-radius: 10px;background-color: #dadada;
+		}
+		.type-list span.select{
+			background:linear-gradient(225deg,rgba(254,193,128,1) 0%,rgba(255,137,147,1) 100%);
+			color: #fff;font-weight: 400;
+		}
+		.more-type{
+			position: fixed;right: 0px;top: 85px;z-index: 1000;
+			border-radius: 0px;color: #fff;font-size: 20px;
+			padding: 7px 10px;margin-top: -5px;
+			background:linear-gradient(225deg,rgba(254,193,128,1) 0%,rgba(255,137,147,1) 100%);
+		}
+		
+		.tab-panel{
+			padding-left: 2.2%;
+			padding-right: 2.2%;
+			background-color: #fff;
+			column-count: 2;
+			column-gap: 2.2%;
+			padding-bottom:20px;
+			display: none;
+		}
+		
+		.tab-panel:after{content: "";display: block;clear: both;}
+		.list-item{width: 98.9%;float: left;background-color: #fff;
+			box-shadow: 0px 1px 8px rgba(50, 51, 94, 0.08);
+			border-radius: 8px;overflow: hidden;
+			position: relative;margin-top: 5.5%;margin-bottom: 2%;
+			-webkit-column-break-inside: avoid;
+		  break-inside: avoid;margin-left: 0.65%;
+		  counter-increment: item-counter;
+		}
+		.list-item .mui-icon-extra-share{color: #ff769b;position: absolute;
+			margin-top: -2px;right: 8px;font-size: 18px;
+		}
+		.list-item .cover{width: 100%;max-height: 150px;}
+		.list-item h4{font-weight: 300;font-size: 14px;}
+		.list-item p{font-size: 12px;margin-bottom:0px;}
+		.list-item p .yds{float: right;}
+		.list-item p .tgs{float: left;}
+		.list-item .item-btn{padding: 0px 10px 6px; }
+		.list-item .item-btn .avatar{width: 35px;height: 35px;border-radius: 50%;;
+			position: absolute;right: 4px;margin-top: -50px;
+			box-shadow: 0px 1px 5px 0px rgba(80, 80, 80, 0.43);
+		}
+	</style>
+	<body>
+		<header>
+			<span class="mui-icon mui-icon-undo"></span> 
+			<h1>金币任务</h1>
+		</header>
+		<div class="top-tab">
+			<span class="select" show-panel="wenzhang-list">文章</span>
+			<span show-panel="video-list">视频</span>
+		</div>
+		<content>
+			<div class="tab-panel wenzhang-list" style="display: block;">
+				 <div class="list-item">
+				 	<img class="cover" src="images/library1.png" alt="">
+				 	<div class="item-btn">
+						<img class="avatar" src="images/shuijiao.jpg" alt="">
+						<span class="mui-icon-extra mui-icon-extra-share"></span>
+				 		<h4>视频标题</h4>
+				 		<p>描述描述</p>
+				 		<p>
+				 			<span class="tgs">推广人数 3</span>
+				 			<span class="yds">1金币/阅读数</span>
+				 			<div style="clear: both;"></div>
+				 		</p>
+						<p><span>奖金池剩余 400</span></p>
+						<p><span>截止2020/02/02</span></p>
+				 	</div>
+				 </div>
+				 <div class="list-item">
+				 	<img class="cover" src="images/library1.png" alt="">
+				 	<div class="item-btn">
+						<img class="avatar" src="images/shuijiao.jpg" alt="">
+						<span class="mui-icon-extra mui-icon-extra-share"></span>
+				 		<h4>视频标题</h4>
+				 		<p>描述描述，描述描述，描述描述，描述描述，描述描述</p>
+				 		<p>
+						<span class="tgs">推广人数 3</span>
+						<span class="yds">1金币/阅读数</span>
+						<div style="clear: both;"></div>
+				 		</p>
+						<p><span>奖金池剩余 400</span></p>
+						<p><span>截止2020/02/02</span></p>
+						
+				 	</div>
+				 </div> <div class="list-item">
+				 	<img class="cover" src="images/library1.png" alt="">
+				 	<div class="item-btn">
+						<img class="avatar" src="images/shuijiao.jpg" alt="">
+						<span class="mui-icon-extra mui-icon-extra-share"></span>
+				 		<h4>视频标题</h4>
+				 		<p>描述描述，描述描述，描述描述，描述描述，描述描述</p>
+				 		<p>
+						<span class="tgs">推广人数 3</span>
+						<span class="yds">1金币/阅读数</span>
+						<div style="clear: both;"></div>
+				 		</p>
+						<p><span>奖金池剩余 400</span></p>
+						<p><span>截止2020/02/02</span></p>
+						
+				 	</div>
+				 </div> <div class="list-item">
+				 	<img class="cover" src="images/library1.png" alt="">
+				 	<div class="item-btn">
+						<img class="avatar" src="images/shuijiao.jpg" alt="">
+						<span class="mui-icon-extra mui-icon-extra-share"></span>
+				 		<h4>视频标题</h4>
+				 		<p>描述描述，描述描述，描述描述，描述描述，描述描述</p>
+				 		<p>
+						<span class="tgs">推广人数 3</span>
+						<span class="yds">1金币/阅读数</span>
+						<div style="clear: both;"></div>
+				 		</p>
+						<p><span>奖金池剩余 400</span></p>
+						<p><span>截止2020/02/02</span></p>
+						
+				 	</div>
+				 </div> 
+				 
+				  
+				  
+				 
+			</div>
+			
+			<!-- 视频部分 -->
+			<div class="tab-panel video-list">
+				 <div class="list-item">
+				 	<img class="cover" src="images/library1.png" alt="">
+				 	<div class="item-btn">
+						<img class="avatar" src="images/shuijiao.jpg" alt="">
+						<span class="mui-icon-extra mui-icon-extra-share"></span>
+				 		<h4>视频标题</h4>
+				 		<p>描述描述描述描述描述描述描述描述描述描述</p>
+				 		<p>
+						<span class="tgs">推广人数 3</span>
+						<span class="yds">1金币/阅读数</span>
+						<div style="clear: both;"></div>
+				 		</p>
+						<p><span>奖金池剩余 400</span></p>
+						<p><span>截止2020/02/02</span></p>
+				 	</div>
+				 </div>
+				 <div class="list-item">
+				 	<img class="cover" src="images/library1.png" alt="">
+				 	<div class="item-btn">
+						<img class="avatar" src="images/shuijiao.jpg" alt="">
+						<span class="mui-icon-extra mui-icon-extra-share"></span>
+				 		<h4>视频标题</h4>
+				 		<p>描述描述，描述描述，描述描述</p>
+				 		<p>
+						<span class="tgs">推广人数 3</span>
+						<span class="yds">1金币/阅读数</span>
+						<div style="clear: both;"></div>
+				 		</p>
+						<p><span>奖金池剩余 400</span></p>
+						<p><span>截止2020/02/02</span></p>
+				 						
+				 	</div>
+				 </div> <div class="list-item">
+				 	<img class="cover" src="images/library1.png" alt="">
+				 	<div class="item-btn">
+						<img class="avatar" src="images/shuijiao.jpg" alt="">
+						<span class="mui-icon-extra mui-icon-extra-share"></span>
+				 		<h4>视频标题</h4>
+				 		<p>描述描述，描述描述，描述描述，描述描述，描述描述</p>
+				 		<p>
+						<span class="tgs">推广人数 3</span>
+						<span class="yds">1金币/阅读数</span>
+						<div style="clear: both;"></div>
+				 		</p>
+						<p><span>奖金池剩余 400</span></p>
+						<p><span>截止2020/02/02</span></p>
+				 						
+				 	</div>
+				 </div> <div class="list-item">
+				 	<img class="cover" src="images/library1.png" alt="">
+				 	<div class="item-btn">
+						<img class="avatar" src="images/shuijiao.jpg" alt="">
+						<span class="mui-icon-extra mui-icon-extra-share"></span>
+				 		<h4>视频标题</h4>
+				 		<p>描述描述，描述描述，描述描述，描述描述，描述描述</p>
+				 		<p>
+						<span class="tgs">推广人数 3</span>
+						<span class="yds">1金币/阅读数</span>
+						<div style="clear: both;"></div>
+				 		</p>
+						<p><span>奖金池剩余 400</span></p>
+						<p><span>截止2020/02/02</span></p>
+				 	</div>
+				 </div>
+				 
+			</div>
+		</content>
+		<bottom>
+			<div class="b-item do_page" page-url="home1.html" open-anim="fade-in">
+				<span class="mui-icon mui-icon-home"></span>
+				<p>首页</p>
+			</div>
+			<div class="b-item select">
+				<span class="mui-icon mui-icon-bars"></span>
+				<p>金币任务</p>
+			</div>
+			<div class="b-item do_page" page-url="home3.html" open-anim="fade-in">
+				<span class="mui-icon mui-icon-plus"></span>
+				<p>发布</p>
+			</div>
+			<div class="b-item do_page" page-url="home4.html" open-anim="fade-in">
+				<span class="mui-icon mui-icon-upload"></span>
+				<p>我的广告</p>
+			</div>
+			<div class="b-item do_page" page-url="home5.html" open-anim="fade-in">
+				<span class="mui-icon-extra mui-icon-extra-people"></span>
+				<p>我的</p>
+			</div>
+		</bottom>
+		<script src="js/mui.js"></script>
+		<script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/common.js" type="text/javascript" charset="utf-8"></script> 
+		<script type="text/javascript">
+			mui.init()
+			
+			//顶部 文章、视频tab切换
+			mui("body").on("tap",".top-tab span",function(){
+				$(".top-tab span").removeClass("select");
+				$(this).addClass("select");
+				var target=$(this).attr("show-panel");
+				setTimeout(function(){
+					$(".tab-panel").hide();
+					$(".tab-panel."+target).show();
+				},1)
+			})
+			//类型标签列表切换
+			mui("body").on("tap",".type-list span",function(){
+				$(".type-list span").removeClass("select");
+				$(this).addClass("select");
+			})
+			
+			mui.plusReady(function(){
+			})
+		</script>
+	</body>
+
+</html>

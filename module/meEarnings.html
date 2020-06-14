@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>我的收益</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/icons-extra.css">
+		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/swiper.min.css"/>
+	</head>
+	<style type="text/css">
+		 content{background-color: #fff;}
+		 .top-info{padding: 15px;background: #1D1D1D;}
+		 .top-info .ti-top{margin-bottom: 20px;}
+		 .top-info .ti-top h4{font-weight: 400;color: #fff;}
+		 .top-info .ti-top h4 span{font-weight: 400;color: #fff;padding: 2px 6px;border-radius: 20px;font-size: 13px;
+		 position: absolute;margin-left: 10px;}
+		 .top-info .ti-top h4 .level1{background-color: #bb6d5a;}
+		 .top-info .ti-top h4 .level2{background-color: #d89222;}
+		 .top-info .ti-top h4 .level3{background-color: #7ca2c7;}
+		 .top-info .ti-top img{border-radius: 50%;width: 50px;height: 50px;display: block;float: left;margin-right: 15px;}
+		 .top-info .ti-top .process{height: 3px;border-radius: 10px;background: #d2988e;width: 180px;margin-left: 65px;margin-bottom: 5px;margin-top: 8px;}
+		 .top-info .ti-top .process .bar{height: 3px;width: 70%;background: #ed3467;border-radius: 10px;}
+		 .top-info .ti-top .distance{font-size: 12px}
+		 
+		 .introduce div{width: 33.333%;float: left;text-align: center;color: #fff;}
+		 .introduce div h4{font-weight: 400;font-size: 16px}
+		 .introduce div h3{font-weight: 400;font-size: 20px}
+		 .introduce div p{color: #b7b7b7;margin-bottom: 0px;}
+		 
+		 .upgrade{right: 15px;background: ;
+		     color: #e8ad3a;
+			 color: #FFF4F6;
+			 background:#e8ad3a ;
+		     padding: 2px 10px;
+		     position: absolute;
+		     font-size: 14px;
+			 top: 20px;
+			 font-weight: 400;
+		     border-radius: 15px;}
+	</style>
+	<body>
+		<header>
+			<span class="mui-icon mui-icon-undo do_back"></span> 
+			<h1>我的收益</h1>
+		</header>
+		<content>
+			 <div class="top-info">
+				 <div class="ti-top">
+					 <img src="../images/shuijiao.jpg" alt="">
+					 <h4>昵称 <span  class="level2">黄金代理</span></h4>
+					 <div class="process">
+						 <p class="bar"></p>
+					 </div>
+					 <p class="distance">还差2000收益升级钻石代理</p>
+					 
+				 </div>
+				 <div class="introduce">
+					 <div>
+						<h4>40%</h4>
+						<p>直推收益分成</p>
+					 </div>
+					 <div>
+						<h4>10% + 5%</h4>
+						<p>下级分成</p>
+					 </div>
+					 <div style="margin-top: -4px;">
+						<h3 style="">¥0.00</h3>
+						<p>累计收益</p>
+					 </div>
+					 <p style="clear: both;"></p>
+				 </div>
+				 
+				 <span class="upgrade">立即升级</span>
+			 </div>
+			 
+			 <style type="text/css">
+			 	.btn-ctx .tab div{width: 33.333%;float: left;text-align: center;padding:15px 0px;border-bottom: 1px solid #dedede;font-size: 14px;color: #555555;}
+			 	.btn-ctx .tab .sed{border-bottom: 2px solid #565656;color: #1D1D1D;}
+				.count-item{padding: 20px;}
+				.count-item div{width: 49.5%;float: left;background-color: #f7f7f7;padding: 15px 20px}
+				.count-item div img{width: 50px;height: 50px;}
+				.count-item div h4{padding-left: 6px;font-weight: 300;font-size: 20px;}
+				.count-item div p{padding-left: 6px;}
+			 </style>
+			 <div class="btn-ctx">
+				 <div class="tab">
+					 <div class="sed">累计</div>
+					 <div>今日</div>
+					 <div>本月</div>
+					 <p style="clear: both;margin-bottom: 0px;"></p>
+				 </div>
+				 <div class="count-item">
+					 <div style="margin-right: 1%;" class="do_page" page-url="earningsDetails.html">
+						 <img src="../images/jinbi.png" alt="">
+						 <p>累计直推</p>
+						 <h4>¥0.00</h4>
+					 </div>
+					 <div>
+						 <img src="../images/jinbi.png" alt="">
+						 <p>累计下级收益</p>
+						 <h4>¥0.00</h4>
+					 </div>
+				 </div>
+			 </div>
+		</content>
+		</div>
+		<script src="../js/mui.js"></script>
+		<script src="../js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/swiper.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script> 
+		<script type="text/javascript">
+			mui.init()
+			mui.plusReady(function(){
+
+			})
+			
+			var swiper = new Swiper('.swiper-container',{
+				on:{
+					init:function(){
+					}
+				}
+			});
+		</script>
+	</body>
+
+</html>

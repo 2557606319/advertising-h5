@@ -1,0 +1,277 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>我的广告</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/icons-extra.css">
+		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<link rel="stylesheet" href="../css/fakeLoader.css">
+	</head>
+	<style type="text/css">
+		content{background-color: #fff;}
+		.advertising-list{width: 94%;margin: 0 auto;margin-top: 3%;margin-bottom: 3%;}
+		.advertising-item{height: 180px;
+		    position: relative;
+			border-radius: 10px;
+			box-shadow: 0px 2px 10px #b9b9b9;
+			margin-top: 3%; }
+		.describe p{
+			font-weight: 300;
+			font-size: 12px;
+			color: #fff;
+			margin: 0px;
+		}
+		.describe h4{
+			font-weight: 400;
+			color: #fff;
+			font-size: 14px;
+			margin: 0px;
+		}
+		.describe{
+			display: block;
+			position: absolute;
+			width: 100%;
+			background: linear-gradient(90deg,rgba(237,50,105,.6) 0%,rgba(240,95,62,.6) 100%);
+			margin: 0 auto;
+			left: 0;
+			right: 0;
+			bottom: 0px;
+			padding: 8px 13px 2px 13px;
+			border-bottom-left-radius: 10px;
+			border-bottom-right-radius: 10px;
+		}
+		.default-describe.select{background: #ed3467b8;}
+		.default-describe{
+			position: absolute;
+			right: 5px;
+			top: -130px;
+			color: #ffffff;
+			border-radius: 12px;
+			padding: 0px 10px;
+			font-size: 12px;
+		}
+		.default-describe span{
+			font-size: 16px;
+		}
+		.default-describe.no-default{background-color: #828080;}
+		.advertising-item .btns{position: absolute;bottom:50px;width: 100%;padding: 0px 5px;}
+		.advertising-item .btns span{background:linear-gradient(328deg,rgb(1, 132, 58) 0%,rgba(157,230,134,1) 100%);color: #FFF4F6;
+		padding: 0px 8px;font-size: 12px;font-weight: 400;border-radius: 10px;}
+		.advertising-item .btns span:nth-child(1){float: left;}
+		.advertising-item .btns span:nth-child(2){float: right;}
+		
+		
+		.add-advertising{position: fixed;z-index: 999;bottom: 80px;right: 30px;
+		border-radius: 50%;text-align: center;
+		color: #fff;font-weight: bold;font-size: 33px;padding: 5px;
+		}
+	</style>
+	<body>
+		<header>
+			<span class="mui-icon mui-icon-undo do_back"></span> 
+			<h1>我的广告</h1>
+		</header>
+		<span class="mui-icon mui-icon-plusempty add-advertising comm-bg1 do_page" page-url="add-adver.html"></span>
+		<content>
+			<div class="advertising-list">
+				<p style="text-align: center;">暂未设定广告</p>
+				<!-- <div class="advertising-item" style="background: url(../images/shuijiao.jpg) no-repeat;background-size: 100% 100%">
+					<div class="describe">
+						<h4>广告标题</h4>
+						<p>广告描述：此处为您的广告描述</p>
+						<div class="default-describe">默认广告</div>
+					</div>
+					<div class="btns">
+						<span class="issue-task">发布推广任务</span>
+						<span>复制商品口令</span>
+					</div>
+				</div>
+				<div class="advertising-item" style="background: url(../images/shuijiao.jpg) no-repeat;background-size: 100% 100%">
+					<div class="describe">
+						<h4>广告标题</h4>
+						<p>广告描述：此处为您的广告描述</p>
+						<div class="default-describe no-default"><span class="mui-icon mui-icon-compose"></span>设为默认</div>
+					</div>
+				</div> -->
+			</div>
+		</content> 
+		<div class="popup-panel">
+			<div class="popup-ctx" style="margin-top: 35%;">
+				<h4>推广任务</h4>
+				<div class="ctx-panel">
+					<div class="form-div">
+						<div class="input-item">
+							<p class="input-label"><span class="must">*</span>推广被阅读,推广者奖励金币数</p>
+							<input type="number" name="award" must="must" placeholder="1" value="1">
+						</div>
+						<div class="input-item">
+							<p class="input-label"><span class="must">*</span>总奖励金币数</p>
+							<input type="number" name="sumAward" must="must" placeholder="200" value="200">
+						</div>
+						<div class="input-item">
+							<p class="input-label"><span class="must">*</span>有效期至</p>
+							<input type="datetime-local" name="expire" must="must" class="bbottom" placeholder="各平台商品分享的口令 例如'淘口令'等">
+						</div>
+					</div>
+				</div>
+				<p class="btns">
+					<button type="button"  class="comm-btn comm-bg1">保存</button>&nbsp;&nbsp;&nbsp;
+					<button type="button"  class="comm-btn comm-bg2">取消</button>
+				</p>
+			</div>
+		</div>
+		<script src="../js/mui.js"></script>
+		<script src="../js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/fakeLoader.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script> 
+		<script type="text/javascript">
+			mui.init()
+			mui.plusReady(function(){
+				window.addEventListener('refresh', function(e){//执行刷新
+					initAdvList();
+				})
+			})
+			
+			var advId=getUrlParamByName("advId");
+			var videoId=getUrlParamByName("videoId");
+			var articleId=getUrlParamByName("articleId");
+			
+			// 设置 发布推广任务
+			mui("body").on('tap','.popup-panel .btns button',function(){
+				if($(this).text().indexOf('保存')!=-1){
+					var data={id:$('.popup-panel').attr("data-id")};
+					var check=true;
+					$.each($(".form-div input"),function(i,v){
+						var val = $(v).val();
+						var must=$(v).attr("must");
+						if(must&&!val.length>0){
+							check=false;
+						return;}
+						data[$(v).attr('name')]=val;
+					})
+					if(!check){
+						mui.toast("请补全信息");
+						return;
+					}
+					_ajx({
+						url:'/auth/adv/addTask',isAuth:true,
+						data:data,
+						suc:function(data){
+							if(data.message){
+								mui.toast("设置成功");
+								initAdvList();
+							}else{
+								mui.toast("设置失败");
+							}
+						},
+						err:function(e){
+							mui.toast("设置失败,"+e.message);
+						}
+					})
+				}
+				$('.popup-panel').fadeOut(200);
+			}) 
+			
+			var openFlag=true;
+			mui("body").on('tap','.issue-task',function(){
+				if($(this).html().indexOf('修改')!=-1){
+					//填充表单数据
+					$(".form-div input[name='award']").val($(this).attr("data-award"));
+					$(".form-div input[name='sumAward']").val($(this).attr("data-sumAward"));
+					$(".form-div input[name='expire']").val($(this).attr("data-expire").replace(" ","T"));
+				}
+				
+				openFlag=false;
+				$('.popup-panel').fadeIn(200);
+				$('.popup-panel').attr("data-id",$(this).attr("data-id"));
+			})
+			mui("body").on('tap','.open-details',function(){
+				if(openFlag){
+					do_page($(this).attr("page-url"));
+				}else{
+					openFlag=true;
+				}
+			}) 
+			
+			
+			initAdvList();
+			
+			
+			function initAdvList(callback){
+				_ajx({
+					url:"/auth/adv/advList",type:'get',isAuth:true,cache:false,
+					suc:function(data){
+						var html = '' ;
+						$.each(data.message,function(i,v){ 
+							html+='<div class="advertising-item open-details" page-url="add-adver.html?id='+v.id+'" style="background: url('+formatterImgUrl(v.cover)+') no-repeat;background-size: 100% 100%">';
+							html+='<div class="describe">';
+							html+='	<h4>'+v.title+'</h4>';
+							html+=' <p>'+v.describe+'</p>';
+							html+=' <div class="default-describe'+(v.id == advId ?' select">当前选择':' no-default" data-id="'+v.id+'"><span class="mui-icon mui-icon-compose"></span>选择广告')+'</div>';
+							html+='</div>';
+							html+='<div class="btns">';
+							if(v.taskStatus==1){
+								html+='<span class="issue-task" data-id="'+v.id+'" data-award="'+v.award+'" data-sumAward="'+v.sumAward+'" data-expire="'+v.expire+'">修改推广任务</span>';
+							}else{
+								html+='<span class="issue-task" data-id="'+v.id+'">发布推广任务</span>';
+							}
+							if(v.goodsCommand&&v.goodsCommand!="")
+								html+='<span>复制商品口令</span>';
+							html+='</div>';
+							html+='</div>';
+						})
+						if(html!=''){
+							$(".advertising-list").html(html);
+						}
+						if(callback)
+							callback();
+					},
+					err:function(){
+					}
+				})
+			}
+			
+			mui("body").on('tap','.no-default',function(){
+				openFlag=false;
+				var load = showLoading();
+				var itemId= $(this).attr("data-id");
+				var _this= $(this);
+				var callback=function(data){
+					_this.html("当前选择");
+					_this.removeClass("no-default");
+					var before=$(".default-describe.select");
+					before.addClass("no-default");
+					before.removeClass("select");
+					before.html('<span class="mui-icon mui-icon-compose"></span>选择广告');
+					_this.addClass("select");
+					if(mui.plus){
+						var view = plus.webview.currentWebview().opener();
+						mui.fire(view, 'refresh',{advId:itemId});
+					}
+					load.hide();
+					do_back();
+				}
+				if(!isNaN(videoId)){
+					_ajx({
+						url:'/auth/video/setIssueAdvId',isAuth:true,data:{advId:itemId,vid:videoId},
+						suc:function(){callback();},
+						err:function(e){mui.toast("选择失败，"+e.message);load.hide();}
+					})
+				}
+				if(!isNaN(articleId)){
+					_ajx({
+						url:'/auth/article/setIssueAdvId',isAuth:true,data:{advId:itemId,articleId:articleId},
+						suc:function(){callback();},
+						err:function(e){mui.toast("选择失败，"+e.message);load.hide();}
+					})
+				}
+				
+			})
+			
+		</script>
+	</body>
+
+</html>

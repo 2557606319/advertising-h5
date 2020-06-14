@@ -1,0 +1,153 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>代理升级</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/icons-extra.css">
+		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/swiper.min.css"/>
+	</head>
+	<style type="text/css">
+		 content{padding: 20px 20px;background-color: #fff;overflow-x:hidden ;}
+		 .swiper-container{width: 250px;;margin: 0 auto;height: 120px;overflow: initial;margin-bottom: 60px;}
+		 .swiper-container .swiper-slide{padding: 10px;height: 100%;padding: 15px;margin-right: 5%;border-radius: 10px;
+		 margin-top: 15px;animation: transform1 0.2s ease-out;position: relative;}
+		 .swiper-container .swiper-slide span{position: absolute;bottom: 15px;font-weight: 400;font-size: 14px;padding-right: 15px;}
+		 .swiper-container .swiper-slide:nth-child(1){background: url(../images/level1.png) no-repeat;background-size: 100% 100%;box-shadow: 0px 2px 10px rgba(238, 73, 84, 0.25);}
+		 .swiper-container .swiper-slide:nth-child(2){background: url(../images/level2.png) no-repeat;background-size: 100% 100%;box-shadow: 0px 2px 10px rgba(253, 211, 93, 0.54);}
+		 .swiper-container .swiper-slide:nth-child(3){background: url(../images/level3.png) no-repeat;background-size: 100% 100%;box-shadow: 0px 2px 10px rgba(156, 178, 202, 0.63);}
+		 .swiper-container .swiper-slide.swiper-slide-active{animation: transform 0.2s ease-out;height: 150px;margin-top: 0px;}
+		 .swiper-slide h4{font-size: 18px;font-weight: 400;}
+		 @-webkit-keyframes transform{
+		 	0%{height: 120px;margin-top: 15px;}
+		 	100%{height: 150px;margin-top: 0px;}
+		 }
+		 @-webkit-keyframes transform1{
+			 0%{height: 150px;margin-top: 0px;}
+		 	100%{height: 120px;margin-top: 15px;}
+		 }
+		 
+		 table{background: #eee;width: 100%;text-align: center;margin-bottom: 30px;border: none;;
+		 font-weight: 300;font-size: 14px;background: #fff;}
+		 tr{line-height: 42px;border-bottom: 1px solid rgba(221, 82, 77, 0.12)}
+		 td{border: none;}
+		 th{border: none;font-weight: 400;color: #ff544e;}
+		 
+		 body p{color: #000000;}
+	</style>
+	<body>
+		<header>
+			<span class="mui-icon mui-icon-undo do_back"></span> 
+			<h1>代理升级</h1>
+		</header>
+		<content>
+			 <div class="swiper-container">
+			     <div class="swiper-wrapper">
+			       <div class="swiper-slide">
+					   <h4>青铜代理</h4>
+					   <p>当前拥有</p>
+					   <span>直推收益 <val id="level1">0</val>%</span>
+				   </div>
+			       <div class="swiper-slide">
+					   <h4>青铜代理</h4>
+					   <p>当前拥有</p>
+					   <span>直推收益 <val id="level2">0</val>%</span>
+				   </div>
+			       <div class="swiper-slide">
+					   <h4>钻石代理</h4>
+					   <p>返佣达到2000自动升级</p>
+					   <span>直推返佣 <val id="level3">0</val>% + 二级推广<val id="level3_2">0</val>% + 三级推广 <val id="level3_3">0</val>%</span>
+				   </div>
+			     </div>
+			   </div>
+			   
+			   <p style="text-align: center;margin-bottom: 30px;">
+				   <span class="comm-bg1 comm-btn" style="padding: 8px 20px;font-weight: 400;">立即升级</span>
+			   </p>
+			   
+			   <p>注：以下规则只适用于本 “视你广告” 产品</p>
+			    <table border="" cellspacing="" cellpadding="">
+			    	<tr>
+			   	 <th>代理层级</th>
+			    	 <th>自然升级</th> 
+			    	 <th>购买升级</th> 
+			   	</tr>
+			   	
+			   	<tr>
+			   	 <td style="color: #f35910;font-weight: bold;">青铜代理</td>
+			   	 <td>注册拥有</td> 
+			   	 <td>--</th> 
+			   	</tr>
+			   	
+			    	<tr>
+			    	 <td style="color:#ffa501 ;font-weight: bold;">黄金代理</td>
+			    	 <td>总收益≥2000</td> 
+			    	 <td>¥899</th> 
+			    	</tr> 
+			   	
+			   	<tr>
+			   	 <td style="color:#01b9ff ;font-weight: bold;">钻石代理</td>
+			   	 <td>总收益≥7000</td> 
+			   	 <td>¥1699</th> 
+			   	</tr> 
+			   	  
+			    </table>
+			    
+			    <p style="color: #ff544e;">什么是购买升级？</p>
+			    <p>通过购买直接升级至对应代理等级，享受更高收益分成比例。</p>
+			    <p style="color: #ff544e;">等级升级购买</p>
+			    <p>黄金代理升级至钻石代理补上差价即可。</p>
+			    
+			    <h4 style="text-align: center;font-size: 22px;font-weight: 400;color: #ff544e;margin-top: 15px;margin-bottom: 10px;"> - 补充说明 - </h4>
+			    <p>1、以上规则和收益分成说明，只适用于本 “视你广告” 产品</p>
+			    <p>2、推广收益说明</p>
+			    <p>	1）直接推广收益：新用户在你分享的邀请二维码，或者链接中使用本产品进行vip充值消费所产生的收益比例。</p>
+			    <p>	2）裂变推广收益：你所邀请的直属客户分享给其他新用户所产生的收益。</p>
+			   <a href="">咨询客服</a>
+		</content>
+		</div>
+		<script src="../js/mui.js"></script>
+		<script src="../js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/swiper.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script> 
+		<script type="text/javascript">
+			mui.init()
+			mui.plusReady(function(){
+
+			})
+			
+			 
+			var swiper = new Swiper('.swiper-container',{
+				on:{
+					init:function(){
+					}
+				}
+			});
+			
+			initData();
+			function initData(){
+				_ajx({
+					url:'/auth/user/levelInfo',isAuth:true,type:'get',
+					suc:function(data){
+						swiper.slideTo(data.message.level);
+						$("#level1").text(data.message.levelInfo[0].val*100);
+						$("#level2").text(data.message.levelInfo[3].val*100);
+						$("#level3").text(data.message.levelInfo[7].val*100);
+						$("#level3_2").text(data.message.levelInfo[8].val*100);
+						$("#level3_3").text(data.message.levelInfo[9].val*100);
+					},
+					err:function(){
+						
+					}
+				})
+			}
+			
+			
+			
+		</script>
+	</body>
+
+</html>

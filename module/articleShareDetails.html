@@ -1,0 +1,359 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>文章详情</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/icons-extra.css">
+		<link rel="stylesheet" type="text/css" href="../css/fakeLoader.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+	</head>
+	<style type="text/css">
+		body{background-color: #fff;}
+		content{top:0px}
+		.ctx-bottom{padding-bottom: 15px;width: 100%;padding: 0px 15px;color: #7d90a9;}
+		.ctx-bottom span:nth-child(1){float: left;font-weight: 400;font-size: 15px;}
+		.ctx-bottom span:nth-child(2){float: right;font-weight: 400;font-size: 15px;}
+		.ctx-bottom span:nth-child(2) img{
+			width: 22px;
+			height: 22px;
+			position: absolute;
+			margin-left: -28px;
+			margin-top: -1px;
+		}
+		
+		/* 广告部分 */
+		.article-bottom{background-color: #f4f2f1;width: 100%;padding-top: 10px;padding-bottom: 20px;}
+		#advert-ctx{
+			width: 95%;
+			margin: 0 auto;
+			height: 200px;
+			/* border: 2px dashed #c7c7c7; */
+			border-radius: 10px;
+			position: relative;overflow: hidden;
+			background: url(../images/WechatIMG2137.png) no-repeat;
+			background-size: 100% 100%;
+		}
+		.advert-ctx-no p{line-height: 180px;font-size: 20px;text-align: center;color: #7d90a9;}
+		.advert-ctx-no .describe{display: none;}
+		.advert-ctx-yes .describe{
+			display: block;
+			position: absolute;
+			width: 100%;
+			background: linear-gradient(90deg,rgba(237,50,105,.6) 0%,rgba(240,95,62,.6) 100%);
+			margin: 0 auto;
+			left: 0;
+			right: 0;
+			bottom: 0px;
+			padding: 8px 20px 2px 20px;
+		}
+		.advert-ctx-yes .describe h4{font-weight: 400;color: #fff;font-size: 14px;margin:0px;}
+		.advert-ctx-yes .describe p{font-weight: 300;font-size: 12px;color: #fff;margin:0px;}
+		.advert-ctx-yes .change-describe{
+			position: absolute;
+			right: 10px;
+			top: -148px;
+			color: #ffffff;
+			background: #ed3467b8;
+			border-radius: 12px;
+			padding: 0px 8px;font-size: 14px;
+		}
+		.advert-ctx-yes .change-describe span{font-size: 19px;font-weight:bold;}
+		
+		
+		/* 留言部分 */
+		#comment-ctx{padding: 0px 15px;margin-top: 20px;}
+		#comment-ctx p:nth-child(1){margin-bottom: 25px;}
+		#comment-ctx p:nth-child(1) span{font-weight:300;font-size: 14px;}
+		#comment-ctx p:nth-child(1) span:nth-child(1){float: left;}
+		#comment-ctx p:nth-child(1) span:nth-child(2){float: right;color: #7d90a9;}
+		#comment-ctx p:nth-child(1):after{content: '';display: block;clear: both;}
+		
+		.comment-item{position: relative;}
+		.comment-item img{width: 35px;height: 35px;position: absolute;border-radius: 2px;}
+		.comment-item .item-ctx{padding-left: 45px;margin-bottom: 25px;}
+		.comment-item h4{font-size: 14px;font-weight: 400;color: #5f5f5f;margin-bottom: 5px;}
+		.comment-item p{margin-bottom: 0px;font-size: 14px;color: #1d1d1d;}
+		
+		.article-bottom .comm-btn{width: 50%;margin: 0 auto;display: block;margin-top: 15px;}
+		.advert-ctx-yes .contact-info{position: absolute;top: 8px;left: 0px;color: #fff;height: 22px;line-height: 22px;width: 92px;text-align: center;font-size: 12px;
+		background: linear-gradient(225deg,rgb(90, 133, 255) 0%,rgb(255, 90, 104) 100%);
+		border-top-right-radius: 12px;
+		border-bottom-right-radius: 12px;}
+		.advert-ctx-yes .contact-info span{font-size: 12px;font-weight: bold;}
+	</style>
+	<body>
+		<content>
+			<!-- https://baijiahao.baidu.com/s?id=1612032838672484945&wfr=spider&for=pc&isFailFlag=1 -->
+			<iframe id="view-ctx" name="view_ctx" frameborder="0" style="width: 100%;min-height: 500px;"   scrolling="no"></iframe>
+			<!-- <div id="view-ctx" name="view-ctx" src="" frameborder="0" style="width: 100%;height: 100%;"></div> -->
+			<p class="ctx-bottom">
+				<span>阅读 <val id="lookCount">0</val></span> 
+				<span><img src="../images/zaikan.png" alt="">在看 <val id="looking">0</val></span>
+				<div style="clear: both;"></div>
+			</p>
+			<div class="article-bottom">
+				<div id="advert-ctx" class="advert-ctx-yes">
+					<!-- <p><span class="mui-icon mui-icon-compose"></span>植入我的广告</p> -->
+					<div class="contact-info"><span class="mui-icon-extra mui-icon-extra-people"></span>联系方式</div>
+					<div class="describe">
+						<h4>广告标题</h4>
+						<p>广告描述：此处为您的广告描述</p>
+					</div>
+				</div>
+				
+				<!-- <button type="button" class="comm-btn comm-bg2">免费替换为我的广告</button> -->
+				
+				<div id="comment-ctx">
+					<p><span>精选留言</span><span onclick="$('.write-comment').fadeIn(200)">写留言</span></p>
+					<div class="ctx-panel">
+						<!-- <div class="comment-item">
+							<img src="../images/shuijiao.jpg" >
+							<div class="item-ctx">
+								<h4>昵称、昵称</h4>
+								<p>评论内容、评论内容、</p>
+							</div>
+						</div> -->
+					</div>
+				</div>
+			</div>
+		</content>
+		<style type="text/css">
+			/* 评论输入弹出层 */
+			.write-comment{position: fixed;width: 100%;top: 0px;bottom: 0px;background-color: rgba(0,0,0,0.4);z-index: 9999;
+			display: none;}
+			.write-comment-ctx{padding: 15px;position: fixed;width: 100%;height: 200px;bottom: 0px;background-color: #fff;}
+			.write-comment-ctx .ctx-title{text-align: center;}
+			.write-comment-ctx .ctx-title span{font-weight: 400;font-size: 14px;}
+			.write-comment-ctx .ctx-title span:nth-child(1){float: left;}
+			.write-comment-ctx .ctx-title span:nth-child(3){
+				float: right;
+				border-radius: 5px;
+				padding: 3px 12px;
+				/* position: absolute; */
+				right: 15px;
+				margin-top: -3px;
+				color: #545454;color: #fff;
+			}
+			.write-comment-ctx .ctx-title span:nth-child(3):after{display: block;clear: both;}
+			.write-comment-ctx textarea{
+				border: none;
+				margin-bottom: 0px;
+				height: 140px;
+				margin-top: 8px;
+				font-size: 15px;
+				padding: 0px;
+			} 
+			.share-panel{position: fixed;width: 100%;height: 50px;bottom: 0px;text-align: center;}
+			.share-panel .mui-icon{font-size: 18px;}
+			
+			.relation-info{display: none;background-color: #fff;border-radius: 20px;z-index: 9999999;top: 20%;width: 70%;margin: 0 auto;left: 0;right: 0;position: fixed;padding: 30px;text-align: center;
+				box-shadow:0px 0px 10px #eee
+			}
+			.relation-info img{width: 150px;height: 150px;margin-bottom: 20px;}
+			.relation-info p{font-size: 16px}
+			.relation-info .mui-icon-closeempty{
+				position: absolute;
+				right: 10px;
+				margin-top: -20px;
+				border-radius: 50%;font-size: 20px;
+				border: 1px solid #a7a7a7;
+			}
+		</style>
+		<div class="write-comment">
+			<div class="write-comment-ctx">
+				<div class="ctx-title">
+					<span onclick="$('.write-comment').fadeOut(200)">关闭</span>
+					<span>写留言</span>
+					<span id="submitComment" class="comm-bg1">提交</span>
+				</div>
+				<textarea id="commentInput" rows="" cols="" placeholder="留言将由微信公众号筛选展示, 对所有人可见"></textarea>
+			</div>
+		</div>
+		<!-- <div class="share-panel">
+			<button type="button" class="comm-btn comm-bg1"><span class="mui-icon mui-icon-weixin">&nbsp;</span>分享至好友</button>
+			&nbsp;&nbsp;&nbsp;
+			<button type="button" class="comm-btn comm-bg1"><span class="mui-icon mui-icon-pengyouquan">&nbsp;</span>分享至朋友圈</button>
+		</div> -->
+		<div id="fakeLoader"></div>
+		<div class="relation-info">
+			<span class="mui-icon mui-icon-closeempty" onclick="$(this).parent().fadeOut(200)"></span>
+			<p>微信二维码</p>
+			<img id="userWxQr" src="" alt="">
+			<p>电话 <a><u id="userPhone">暂无</u></a></p>
+			<p id="userWxLabel">微信号 <a><u id="userWx">暂无</u></a> [复制]</p>
+		</div>
+		
+		<script src="../js/mui.js"></script>
+		<script src="../js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>  
+		<script src="../js/fakeLoader.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript"> 			
+			mui.init()
+			// if(!mui.os.plus){
+			// 	_auth(location.href);
+			// }
+			mui.plusReady(function(){
+			})
+			var issueId = getUrlParamByName("issueId");
+			var articleId;
+
+			var loadFLag=false;
+			//文章页面加载完成
+			$("#view-ctx").load(function(){
+				loadFLag=true;
+				var h = $("iframe").contents().find("body").height();
+				$("iframe").height(h);
+			})
+			//超过一定时间还没初始化完也显示页面
+			setTimeout(function(){
+				if(!loadFLag){
+					var h = $("iframe").contents().find("body").height();
+					$("iframe").height(h);
+				}
+			},500)		
+			
+			reqInfo();
+			function reqInfo(){
+				var loading = showLoading();
+				var setData = function(data){
+					articleId=data.message.id;
+					$("title").text(data.message.title);
+					$("#view-ctx").attr("src",'../article/'+data.message.url);
+					$("#lookCount").text(data.message.lookCount);//阅读量
+					$("#looking").text(data.message.looking);//在看
+					//为了在 ios平台下 其中有未加载完的链接  则iframe一直不嫩滚动，设置为100%方可滚动
+					if(mui.os.ios&&mui.os.plus){ 
+						$("#view-ctx").css({"height":"100%"})
+					}
+					loading.hide();  
+					commentList()
+					defaultAdvertising(data.message.advId);
+				}
+				_ajx({
+					url:'/article/issue/info/'+issueId,isAuth:true,type:"get",
+					suc:function(data){ setData(data);},
+					err:function(err){loading.hide();mui.toast(err.message);}
+				})
+				_ajx({
+					url:'/article/issue/userInfo/'+issueId,type:'get',
+					suc:function(data){
+						if(data.message.wxqr.length>0){
+							var qrImg=formatterImgUrl(data.message.wxqr);
+							$("#userWxQr").attr("src",qrImg);
+						}
+						if(data.message.wxAccount.length>0){
+							$("#userWx").text(data.message.wxAccount);
+							$("#userWxLabel").attr("data-clipboard-text",data.message.wxAccount);
+							var clipboard = new ClipboardJS('#userWxLabel');
+							clipboard.on('success', function(e) {
+								mui.toast("复制成功");
+							});
+							clipboard.on('error', function(e) {
+							    console.error('Action:', e.action);
+							    console.error('Trigger:', e.trigger);
+								mui.toast("复制失败，"+JSON.stringify(e));
+							});
+						}
+						if(data.message.phone.length>0){
+							$("#userPhone").text(data.message.phone);
+							$("#userPhone").parent().on("tap",function(){
+								window.location.href='tel:'+data.message.phone;
+							})
+						}
+					}
+				})
+			}
+			
+			//展示的广告
+			function defaultAdvertising(reqAdvId){
+				_ajx({
+					url:'/adv/select/'+reqAdvId,type:"post",isAuth:true,type:"get",cache:false,
+					suc:function(data){
+						if(data.message){
+							data=data.message;
+							$("#advert-ctx").attr("data-id",data.id);
+							$("#adv_title").text(data.title);
+							$("#adv_describe").text(data.describe);
+							$("#advert-ctx").css("background-image",'url('+formatterImgUrl(data.cover)+')');
+							if(data.href.length>0){
+								$("#advert-ctx").attr("data-href",data.href);
+							}
+						}else{
+						}
+					}
+				})
+			}
+			
+			mui("body").on("tap",'#submitComment',function(){
+				var comment=$("#commentInput").val();
+				if(!isNaN(comment)){
+					mui.toast("请填写发表内容~");
+					return;
+				}
+				_ajx({
+					url:"/auth/article/issueComment",isAuth:true,type:"post",
+					data:{relationId:articleId,content:comment},
+					suc:function(){
+						mui.toast("发表成功");
+						$(".write-comment").fadeOut(200)
+						commentList();
+					},
+					err:function(e){
+						mui.toast("发表失败，"+e.message);
+						$(".write-comment").fadeOut(200)
+					}
+				})
+				
+			})
+			
+			function commentList(){
+				_ajx({
+					url:'/article/comments/'+articleId,type:'get',
+					suc:function(data){
+						var html ='';
+						$.each(data.message,function(i,v){
+							var imgUrl=formatterImgUrl(v.avatar);
+							    html +='<div class="comment-item"><img src="'+imgUrl+'" >'+
+										'<div class="item-ctx">'+
+										'<h4>'+v.nick+'</h4>'+
+										'<p>'+v.content+'</p>'+
+										'</div></div>';
+						})
+						if(html==''){
+							$("#comment-ctx .ctx-panel").html("<p style='text-align:center'>暂无评论~</p>");
+						}else{
+							$("#comment-ctx .ctx-panel").html(html);
+						}
+					},
+					err:function(){
+						
+					}
+				})
+			}
+			
+			mui("body").on("tap",".change-describe",function(){
+				do_page("select_adv.html?advId="+advId+"&articleId="+articleId);
+			})
+			var clickAdvFlag=true;
+			mui("body").on("tap",".contact-info",function(){
+				clickAdvFlag=false;
+				$('.relation-info').fadeIn(200);
+			})
+			mui("body").on("tap","#advert-ctx",function(){
+				if(clickAdvFlag){
+					location.href=$(this).attr("data-href");
+				}else{
+					clickAdvFlag=true;
+				}
+			})
+			
+			
+			 
+		</script>
+	</body>
+
+</html>

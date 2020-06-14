@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>我的人脉</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/icons-extra.css">
+		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+	</head>
+	<style type="text/css">
+		.top-tab {
+			text-align: center;position: fixed;width: 100%;height: 30px;z-index: 999;top: 50px;
+			text-align: center;padding: 0px 0px 8px 0px;
+			background:linear-gradient(90deg,rgba(237,50,105,1) 0%,rgba(240,95,62,1) 100%);
+		}
+		.top-tab span{
+			color: #fff;padding:4px 25px;
+			font-size: 14px;
+			border-radius: 12px;}
+		.top-tab span.select{
+			background-color:rgb(255, 128, 143);
+		}
+		.tab-panel{display: none;margin-top: 20px;padding: 15px;background: #fff;padding-right: 0px;padding-top: 0px;padding-bottom: 0px;}
+		
+		.friend-item{padding:15px 15px 15px 60px;position: relative;border-bottom: 1px solid #F5F5F5;}
+		.friend-item img{position: absolute;left:5px;width: 42px;height: 42px;border-radius: 50%;margin-top: 5px;}
+		.friend-item h4{font-weight: 400;font-size: 16px;}
+		.friend-item p{font-weight: 300;font-size: 14px;margin-bottom: 0px;}
+		.friend-item span{font-weight: 400;font-size: 14px;float: right;padding: 4px 15px;margin-top: -36px;}
+	</style>
+	<body>
+		<header>
+			<span class="mui-icon mui-icon-undo do_back"></span> 
+			<h1>我的人脉</h1>
+		</header>
+		<div class="top-tab">
+			<span class="select" show-panel="panel1">关注</span>
+			<span show-panel="panel2">粉丝</span>
+		</div>
+		<content>
+			 <div class="tab-panel panel1" style="display: block;">
+				 <div class="friend-item">
+					 <img src="../images/shuijiao.jpg" alt="">
+					 <h4>沧海一声笑</h4>
+					 <p>保险/xxxx</p>
+					 <span class="comm-bg1 comm-btn">取消关注</span>
+				 </div>
+				 <div class="friend-item">
+					 <img src="../images/shuijiao.jpg" alt="">
+					 <h4>沧海一声笑</h4>
+					 <p>保险/xxxx</p>
+					 <span class="comm-bg1 comm-btn">取消关注</span>
+				 </div>
+			 </div>
+			 <div class="tab-panel panel2">
+				 <div class="friend-item">
+					 <img src="../images/shuijiao.jpg" alt="">
+					 <h4>沧海一声笑</h4>
+					 <p>保险/xxxx</p>
+					 <span class="comm-bg1 comm-btn">添加关注</span>
+				 </div>
+				 <div class="friend-item">
+					 <img src="../images/shuijiao.jpg" alt="">
+					 <h4>沧海一声笑</h4>
+					 <p>保险/xxxx</p>
+					 <span class="comm-bg1 comm-btn">添加关注</span>
+				 </div>
+			 </div>
+		</content>
+		<script src="../js/mui.js"></script>
+		<script src="../js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>  
+		<script type="text/javascript">
+			mui.init()
+			
+			//顶部 文章、视频tab切换
+			mui("body").on("tap",".top-tab span",function(){
+				$(".top-tab span").removeClass("select");
+				$(this).addClass("select");
+				var target=$(this).attr("show-panel");
+				$(".tab-panel").hide();
+				$(".tab-panel."+target).show();
+			})
+			 
+			
+			mui.plusReady(function(){
+			 
+			})
+			
+			 
+		</script>
+	</body>
+
+</html> 

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>首页</title>
+		<link rel="stylesheet" type="text/css" href="css/common.css"/>
+	</head>
+	<body> 
+	</body>
+	<script src="js/mui.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript"> 
+		mui.init()
+		mui.plusReady(function(){
+			plus.navigator.setStatusBarStyle('light');    
+			var home1 = plus.webview.create("home1.html","home1.html", open_opt);
+			home1.show(open_as,0);//显示第一个 home页
+			//预加载其他四个home页
+			plus.webview.create("home2.html","home2.html", open_opt);
+			plus.webview.create("home3.html","home3.html", open_opt);
+			plus.webview.create("home4.html","home4.html", open_opt);
+			plus.webview.create("home5.html","home5.html", open_opt);
+			
+			
+			//定时检查webviwe，进行资源释放
+			setInterval(function(){
+				checkWebView(); 
+			},5000)
+			
+			
+		})
+		
+		
+		
+		
+		
+		
+		
+		//部分webview资源释放
+		function checkWebView(){
+			var wvs=plus.webview.all();
+			
+			for(var i=0;i<wvs.length;i++){
+				//console.log(JSON.stringify(wvs[i]));
+				var showWiew=plus.webview.getDisplayWebview();
+				if(wvs[i].id.indexOf("articleDetails.html")!=-1){
+					//关闭的页面 不能为当前显示的webview,并且不关闭正在当前加载中的webview
+					if(wvs[i].id!=showWiew[0].id&&localStorage.getItem("loadedFlag")!=wvs[i].id){
+						plus.webview.close(wvs[i]);
+						console.log("关闭页面：",wvs[i].id);
+					}
+						
+				}
+			}
+		}
+		 
+	</script>
+
+</html>

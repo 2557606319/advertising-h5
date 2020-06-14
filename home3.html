@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>发布</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/icons-extra.css">
+		<link rel="stylesheet" type="text/css" href="css/common.css"/>
+	</head>
+	<style type="text/css">
+		content{padding-bottom: 80px;}
+		.menu{width: 80%;margin: 0 auto;padding: 20px 15px;border-radius: 5px;background-color: #fff;
+			box-shadow: 0px 0px 10px rgba(238, 72, 84, 0.06);position: relative;margin-top: 30px;
+			padding-right: 30px;
+		}
+		.menu .left-icon{
+			position: absolute;
+			margin: 5px 0px 0px 5px;
+			background: linear-gradient(225deg,rgba(254,193,128,1) 0%,rgba(255,137,147,1) 100%);
+			color: #fff;
+			border-radius: 20%;
+			padding: 5px 5px 5px 5px;
+		}
+		.menu .mui-icon-extra{ padding: 4px 5px 6px 5px;}
+		.menu h4{font-size: 14px;font-weight: 400;margin-bottom: 4px;}
+		.menu p{font-size: 12px;font-weight: 400;margin-bottom: 0px;}
+		.menu div{padding-left: 50px;}
+		.menu .mui-icon-arrowright{
+			    position: absolute;
+			    right: 10px;
+			    top: 34px;font-size: 18px;
+			    color: #afafaf;}
+	</style>
+	<body>
+		<header>
+			<span class="mui-icon mui-icon-undo"></span> 
+			<h1>发布</h1>
+		</header>
+		<content>
+			<div class="menu do_page" page-url="module/addHotArticle.html">
+				<span class="mui-icon-extra mui-icon-extra-xiaoshuo left-icon"></span>
+				<div>
+					<h4>热文采集引流</h4>
+					<p>支持 微信公众号、今日头条、百家号、搜狐 平台文章采集	</p>
+				</div>
+				<span class="mui-icon mui-icon-arrowright"></span>
+			</div>
+			<div class="menu do_page" page-url="module/addHotMovie.html">
+				<span class="mui-icon mui-icon-videocam left-icon"></span>
+				<div>
+					<h4>视频采集引流</h4>
+					<p>各大主流短视频平台均可</p>
+				</div>
+				<span class="mui-icon mui-icon-arrowright"></span>
+			</div>
+			<div class="menu" onclick="mui.toast('功能暂未上线, 敬请期待!')">
+				<span class="mui-icon mui-icon-compose left-icon"></span>
+				<div>
+					<h4>原创文章引流</h4>
+					<p>发布我的原创文章</p>
+				</div>
+				<span class="mui-icon mui-icon-arrowright"></span>
+			</div>
+			<div class="menu" onclick="mui.toast('功能暂未上线, 敬请期待!')">
+				<span class="mui-icon mui-icon-camera left-icon"></span>
+				<div>
+					<h4>原创文章引流</h4>
+					<p>发布我的原创视频</p>
+				</div>
+				<span class="mui-icon mui-icon-arrowright"></span>
+			</div>
+		</content>
+		<bottom>
+			<div class="b-item do_page" page-url="home1.html" open-anim="fade-in">
+				<span class="mui-icon mui-icon-home"></span>
+				<p>首页</p>
+			</div>
+			<div class="b-item do_page" page-url="home2.html" open-anim="fade-in">
+				<span class="mui-icon mui-icon-bars"></span>
+				<p>金币任务</p>
+			</div>
+			<div class="b-item select">
+				<span class="mui-icon mui-icon-plus"></span>
+				<p>发布</p>
+			</div>
+			<div class="b-item do_page" page-url="home4.html" open-anim="fade-in">
+				<span class="mui-icon mui-icon-upload"></span>
+				<p>我的广告</p>
+			</div>
+			<div class="b-item do_page" page-url="home5.html" open-anim="fade-in">
+				<span class="mui-icon-extra mui-icon-extra-people"></span>
+				<p>我的</p>
+			</div>
+		</bottom>
+		<script src="js/mui.js"></script>
+		<script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/common.js" type="text/javascript" charset="utf-8"></script> 
+		<script type="text/javascript">
+			mui.init()
+			mui.plusReady(function(){
+				
+			})
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>视频采集</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/icons-extra.css">
+		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+	</head>
+	<style type="text/css">
+		 textarea{background-color: #fff;border-radius: 5px;width: 90%;height: 100px;margin: 5% auto;display: block;padding: 15px;
+		 border-color: #f1f1f1;font-size: 14px;font-weight: 300;}
+		 .btns{text-align: center;}
+		 .info{width: 90%;margin: 5% auto;background-color: #fff;border-radius: 5px;border: 1px solid #eee;padding:15px;}
+		 .info .mui-icon-extra{color: rgba(237,50,105,1);font-size: 14px;}
+		 .info h5{margin-bottom: 15px;color: #333333;font-weight: 400;}
+		 .info p{font-size: 14px;margin-bottom: 5px;}
+		 
+		 .types{width: 90%;margin: 0 auto;padding: 15px;background-color: #fff;border-radius: 5px;padding-top: 0px;
+		 margin-bottom: 20px;}
+		 .types span.select{
+			 background: linear-gradient(225deg,rgba(254,193,128,1) 0%,rgba(255,137,147,1) 100%);
+			 color: #fff;
+			 font-weight: 400;
+		 }
+		 .types span{
+			 padding: 0px 12px;
+			 font-size: 12px;
+			 margin-right: 8px;
+			 line-height: 22px;
+			 border-radius: 10px;
+			 background-color: #e6e6e6;
+			 display: inline-block;
+			 margin-top: 15px;
+		 }
+	</style>
+	<body>
+		<header>
+			<span class="mui-icon mui-icon-undo do_back"></span> 
+			<h1>视频采集</h1>
+		</header>
+		<content>
+			<textarea id="clipboard" placeholder="长按粘贴 抖音、快手、小火山、腾讯 等各大平台视频链接至此"></textarea>  
+			<div class="types">
+				<span class="select">新闻</span> 
+			</div>
+			<div class="btns">
+				<button id="implant" type="button" class="comm-btn comm-bg1">植入广告</button>&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="comm-btn comm-bg2">清空内容</button>
+			</div>
+			<div class="info">
+				<h5><span class="mui-icon-extra mui-icon-extra-notice"></span> 温馨提示</h5>
+				<p>步骤一：各大热门平台寻找火爆视频链接，如“抖音”平台，点击“分享”图标中的”复制链接“</p>
+				<p>步骤二：复制到文本框中</p>
+				<p>步骤三：点击 植入广告 进行自己的广告插入</p>
+				<p>步骤四：分享至微信好友、朋友圈，并保存</p>
+				<p>本功能在采集非原创爆款文章前请务必联系作者进行授权</p>
+			</div>
+		</content>
+		<script src="../js/mui.js"></script>
+		<script src="../js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script> 
+		<script type="text/javascript">
+			mui.init()
+			mui.plusReady(function(){
+				try{
+					//检测粘贴板是否有复制url链接
+					var clipboard = getClipboardText();
+					clipboard = getUrlByStr(clipboard);
+					if(isNaN(clipboard)){
+						$("#clipboard").val(clipboard);
+					}
+				}catch(e){ 
+					console.log(e)
+				}
+			}) 
+			
+			
+			//类型标签列表切换
+			mui("body").on("tap",".types span",function(){
+				$(".types span").removeClass("select");
+				$(this).addClass("select");
+			})
+			
+			//素材类型数据交互
+			_ajx({
+				url:'/material/clientRelationTypeList',
+				isAuth:true,
+				suc:function(data){
+					var html='';
+					$.each(data.message,function(i,v){
+						if(i==0){
+							html+='<span type-id="'+v.id+'" class="select">'+v.tname+'</span>'
+						}else{
+							html+='<span type-id="'+v.id+'">'+v.tname+'</span>'
+						}
+					})
+					$(".types").html(html);
+				}
+			})
+			
+			mui("body").on("tap","#implant",function(){
+			   var val= $("#clipboard").val();
+			   if(!isNaN(val)){
+				   mui.toast("请输入正确的视频链接");
+				   return;
+			   }  
+				do_page(_CFG.webServer+"/module/videoImplant.html?url="+window.btoa(getUrlByStr(val))+"&type="+$(".types .select").attr("type-id"),null,true);
+			})
+			 
+		</script>
+	</body>
+
+</html>

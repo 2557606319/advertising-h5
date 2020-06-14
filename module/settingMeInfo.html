@@ -1,0 +1,169 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>个人资料</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/icons-extra.css">
+		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/swiper.min.css"/>
+	</head>
+	<style type="text/css">
+		 content{overflow: scroll;padding: 20px 20px;background: #fff;padding-bottom: 50px;}
+		 .top-info{text-align: center;}
+		 .top-info img{width: 70px;height: 70px;border-radius: 50%;box-shadow: 0px 2px 12px rgba(237, 52, 104, 0.15)}
+		 .top-info .mui-icon{margin-left: -26px;position: absolute;margin-top: 52px;color: #ed3467;}
+		 .input-item input.bbottom{border-bottom: 1px solid rgba(232, 31, 84, 0.2);
+		     font-weight: 300;
+		     font-size: 14px;}
+		.form-div .btns span{padding: 8px 24px;font-weight: 400;font-size: 16px;border-radius: 20px;}
+	</style>
+	<body>
+		<header>
+			<span class="mui-icon mui-icon-undo do_back"></span> 
+			<h1>个人资料</h1>
+		</header>
+		<content>
+			<div class="top-info">
+				<img class="avatar_img" src="../images/default_avatar.png" alt="">
+				<input type="file" id="avatar" style="display: none;"  onchange="uploadFile(this)" />
+				<span class="mui-icon mui-icon-camera"></span>
+			</div>
+			<div class="form-div">
+				<div class="input-item">
+					<p class="input-label">昵称</p>
+					<input type="text" class="bbottom" id="nick" placeholder="昵称"/>
+				</div>
+				<div class="input-item">
+					<p class="input-label">工作行业</p>
+					<input type="text" class="bbottom" id="industry" placeholder="请输入您的工作行业"/>
+				</div>
+				<div class="input-item">
+					<p class="input-label">职业</p>
+					<input type="text" class="bbottom" id="professional"  placeholder="请输入您的职业"/>
+				</div> 
+				 
+				<div class="input-item">
+					<p class="input-label">电话号码</p>
+					<input type="text" class="bbottom" id="phone"  placeholder="请输入您的电话号码"/>
+				</div>  
+				<div class="input-item" >
+					<p class="input-label">我的微信二维码</p>
+					<p style="padding-left: 20px;margin-top: 20px;">
+						<img class="wxqr_img" src="../images/upd_img1.png" style="width: 100px;height: 100px;" alt="">
+						<input type="file" id="wxqr" style="display: none;"  onchange="uploadFile(this)" />
+						<a href="#" id="change_wxqr">上传</a>
+					</p>
+				</div> 
+				<div class="input-item">
+					<p class="input-label">微信号</p>
+					<input type="text" class="bbottom" id="wxAccount" placeholder="请输入您的微信号,以便于客户联系"/>
+				</div>  
+				<div class="input-item">
+					<p class="input-label">邮箱地址</p>
+					<input type="text" class="bbottom" id="email" placeholder="请输入您的邮箱"/>
+				</div>  
+				<p class="btns">
+					<span id="saveInfo" class="comm-bg1 comm-btn">保存信息</span>&nbsp;&nbsp;&nbsp;
+					<span class="comm-bg2 comm-btn do_back">取消操作</span>
+				</p>
+			</div> 
+		</content>
+		</div>
+		<script src="../js/mui.js"></script>
+		<script src="../js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/exif.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/upd_common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/fakeLoader.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+			mui.plusReady(function(){
+
+			})
+			$(".avatar_img,.wxqr_img").on('tap',function(e){
+				$(this).next().click();
+			})
+			$("#change_wxqr").on('tap',function(){
+				$(this).prev().click();
+			})
+			
+			$("#saveInfo").on('tap',function(){
+				var reqData={}
+				reqData.nick=$("#nick").val();
+				reqData.industry=$("#industry").val();
+				reqData.professional=$("#professional").val();
+				reqData.phone=$("#phone").val();
+				reqData.wxAccount=$("#wxAccount").val();
+				reqData.email=$("#email").val();
+				reqData.avatar=$("#avatar").attr('img_src');
+				reqData.wxqr=$("#wxqr").attr('img_src');
+				
+				if(reqData.nick.length<1){
+					mui.toast('昵称不可为空');
+					return;
+				}
+				
+				var load = showLoading();
+				_ajx({
+					url:'/auth/user/editInfo',isAuth:true,
+					data:reqData,
+					suc:function(){
+						load.hide();
+						mui.toast("保存成功");
+					},
+					err:function(e){
+						mui.toast(e.message);
+						load.hide();
+					}
+				})
+			})
+			
+			function uploadFile(inputDom){
+				var load = showLoading();
+				upload(inputDom,{
+					suc:function(src){
+						load.hide();
+						mui.toast('上传成功');
+						$(inputDom).attr("img_src",src);
+						$(inputDom).prev().attr('src',_CFG.webServer+"/web-imgs/"+src);
+					},
+					err:function(msg){
+						load.hide();
+						mui.toast('上传失败');
+					}
+				})
+			}
+			
+			initData();
+			function initData(){
+				_ajx({
+					url:'/auth/user/info',isAuth:true,type:"get",
+					suc:function(data){
+						$("#nick").val(data.message.nick);
+						$("#industry").val(data.message.industry);
+						$("#professional").val(data.message.professional);
+						$("#phone").val(data.message.phone);
+						$("#wxAccount").val(data.message.wxAccount);
+						$("#email").val(data.message.email);
+						$("#avatar").attr("img_src",data.message.avatar);
+						$('#wxqr').attr("img_src",data.message.wxqr);
+						
+						var avatar=formatterImgUrl(data.message.avatar);
+						var wxqr=formatterImgUrl(data.message.wxqr);
+						$(".avatar_img").attr("src",avatar);
+						$('.wxqr_img').attr("src",wxqr);
+					},
+					err:function(){
+						
+					}
+				})
+			}
+			
+			
+		</script>
+	</body>
+
+</html>

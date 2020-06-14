@@ -1,0 +1,186 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>广告详情</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/icons-extra.css">
+		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/fakeLoader.css"/>
+	</head>
+	<style type="text/css"> 
+		content{padding: 20px;}
+		.add-img{height: 180px;width: 100%;padding-top: 68px;color: #333333;font-size: 18px;font-weight: 300;
+		border-radius: 10px;text-align: center;border: 1px dashed #bbb;background-color: #fff;margin-bottom: 20px;}
+		
+		header .mui-icon-trash{float: right;margin-right: 8px;margin-top: 18px;display: none;}
+	</style>
+	<body>
+		<header>
+			<span class="mui-icon mui-icon-undo do_back"></span> 
+			<h1>广告详情</h1>
+			<span class="mui-icon mui-icon-trash"></span>
+		</header>
+		<content>
+			<div class="add-img"> + 插入广告图片<br>（推荐宽高400x200）</div>
+			<input type="file" id="cover" style="display: none;"  onchange="uploadFile(this)" />
+			<div class="form-div">
+				<div class="input-item">
+					<p class="input-label"><span class="must">*</span>广告标题</p>
+					<input type="text" name="title" must placeholder="点击输入广告标题(2-20字符)">
+				</div>
+				<div class="input-item">
+					<p class="input-label"><span class="must">*</span>广告内容</p>
+					<input type="text" name="describe" must placeholder="点击输入广告描述内容(2-40字符)">
+				</div>
+				<div class="input-item">
+					<p class="input-label">点击跳转链接（选填）</p>
+					<input type="text" name="href" placeholder="点击跳转至该连接">
+				</div>
+				<div class="input-item">
+					<p class="input-label">广告商品口令（选填）</p>
+					<input type="text" name="goodsCommand" placeholder="各平台商品分享的口令 例如'淘口令'等">
+				</div>
+				<p class="btns">
+					<button type="button" class="comm-bg1 comm-btn" id="saveAdv">保存广告</button>&nbsp;&nbsp;&nbsp;
+					<button type="button" class="comm-bg2 comm-btn" onclick="do_back()">取消编辑</button>
+				</p>
+			</div>
+			
+			
+		</content>
+		<script src="../js/mui.js"></script>
+		<script src="../js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/exif.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script> 
+		<script src="../js/upd_common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/fakeLoader.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+			mui.plusReady(function(){
+			})
+			var advId = getUrlParamByName("id");
+			
+			$(".add-img").on('tap',function(e){
+				$(this).next().click();
+			})
+			 
+			if(advId){
+				initData();
+				$(".mui-icon-trash").show();
+			} 
+			
+			$(".mui-icon-trash").on("tap",function(){
+				mui.confirm('是否删除当前广告以及该广告关联的所有任务信息？', '操作提示', ['取消', '删除'], function(e) {
+					if (e.index == 1) {
+						var load = showLoading();
+						_ajx({
+							url:'/auth/adv/del/'+advId,
+							isAuth:true,type:"post",
+							suc:function(data){
+								load.hide();
+								mui.toast('删除成功');
+								do_back(null,function(){
+									//获取当前页面的父级页面
+									var view = plus.webview.currentWebview().opener();　　　　
+									//refresh是A页面自定义事件
+									mui.fire(view, 'refresh');
+								});
+							},
+							err:function(data){
+								load.hide();
+								mui.toast('添加失败');
+							}
+						})
+					}
+				})
+			})
+			
+			$("#saveAdv").on("tap",function(){
+				var data={id:advId};
+				var check=true;
+				$.each($(".form-div input"),function(i,v){
+					var val = $(v).val();
+					var must=$(v).attr("must");
+					if(must&&!val.length>0){
+						check=false;
+					return;}
+					data[$(v).attr('name')]=val;
+				})
+				
+				var cover=$("#cover").attr('img_src');
+				if(!cover){check=false;}
+				data.cover=cover;
+				if(!check){
+					mui.toast("请补全信息");
+					return;
+				}
+				var load = showLoading();
+				_ajx({
+					url:'/auth/adv/addOrUpd',
+					data:data,
+					isAuth:true,type:"post",
+					suc:function(data){
+						load.hide();
+						mui.toast('添加成功');
+						do_back(null,function(){
+							//获取当前页面的父级页面
+							var view = plus.webview.currentWebview().opener();　　　　
+							//refresh是A页面自定义事件
+							mui.fire(view, 'refresh');
+						});
+					},
+					err:function(data){
+						load.hide();
+						mui.toast('添加失败');
+					}
+				})
+			})
+			
+			function uploadFile(inputDom){
+				var load = showLoading();
+				upload(inputDom,{
+					suc:function(src){
+						load.hide();
+						mui.toast('上传成功');
+						$(inputDom).attr("img_src",src);
+						$(".add-img").html("");
+						$(".add-img").css({'background-image':'url('+_CFG.webServer+"/web-imgs/"+src+')','background-size':'100% 100%'});
+					},
+					err:function(msg){
+						load.hide();
+						mui.toast('上传失败');
+					}
+				})
+			}
+			
+			function initData(){
+				var load = showLoading();
+				_ajx({
+					url:'/adv/select/'+advId,
+					isAuth:true,type:"get",
+					suc:function(data){
+						var cover = formatterImgUrl(data.message.cover);
+						$(".add-img").html("");
+						$(".add-img").css({'background-image':'url('+cover+')','background-size':'100% 100%'});
+						$("#cover").attr('img_src',data.message.cover);
+						$("input[name='title']").val(data.message.title);
+						$("input[name='describe']").val(data.message.describe);
+						$("input[name='href']").val(data.message.href);
+						$("input[name='goodsCommand']").val(data.message.goodsCommand);
+						load.hide();
+					},
+					err:function(data){
+						load.hide();
+						mui.toast(data.message);
+					}
+				})
+			}
+			
+			
+		</script>
+	</body>
+
+</html>

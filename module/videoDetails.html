@@ -1,0 +1,451 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>视频浏览</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/icons-extra.css">
+		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/swiper.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/fakeLoader.css"/>
+	</head>
+	
+	<style type="text/css">
+		 content{overflow: hidden;background: #141415;}
+		/* 广告部分 */
+		.article-bottom{height: 220px;bottom: 0px;width: 100%;padding-top: 10px;padding-bottom: 20px;position: absolute;
+		z-index: 99;}
+		#advert-ctx{
+			width: 80%;
+			height: 180px;
+			/* border: 2px dashed #c7c7c7; */
+			border-radius: 10px;
+			position: relative;
+			overflow: hidden;
+			background: url(../images/WechatIMG2137.png) no-repeat;
+			background-size: 100% 100%;
+			margin-left: 2%;
+			bottom: 20px;
+		}
+		.advert-ctx-no p{line-height: 180px;font-size: 20px;text-align: center;color: #7d90a9;}
+		.advert-ctx-no .describe{display: none;}
+		.advert-ctx-yes .describe{
+			display: block;
+			position: absolute;
+			width: 100%;
+			background: linear-gradient(90deg,rgba(237,50,105,.6) 0%,rgba(240,95,62,.6) 100%);
+			border-top-left-radius: 10px;
+			border-top-right-radius: 10px;
+			margin: 0 auto;
+			left: 0;
+			right: 0;
+			bottom: 0px;
+			padding: 8px 20px 2px 20px;
+		}
+		.advert-ctx-yes .describe h4{font-weight: 400;color: #fff;font-size: 14px;margin:0px;}
+		.advert-ctx-yes .describe p{font-weight: 300;font-size: 12px;color: #fff;margin:0px;}
+		.advert-ctx-yes .change-describe{
+			position: absolute;
+			right: 10px;
+			top: -126px;
+			color: #ffffff;
+			background: rgba(237, 52, 103, 0.7);
+			border-radius: 12px;
+			padding: 0px 8px;font-size: 14px;
+		}
+		.advert-ctx-yes .change-describe span{font-size: 19px;font-weight:bold;}
+		
+		#change-me-guanggao{
+			position: absolute;
+			bottom: 10px;
+			left: 20%;
+		}
+		 
+		
+		/* 视频样式 */
+		body video{object-fit: fill;width: 100%;height: 100%;}
+		.play-icon{position: absolute;z-index: 99999;left: 0;right: 0;margin: 0 auto;top: 50%;margin-top: -32px;
+		background: rgba(0,0,0,.2);border-radius: 12px;}
+		
+		.swiper-container{position: relative;width: 100%;bottom: 0px;}
+		
+		.like-btn,.comment-btn{position: absolute;right: 5px;text-align: center;width: 45px;height: 45px;z-index: 99999;bottom: 35%;}
+		.like-btn img{width: 35px;height: 35px;}
+		.comment-btn img{width: 30px;height: 30px;}
+		.like-btn p,.comment-btn p{font-size: 12px;color: #dcdcdc;}
+		.comment-btn{bottom: 22%;}
+		.report-btn{position: absolute;right: 5px;z-index: 999999;top: 15%;width: 45px;text-align: center;}
+		.report-btn img{width: 32px;height: 32px;}
+		
+		.show-hide{position: absolute;z-index: 99999;bottom: 10px;margin-left: 2%;color: #fff;
+		padding: 5px;border-radius: 50%;}
+		
+		body .dplayer-controller-mask{display: none;}
+		body .dplayer-controller{display: none;}
+		
+		
+		/* 评论输入弹出层 */
+		.write-comment{position: fixed;width: 100%;top: 0px;bottom: 0px;z-index: 9999;
+		display: none;}
+		.write-comment .hide-panel{position: absolute;bottom: 360px;width: 100%;top: 0px;}
+		.write-comment .comment-list{position: absolute;bottom: 0px;width: 100%;height: 360px;background: rgba(0,0,0,.8);border-top-right-radius: 12px;border-top-left-radius: 12px;
+		padding: 15px;;}
+		.write-comment .comment-list .mui-icon{float: right;font-size: 22px;font-weight: bold;color: #fff;position: absolute;right: 10px;top:10px;}
+		.write-comment .comment-list .list-ctx{overflow: scroll;max-height: 300px;}
+		.write-comment .comment-list .comment-item{padding-left: 45px;padding-top: 5px;padding-bottom: 5px;}
+		
+		.write-comment .comment-list .comment-item img{width: 35px;height: 35px;border-radius: 50%;float: left;margin-left: -45px;margin-top: 5px;}
+		.write-comment .comment-list .comment-item h4{color: #DEDEDE;font-size: 12px;font-weight: 300;}
+		.write-comment .comment-list .comment-item h4 span{color: #DEDEDE;font-size: 12px;font-weight: 300;padding-left: 20px;}
+		.write-comment .comment-list .comment-item p{color: #ececec;font-size: 12px;font-weight: 400;margin-bottom: 0px;}
+		.write-comment .comment-list .comment-btn {position: absolute;height: 40px;bottom: 0px;width: 100%;background: rgba(0,0,0,.8);line-height: 40px;color: #bfbfbf;font-weight: 300;font-size: 14px;
+		padding-left: 20px;text-align: left;}
+		.write-comment-ctx{padding: 15px;position: fixed;width: 100%;height: 200px;bottom: 0px;background-color: #fff;z-index: 99999;}
+		.write-comment-ctx .ctx-title{text-align: center;}
+		.write-comment-ctx .ctx-title span{font-weight: 400;font-size: 14px;}
+		.write-comment-ctx .ctx-title span:nth-child(1){float: left;}
+		.write-comment-ctx .ctx-title span:nth-child(3){
+			float: right;
+			border-radius: 5px;
+			padding: 3px 12px;
+			/* position: absolute; */
+			right: 15px;
+			margin-top: -3px;
+			color: #545454;color: #fff;
+		}
+		.write-comment-ctx .ctx-title span:nth-child(3):after{display: block;clear: both;}
+		.write-comment-ctx textarea{
+			border: none;
+			margin-bottom: 0px;
+			height: 140px;
+			margin-top: 8px;
+			font-size: 15px;
+			padding: 0px;
+		} 
+		.share-panel{position: fixed;width: 100%;top: 75px;text-align: center;}
+		.share-panel .mui-icon{font-size: 18px;}
+		
+		
+		.complaints-ctx .mui-icon{position: absolute;right: 42px;margin-top: 5px;font-size:22px;}
+		.complaints-ctx{width: 80%;margin: 0 auto;margin-top: 50%;}
+		.complaints-panel{display: none;position: fixed;z-index: 999999;width: 100%;top: 0px;bottom: 0px;background: rgba(0,0,0,.5);
+		}
+		.complaints-panel textarea{font-size: 14px;}
+		.complaints-panel textarea:focus{border: 1px solid rgba(237, 53, 101, 0.8);}
+		.complaints-panel .ge-panel{width: 85%;position: absolute;margin: 0 auto;left: 0;right: 0;margin-top: 25%;
+		background: #fff;border-radius: 10px;padding: 20px 15px;}
+		
+		#videos {height: 100%;position: absolute;width: 100%;}
+		#videos .player-wrap{display: none;max-height: 100%;}
+		.video-title{
+			z-index:1;
+			width: 100%;
+			padding: 0px 20px 20px 50px;
+			position: absolute;
+			bottom: 0px;
+			font-size: 16px;
+			color: #c5c5c5;
+			line-height: 1.5;
+			margin-bottom: 0px;
+		}
+	</style>
+	<body>
+		<header>
+			<span class="mui-icon mui-icon-undo do_back"></span> 
+			<h1>视频浏览</h1>
+		</header>
+		
+		
+		<content>
+			  <div onclick="">
+				 <img src="../images/play.png" class="play-icon" alt="" >
+				 <div class="report-btn" onclick="$('.complaints-panel').fadeIn(200)">
+					 <img src="../images/report.png" alt="">
+				 </div>
+				 <div class="like-btn">
+					 <img src="../images/like-no.png" alt="">
+					 <p id="likeCount">0</p>
+				 </div>
+				 <div class="comment-btn" onclick="$('.write-comment').fadeIn(200)">
+					 <img src="../images/comment-icon.png" alt="">
+					 <p id="commentCount">0</p>
+				 </div>
+				 <div id="videos">
+					 <!-- <div class="jsmpeg id-1" id="jsmpeg-ctx" data-url=""></div> -->
+					 <canvas id="jsmpeg-ctx"  class="player-wrap"  style="width: 100%;" data-url=""></canvas>
+					 <div id="dplayer" class="dplayer-hide-controller player-wrap" ></div>
+					 <p class="video-title"></p>
+				 </div>
+				 <!-- <div class="jsmpeg id-1" data-url=""></div> -->
+				 <!-- <canvas id="jsmpeg-ctx"  style="height: 100%;width: 100%;" data-url=""></canvas> -->
+				<span class="mui-icon mui-icon-back show-hide comm-bg1" ></span>
+				<div class="article-bottom">
+					<div id="advert-ctx" class="advert-ctx-yes">
+						<!-- <p><span class="mui-icon mui-icon-compose"></span>植入我的广告</p> -->
+						<div class="describe">
+							<h4>广告标题</h4>
+							<p>广告描述：此处为您的广告描述</p>
+							<!-- <div class="change-describe"><span class="mui-icon mui-icon-compose"></span>替换广告</div> -->
+						</div>
+					</div>
+					<button id="change-me-guanggao" type="button" class="comm-btn comm-bg2" onclick="issueVideo()">免费替换为我的广告</button>
+				</div>
+			 </div>
+		</content>
+		 
+		<!-- <content style="display: none;">
+			<div class="article-bottom">
+				<div id="advert-ctx" class="advert-ctx-yes">
+					<p><span class="mui-icon mui-icon-compose"></span>植入我的广告</p>
+					<div class="describe">
+						<h4>广告标题</h4>
+						<p>广告描述：此处为您的广告描述</p>
+						<div class="change-describe"><span class="mui-icon mui-icon-compose"></span>替换广告</div>
+					</div>
+				</div>
+				<button type="button" class="comm-btn comm-bg2">免费替换为我的广告</button>
+			</div>
+		</content> -->
+		<style type="text/css">
+			
+		</style>
+		<div class="write-comment">
+			<div class="hide-panel" onclick="$(this).parent().fadeOut(200)"></div>
+			<div class="comment-list">
+				<span class="mui-icon mui-icon-closeempty" onclick="$(this).parent().parent().fadeOut(200)"></span>
+				<div class="list-ctx">
+					<p style="text-align: center;">暂无评论</p>
+					<!-- <div class="comment-item">
+						<img src="../images/shuijiao.jpg" alt="">
+						<h4>昵称 <span>02-12 12:12</span></h4>
+						<p>评论内容，评论内容，评论内容，评论内容，</p>
+					</div>
+					<div class="comment-item">
+						<img src="../images/shuijiao.jpg" alt="">
+						<h4>昵称 <span>02-12 12:12</span></h4>
+						<p>评论内容，评论内容，评论内容，评论内容，</p>
+					</div>
+					<div class="comment-item">
+						<img src="../images/shuijiao.jpg" alt="">
+						<h4>昵称 <span>02-12 12:12</span></h4>
+						<p>评论内容，评论内容，评论内容，评论内容，</p>
+					</div> --> 
+				</div>
+				<div class="comment-btn" onclick="$('.write-comment-ctx').fadeIn(200)">
+					我来说两句~~
+				</div>
+			</div>
+			<div class="write-comment-ctx" style="display: none;">
+				<div class="ctx-title">
+					<span onclick="$('.write-comment-ctx').fadeOut(200)">关闭</span>
+					<span>写评论</span>
+					<span class="comm-bg1">提交</span>
+				</div>
+				<textarea rows="" cols="" placeholder="您的评论将对所有人可见"></textarea>
+			</div>
+		</div>
+		
+		<div class="share-panel">
+			<button type="button" class="comm-btn comm-bg1"><span class="mui-icon mui-icon-weixin">&nbsp;</span>分享至好友</button>
+			&nbsp;&nbsp;&nbsp;
+			<button type="button" class="comm-btn comm-bg1"><span class="mui-icon mui-icon-pengyouquan">&nbsp;</span>分享至朋友圈</button>
+		</div>
+
+		<div class="complaints-panel">
+			<div class="complaints-ctx">
+				<span class="mui-icon mui-icon-close" onclick="$(this).parent().parent().fadeOut(200)"></span>
+				<div class="form-div">
+					<div class="input-item">
+						<p class="input-label">手机号码</p>
+						<input type="number"  name="" id="" value="0"/>
+					</div> 
+					<div class="input-item">
+						<p class="input-label"><span class="must">*</span>留言
+						<textarea rows="" cols="" placeholder="请输入举报内容"></textarea>
+					</div>
+					<p class="checkbox" style="text-align: center;margin-bottom: 20px;">
+					<input type="checkbox" name="" id="" value="" />侵权举报 &nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="checkbox" name="" id="" value="" />违法举报</p>
+					
+					<p class="btns">
+						<span class="comm-bg1 comm-btn">分享赚钱</span>&nbsp;&nbsp;
+						<span class="comm-bg2 comm-btn">收益提现</span>
+					</p>
+				</div>
+			</div>
+		</div>
+		<script src="../js/mui.js"></script>
+		<script src="../js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/fakeLoader.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script> 
+		<script src="../js/swiper.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/jsmpeg.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/DPlayer.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+			mui.plusReady(function(){
+
+			})
+
+			var vid = getUrlParamByName("vid");
+			if(isWxPlatform()&&isAndroid()){
+				reqVideoInfo(function(url,pic){
+					initWeChartAndroid(url,pic);
+				})
+			}else{
+				reqVideoInfo(function(url,pic){
+					initOtherVideo(url,pic);
+				})
+			}
+			
+			mui("body").on("tap",'.like-btn',function(){
+				var _img=$(this).find('img');
+				if(_img.attr("src").indexOf("like-yes.png")==-1){
+					$(this).find('img').attr("src",'../images/like-yes.png');
+					$(this).find('p').css({"color":'#ff0046'})
+				}else{
+					$(this).find('img').attr("src",'../images/like-no.png');
+					$(this).find('p').css({"color":'#dcdcdc'})
+				}
+			})
+			
+			mui("body").on("tap",".show-hide",function(){
+				var _this=$(this);
+				var lat= $('.article-bottom').css("margin-left");
+				if(lat=='0px'){
+					$(".article-bottom").animate({"margin-left":'-100%'},300);
+					_this.removeClass("mui-icon-back");
+					_this.addClass("mui-icon-forward");
+				}else{
+					$(".article-bottom").animate({"margin-left":'0px'},300);
+					_this.removeClass("mui-icon-forward");
+					_this.addClass("mui-icon-back");
+				}
+			})
+			
+			function reqVideoInfo(callback){
+				var loading = showLoading();
+				_ajx({
+					url:'/video/info/'+vid,isAuth:true,type:"get",
+					suc:function(data){ 
+						var videoUrl= _CFG.webServer+"/videos/"+data.message.url;
+						var pic=data.message.previews;
+						$(".video-title").text(data.message.title);
+						$("#likeCount").text(numberFormatter(data.message.likeCount,10000,"w"));
+						$("#commentCount").text(numberFormatter(data.message.commentCount,10000,"w"));
+						//不是外部链接则加上本地请求链接
+						if(pic.indexOf("http")==-1&&pic.substring(0,2)!="//")
+							pic=_CFG.webServer+"/web-imgs/"+pic;
+						callback(videoUrl,pic);
+						loading.hide();  
+					},
+					err:function(err){
+						loading.hide();
+						mui.toast(err.message);
+					}
+				})
+			}
+			
+			//初始化非安卓微信的其他平台的video
+			function initOtherVideo(url,pic){
+				var $dom = $("#dplayer");
+				var opt = {
+				    loop: true,
+				    video: {  //视频源 包含不同分辨率源
+				        url: url,
+				        pic: pic
+				    },
+					container: document.getElementById('dplayer')
+				}
+				const dplayer = new DPlayer(opt);
+				setTimeout(function(){
+					adapterVideoHeight($dom);
+					$dom.show();
+				},200)
+				dplayer.on('loadeddata', function() {
+					adapterVideoHeight($dom);
+				});
+				dplayer.on("error",function(e){
+					console.log(2)
+					dplayer.switchVideo(
+					    {
+					        url: url,
+					        pic: pic
+					    }
+					);
+					dplayer.play();
+				})
+				$dom.on("click",function(){
+					if(!opt.isPlay){
+						dplayer.play();
+						opt.isPlay=true;
+						$(".play-icon").hide();
+					}else{
+						dplayer.pause();
+						opt.isPlay=false;
+						$(".play-icon").show();
+					}
+				});
+				$(".play-icon").on("click",function(){
+					dplayer.play();
+					opt.isPlay=true;
+					$(".play-icon").hide();
+				}) 
+			}
+			
+			//初始化安卓机微信平台中的video
+			function initWeChartAndroid(url,pic){
+				url = url.replace(".mp4",".ts");
+				var canvasWrap=document.getElementById("jsmpeg-ctx");
+				canvasWrap.setAttribute("data-url",url);
+				var player = new JSMpeg.Player(url,
+				{loop : true,autoplay:false,canvas:canvasWrap,poster:pic,
+				onSourceEstablished:function(){
+					setTimeout(function(){
+						adapterVideoHeight($(canvasWrap));
+						$(canvasWrap).show();
+					},20)
+				}});
+				setTimeout(function(){
+					adapterVideoHeight($(canvasWrap));
+					$(canvasWrap).show();
+				},200)
+				$(canvasWrap).on("click",function(){
+					if(!player.isPlay){
+						player.play();
+						player.isPlay=true;
+						$(".play-icon").hide();
+					}else{
+						player.pause();
+						player.isPlay=false;
+						$(".play-icon").show();
+					}
+				});
+				$(".play-icon").on("click",function(){
+					player.play();
+					player.isPlay=true;
+					$(".play-icon").hide();
+				}) 
+			}
+			
+			 
+			//适配视频高度 
+			function adapterVideoHeight($dom){
+				var videoHeidht= $dom.height();
+				console.log(videoHeidht)
+				var ctxHeight=$("content").height();
+				if(videoHeidht<ctxHeight){
+					var marginHeight = (ctxHeight-videoHeidht)/2;
+					$dom.css({"margin-top":marginHeight+"px"});
+				}
+			}
+			
+			function issueVideo(){
+				do_page("videoImplant.html?vid="+vid);
+			}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>植入广告</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/icons-extra.css">
+		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/swiper.min.css"/>
+	</head>
+	<style type="text/css">
+		 content{overflow: hidden;}
+		 canvas{height: 100%;}
+	</style>
+	<body>
+		<header>
+			<span class="mui-icon mui-icon-undo do_back"></span> 
+			<h1>植入广告</h1>
+		</header>
+		
+		
+		<content> 
+	<!-- 	x5-video-player-type="h5" x5-video-orientation="h5" x5-video-player-fullscreen="true"
+		x-webkit-airplay="true" x5-playsinline="true" webkit-playsinline="true" playsinline="true" -->
+			<!-- <video  style="position: relative;display: none;"   loop id="video1" 
+			
+			 ></video>
+			<canvas id="myCanvas" width="100%" style="width: 100%;height: 8000px;"></canvas>
+			
+			<img src='../images/library1.png' id='poster' style='display: none;' > 
+			<div class='palyChange'></div> -->
+			<div class="swiper-container">
+			   <div class="swiper-wrapper">
+				<div class="jsmpeg" data-url="" style="width: 100%;height: 100%;"></div>
+			  </div>
+			</div>
+		</content>	
+		   
+		<script src="../js/mui.js"></script>
+		<script src="../js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script> 
+		<script src="../js/swiper.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/DPlayer.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/analyzeUtils.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/jsmpeg.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+			mui.plusReady(function(){
+
+			}) 
+			$(".jsmpeg").attr("data-url",_CFG.webServer+"/out.ts");
+		    var player = new JSMpeg.Player(_CFG.webServer+"/out.ts" ,{loop : true,autoplay:false});
+			$('header').click(function(){ //初始化暂停状态下 点击播放（开始绘制视频）
+			alert(1);
+					player.play();
+		   });
+		</script>
+	</body>
+
+</html>

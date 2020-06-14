@@ -1,0 +1,602 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>首页</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/icons-extra.css">
+		<link rel="stylesheet" type="text/css" href="css/common.css" />
+		<link rel="stylesheet" type="text/css" href="css/fakeLoader.css" />
+	</head>
+	<style type="text/css">
+		content {
+			padding-bottom: 50px;
+			background: #f3f3f3;
+		}
+
+		.top-tab {
+			text-align: center;
+			position: fixed;
+			width: 100%;
+			height: 30px;
+			z-index: 999;
+			top: 50px;
+			text-align: center;
+			padding: 0px 0px 8px 0px;
+			background: linear-gradient(90deg, rgba(237, 50, 105, 1) 0%, rgba(240, 95, 62, 1) 100%);
+		}
+
+		.top-tab span {
+			color: #fff;
+			padding: 4px 25px;
+			font-size: 14px;
+			border-radius: 12px;
+		}
+
+		.top-tab span.select {
+			background-color: rgb(255, 128, 143);
+		}
+
+		.type-list {
+			display: none;
+			position: fixed;
+			width: 100%;
+			z-index: 999;
+			top: 80px;
+			background: #fff;
+			border-bottom: 1px solid #fbfbfb;
+			overflow-y: hidden;
+			overflow-x: auto;
+			padding-top: 5px;
+			padding-left: 5px;
+			padding-bottom: 5px;
+			white-space: nowrap;
+		}
+
+		.type-list::-webkit-scrollbar {
+			display: none;
+			/*隐藏滚动条*/
+		}
+
+		.type-list span {
+			padding: 3px 18px;
+			font-size: 12px;
+			margin-right: 8px;
+			border-radius: 10px;
+			background-color: #dadada;
+		}
+
+		.type-list span.select {
+			background: linear-gradient(225deg, rgba(254, 193, 128, 1) 0%, rgba(255, 137, 147, 1) 100%);
+			color: #fff;
+			font-weight: 400;
+		}
+
+		.more-type {
+			position: fixed;
+			right: 0px;
+			top: 85px;
+			z-index: 1000;
+			border-radius: 0px;
+			color: #fff;
+			font-size: 20px;
+			padding: 7px 10px;
+			margin-top: -5px;
+			background: linear-gradient(225deg, rgba(254, 193, 128, 1) 0%, rgba(255, 137, 147, 1) 100%);
+		}
+
+		.tab-panel {
+			padding-top: 60px;
+			display: none;
+		}
+
+		.tab-panel .wenzhang-item::after {
+			content: "";
+			display: block;
+			clear: both;
+		}
+
+		.tab-panel .wenzhang-item {
+			position: relative;
+			margin-bottom: 6px;
+			padding: 15px 12px;
+			background-color: #fff;
+			padding-bottom: 40px;
+		}
+
+		.tab-panel .wenzhang-item h1 {
+			font-size: 18px;
+			font-weight: 400;
+			color: #333;
+		}
+
+		.tab-panel .wenzhang-item .describe {
+			padding-right: 115px;
+			float: left;
+			font-weight: 300;
+			font-size: 14px;
+		}
+
+		.tab-panel .wenzhang-item img {
+			width: 110px;
+			max-height: 75px;
+			position: absolute;
+			right: 10px;
+			min-height: 60px;
+		}
+
+		.tab-panel .wenzhang-item p {
+			margin-bottom: 0px;
+			padding-top: 5px;
+			font-size: 12px;
+			position: absolute;
+			bottom: 14px;
+		}
+
+		.refresh-panel {
+			text-align: center;
+			font-weight: 300;
+			font-size: 14px;
+		}
+
+		.refresh-panel span {
+			width: 14px;
+			height: 14px;
+			position: absolute;
+			margin-top: 4px;
+		}
+	</style>
+	<body>
+		<header>
+			<span class="mui-icon mui-icon-undo"></span>
+			<h1>视你广告</h1>
+		</header>
+		<div class="top-tab">
+			<span class="select" show-panel="wenzhang-list" type-panel="wenzhang-type">文章</span>
+			<span show-panel="video-list" type-panel="video-type">视频</span>
+		</div>
+		<div class="type-list wenzhang-type" style="display: block;">
+			<span class="select">热门</span>
+			<!-- <span>类别</span> -->
+		</div>
+		<div class="type-list video-type">
+			<span class="select">热门</span>
+			<!-- <span>类别</span> -->
+		</div>
+		<span class="mui-icon mui-icon-arrowdown more-type"></span>
+		<content>
+			<div class="tab-panel wenzhang-list" style="display: block;">
+				<!-- <div class="wenzhang-item do_page" page-url="module/articleDetails.html?token=aHR0cHM6Ly9tcC53ZWl4aW4ucXEuY29tL3Mvc3U0RTJ4V09oTm5LNDNKZUFyLWNUZw==">
+					<h1>首次写作变现..</h1>
+					<div class="describe" style="min-height: 100px;">
+						下一步，武汉将逐步把方舱医院的患者向定点医院集中
+						，轻症向一般定点医院集中，重症向重症定点医院集中，
+						救治关口前移，应早尽早，以有效控制轻症转重症。e
+						<p>阅读 10000 &nbsp;&nbsp;评论 1000 &nbsp;&nbsp;点赞 1000</p>
+					</div>
+					<img src="images/ma.png" alt="">
+				</div> -->
+				<!-- <div class="wenzhang-item">
+					<h1>首次写作变现..</h1>
+					<div class="describe" style="min-height: 100px;">
+						下一步，武汉将逐步把方舱医院的患者向定点医院集中
+						，轻症向一般定点医院集中，重症向重症定点医院集中，
+						救治关口前移，应早尽早，以有效控制轻症转重症。e
+						<p>阅读 10000 &nbsp;&nbsp;评论 1000</p>
+					</div>
+					<img src="images/ma.png" alt="">
+				</div>
+				<div class="wenzhang-item">
+					<h1>首次写作变现..</h1>
+					<div class="describe" style="min-height: 100px;">
+						下一步，武汉将逐步把方舱医院的患者向定点医院集中
+						，轻症向一般定点医院集中，重症向重症定点医院集中，
+						救治关口前移，应早尽早，以有效控制轻症转重症。e
+						<p>阅读 10000 &nbsp;&nbsp;评论 1000</p>
+					</div>
+					<img src="images/ma.png" alt="">
+				</div>
+				<div class="wenzhang-item">
+					<h1>首次写作变现..</h1>
+					<div class="describe" style="min-height: 100px;">
+						下一步，武汉将逐步把方舱医院的患者向定点医院集中
+						，轻症向一般定点医院集中，重症向重症定点医院集中，
+						救治关口前移，应早尽早，以有效控制轻症转重症。e
+						<p>阅读 10000 &nbsp;&nbsp;评论 1000</p>
+					</div>
+					<img src="images/ma.png" alt="">
+				</div>
+				<div class="wenzhang-item">
+					<h1>首次写作变现..</h1>
+					<div class="describe" style="min-height: 100px;">
+						下一步，武汉将逐步把方舱医院的患者向定点医院集中
+						，轻症向一般定点医院集中，重症向重症定点医院集中，
+						救治关口前移，应早尽早，以有效控制轻症转重症。e
+						<p>阅读 10000 &nbsp;&nbsp;评论 1000</p>
+					</div>
+					<img src="images/ma.png" alt="">
+				</div>
+				<div class="wenzhang-item">
+					<h1>首次写作变现..</h1>
+					<div class="describe" style="min-height: 100px;">
+						下一步，武汉将逐步把方舱医院的患者向定点医院集中
+						，轻症向一般定点医院集中，重症向重症定点医院集中，
+						救治关口前移，应早尽早，以有效控制轻症转重症。e
+						<p>阅读 10000 &nbsp;&nbsp;评论 1000</p>
+					</div>
+					<img src="images/ma.png" alt="">
+				</div>
+				<div class="wenzhang-item">
+					<h1>首次写作变现..</h1>
+					<div class="describe" style="min-height: 100px;">
+						下一步，武汉将逐步把方舱医院的患者向定点医院集中
+						，轻症向一般定点医院集中，重症向重症定点医院集中，
+						救治关口前移，应早尽早，以有效控制轻症转重症。e
+						<p>阅读 10000 &nbsp;&nbsp;评论 1000</p>
+					</div>
+					<img src="images/ma.png" alt="">
+				</div> -->
+			</div>
+
+			<style>
+				/* .video-list{padding-left: 4px;padding-right: 4px;background-color: #fff;} */
+				.video-list{
+					    background-color: #fff;
+					    padding-bottom: 20px;
+				}
+				.video-list .list-panel{
+					    padding-left: 2.2%;
+					    padding-right: 2.2%;
+					    column-count: 2;
+					    column-gap: 2.2%;
+						width: 100%;
+				}
+				
+				.video-list:after{content: "";display: block;clear: both;}
+				
+				/* .video-item{width: 46%;float: left;margin-left:2.666%;background-color: #fff;
+					box-shadow:0px 2px 6px rgba(50,51,94,0.18);max-width:200px ;
+					border-radius: 8px;overflow: hidden;margin-bottom: 4%;
+				}
+				 */
+				.video-item{
+					box-shadow: 0px 1px 8px rgba(50, 51, 94, 0.08);
+					border-radius: 8px;overflow: hidden;
+					break-inside: avoid;
+					-webkit-column-break-inside: avoid;
+					counter-increment: item-counter; 
+					margin-top: 10px;margin-bottom: 5px;
+					display: inline-block; float: left;
+				}
+				.ios-list .video-item{float: none;}
+				
+				/* .video-item{
+					box-shadow: 0px 1px 8px rgba(50, 51, 94, 0.08);
+					border-radius: 8px;overflow: hidden;
+					break-inside: avoid;
+					-webkit-column-break-inside: avoid;
+					counter-increment: item-counter; 
+					margin-top: 5px;margin-bottom: 5px;
+					display: inline-block;
+				} */
+				
+				
+				.video-list .video-item:nth-last-child(3){margin-bottom: 6%;}
+				    
+				.video-item img{width: 100%;max-height: 150px;}
+				.video-item h4{font-weight: 300;font-size: 14px;line-height: 20px;}
+				.video-item p{font-size: 12px;margin-bottom:0px;}
+				.video-item .item-btn{padding: 0px 10px 6px; }
+				.video-item .mui-icon-extra-like{font-size: 16px;}
+				.video-item .mui-icon-chatbubble{font-size: 20px;padding-top: 2px;}
+			</style>
+			<!-- 视频部分 -->
+			<div class="tab-panel video-list">
+				<div class="list-panel">
+					<div class="video-item">
+						<img src="images/library1.png" alt="">
+						<div class="item-btn">
+							<h4>视频标题</h4>
+							<p>描述描</p>
+							<p>
+								<span class="mui-icon-extra mui-icon-extra-like"></span> 1000&nbsp;&nbsp;
+								<span class="mui-icon mui-icon-chatbubble"></span> 1000
+							</p>
+						</div>
+					</div>
+					<div class="video-item">
+						<img src="images/library1.png" alt="">
+						<div class="item-btn">
+							<h4>视频标题</h4>
+							<p>描述描述，描述描述，描述描述，描述描述，描述描述</p>
+							<p>
+								<span class="mui-icon-extra mui-icon-extra-like"></span> 1000&nbsp;&nbsp;
+								<span class="mui-icon mui-icon-chatbubble"></span> 1000
+							</p>
+						</div>
+					</div>
+					<div class="video-item">
+						<img src="images/library1.png" alt="">
+						<div class="item-btn">
+							<h4>视频标题</h4>
+							<p>描述描述，描述描述，描述描述，描述描述，描述描述</p>
+							<p>
+								<span class="mui-icon-extra mui-icon-extra-like"></span> 1000&nbsp;&nbsp;
+								<span class="mui-icon mui-icon-chatbubble"></span> 1000
+							</p>
+						</div>
+					</div>
+					<div class="video-item">
+						<img src="images/library1.png" alt="">
+						<div class="item-btn">
+							<h4>视频标题</h4>
+							<p>描述描述，描述</p>
+							<p>
+								<span class="mui-icon-extra mui-icon-extra-like"></span> 1000&nbsp;&nbsp;
+								<span class="mui-icon mui-icon-chatbubble"></span> 1000
+							</p>
+						</div>
+					</div>
+				</div>
+				<!-- <div class="video-item">
+					<img src="images/library1.png" alt="">
+					<div class="item-btn">
+						<h4>视频标题</h4>
+						<p>描述描述，描述描述，描述描述，描述描述，描述描述</p>
+						<p>
+							<span class="mui-icon-extra mui-icon-extra-like"></span> 1000&nbsp;&nbsp;
+							<span class="mui-icon mui-icon-chatbubble"></span> 1000
+						</p>
+					</div>
+				</div> -->
+
+			</div>
+		</content>
+		<bottom>
+			<div class="b-item select">
+				<span class="mui-icon mui-icon-home"></span>
+				<p>首页</p>
+			</div>
+			<div class="b-item do_page" page-url="home2.html" open-anim="fade-in">
+				<span class="mui-icon mui-icon-bars"></span>
+				<p>金币任务</p>
+			</div>
+			<div class="b-item do_page" page-url="home3.html" open-anim="fade-in">
+				<span class="mui-icon mui-icon-plus"></span>
+				<p>发布</p>
+			</div>
+			<div class="b-item do_page" page-url="home4.html" open-anim="fade-in">
+				<span class="mui-icon mui-icon-upload"></span>
+				<p>我的广告</p>
+			</div>
+			<div class="b-item do_page" page-url="home5.html" open-anim="fade-in">
+				<span class="mui-icon-extra mui-icon-extra-people"></span>
+				<p>我的</p>
+			</div>
+		</bottom>
+		<div id="hide-panel" style="display: none;"></div>
+		<script src="js/mui.js"></script>
+		<script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/fakeLoader.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="http://res2.wx.qq.com/open/js/jweixin-1.4.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/wxConfig.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var articleCurrentPage = 1,
+				videoCurrentPage = 1,
+				articleLoadFlag = false,
+				videoLoadFlag = false;
+
+			mui.init()
+
+			//顶部 文章、视频tab切换
+			mui("body").on("tap", ".top-tab span", function() {
+				$(".top-tab span").removeClass("select");
+				$(this).addClass("select");
+				var target = $(this).attr("show-panel");
+				var type_target = $(this).attr("type-panel");
+				if (target == 'video-list') {
+					$("content").css({
+						'background': '#fff'
+					});
+				} else {
+					$("content").css({
+						'background': '#f3f3f3'
+					});
+				}
+
+				// 对应数据面板
+				$(".tab-panel").hide();
+				$(".tab-panel." + target).show();
+				//对应type面板
+				$(".type-list").hide();
+				$(".type-list." + type_target).show();
+
+			})
+			//类型标签列表切换
+			mui("body").on("tap", ".type-list span", function() {
+				var type_panel = $(".top-tab .select").attr("type-panel");
+				$("." + type_panel + " span").removeClass("select");
+				$(this).addClass("select");
+				if (type_panel == 'wenzhang-type') {
+					articleCurrentPage = 1;
+					initArticleList();
+				}
+				if (type_panel == 'video-type') {
+					videoCurrentPage = 1;
+					initVideoList();
+				}
+			})
+
+
+			// 原生模式
+			mui.plusReady(function() {
+				if (mui.os.ios) {
+					$(".video-list .list-panel").addClass("ios-list");
+				}
+				try {
+					//检测粘贴板是否有复制url链接
+					clipboardFun();
+				} catch (e) {
+					console.log(e)
+				}
+
+
+
+			})
+			//$(".video-list").addClass("ios-list");
+
+			//素材类型数据交互
+			_ajx({
+				url: '/material/clientRelationTypeList',
+				isAuth: true,
+				suc: function(data) {
+					var html = '';
+					$.each(data.message, function(i, v) {
+						html += '<span type-id="' + v.id + '">' + v.tname + '</span>'
+					})
+					$(".type-list").append(html);
+				}
+			})
+
+			// 文章素材列表数据交互
+			function initArticleList(isAppend) {
+				articleLoadFlag = true;
+				var reqData = {
+					currentPage: articleCurrentPage++,
+					limit: 10
+				};
+				var typeId = $(".wenzhang-type .select").attr('type-id');
+				if (typeId)
+					reqData['typeId'] = typeId;
+
+				_ajx({
+					url: '/article/list',
+					data: reqData,
+					suc: function(data) {
+						var html = '';
+						$.each(data.message, function(i, v) {
+							var imgurl = formatterImgUrl(v.previews);
+							html += '<div class="wenzhang-item do_page" is-load="true" page-url="' + _CFG.webServer +
+								'/module/articleDetails.html?url_token=' + v.url + '&aid=' + v.id + '">';
+							html += '<div class="describe" style="' + (v.previews.length == 0 ? 'padding-right:0px;' :
+								'min-height:50px;') + ' ">' + v.title;
+							html += '<p>阅读 ' + v.lookCount + ' &nbsp;&nbsp;评论 ' + v.commentCount + ' &nbsp;&nbsp;点赞 ' + v.likeCount +
+								'</p></div>';
+							html += '<img src="' + imgurl + '" alt=""></div>';
+						})
+
+						//分页加载
+						$('.wenzhang-list .refresh-panel').remove();
+						if (data.message.length == 10) {
+							html += '<p class="refresh-panel"><span class="mui-spinner"></span>&nbsp;&nbsp;&nbsp;&nbsp;数据加载中</p>';
+						} else {
+							html += '<p class="refresh-panel">到底线了 Q _ Q ! </p>';
+						}
+
+						if (isAppend) {
+							$('.wenzhang-list').append(html);
+						} else {
+							$('.wenzhang-list').html(html);
+						}
+
+						articleLoadFlag = false;
+					}
+				})
+			}
+
+			// 视频素材列表数据交互
+			function initVideoList(isAppend) {
+				var reqData = {
+					currentPage: videoCurrentPage++,
+					limit: 10
+				};
+				var typeId = $(".video-type .select").attr('type-id');
+				if (typeId)
+					reqData['typeId'] = typeId;
+				videoLoadFlag = true;
+				_ajx({
+					url: '/video/list',
+					data: reqData,
+					suc: function(data) {
+						var html = '';
+
+						$.each(data.message, function(i, v) {
+							var imgurl = formatterImgUrl(v.previews);
+							html += '<div class="video-item do_page" is-load="true" page-url="' + _CFG.webServer +
+								'/module/videoDetails.html?vid=' + v.id + '" >';
+							html += '		<img src="' + imgurl + '" alt="">';
+							html += '		<div class="item-btn">';
+							html += '		<h4>' + v.title + '</h4>';
+							// html+='		<p>描述描述，描述描述，描述描述，描述描述，描述描述</p>';
+							html += '		<p>';
+							html += '			<span>喜欢 ' + v.likeCount + '</span> &nbsp;&nbsp;';
+							html += '			<span>评论 ' + v.commentCount + '</span> ';
+							html += '		</p>';
+							html += '		</div>';
+							html += '	</div>';
+						})
+
+						//分页加载
+						$('.video-list .refresh-panel').remove();
+						if (data.message.length == 10) {
+							$('.video-list').append(
+								'<p class="refresh-panel"><span class="mui-spinner"></span>&nbsp;&nbsp;&nbsp;&nbsp;数据加载中</p>');
+						} else {
+							$('.video-list').append('<p class="refresh-panel">到底线了 Q _ Q ! </p>');
+						}
+
+						if (isAppend) {
+							$('.video-list .list-panel').append(html);
+						} else {
+							$('.video-list .list-panel').html(html);
+						}
+						videoLoadFlag = false;
+					}
+				})
+			}
+
+			initArticleList();
+			initVideoList();
+
+
+
+			//滚动到底部数据分页加载
+			$('content').on('scroll', function() {
+				var nScrollHight = $(this)[0].scrollHeight;
+				var nScrollTop = $(this)[0].scrollTop;
+				if (nScrollTop + $('content').height() + 50 >= nScrollHight) {
+					var panel = $(".top-tab .select").attr("show-panel");
+					var refreshFlag = $("." + panel + '.refresh-panel').text();
+					if (refreshFlag.indexOf("到底线了") == -1) {
+						if (panel == 'wenzhang-list' && !articleLoadFlag)
+							initArticleList(true);
+						if (panel == 'video-list' && !videoLoadFlag)
+							initVideoList(true);
+					}
+				}
+
+			});
+
+
+
+
+			//检测粘贴板链接，并提示 
+			function clipboardFun() {
+				var clipboard = getClipboardText();
+				clipboard = getUrlByStr(clipboard);
+				console.log(clipboard)
+				if (isNaN(clipboard)) {
+					mui.confirm('检测到您有复制链接 ' + clipboard + ' 是否插入引流广告？', '您复制的内容', ['取消', '植入广告'], function(e) {
+						if (e.index == 1) {
+							do_page("module/addHotArticle.html", null);
+						}
+					})
+				}
+			}
+		</script>
+	</body>
+
+</html>
