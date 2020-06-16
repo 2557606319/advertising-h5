@@ -94,7 +94,8 @@
 		</div>
 		<content>
 			<div class="tab-panel wenzhang-list" style="display: block;">
-				 <div class="list-item">
+				<p style="text-align:center;position: absolute;width: 100%;margin-top: 10px;">暂无数据</p>
+				 <!-- <div class="list-item">
 				 	<img class="cover" src="images/library1.png" alt="">
 				 	<div class="item-btn">
 						<img class="avatar" src="images/shuijiao.jpg" alt="">
@@ -109,59 +110,7 @@
 						<p><span>奖金池剩余 400</span></p>
 						<p><span>截止2020/02/02</span></p>
 				 	</div>
-				 </div>
-				 <div class="list-item">
-				 	<img class="cover" src="images/library1.png" alt="">
-				 	<div class="item-btn">
-						<img class="avatar" src="images/shuijiao.jpg" alt="">
-						<span class="mui-icon-extra mui-icon-extra-share"></span>
-				 		<h4>视频标题</h4>
-				 		<p>描述描述，描述描述，描述描述，描述描述，描述描述</p>
-				 		<p>
-						<span class="tgs">推广人数 3</span>
-						<span class="yds">1金币/阅读数</span>
-						<div style="clear: both;"></div>
-				 		</p>
-						<p><span>奖金池剩余 400</span></p>
-						<p><span>截止2020/02/02</span></p>
-						
-				 	</div>
-				 </div> <div class="list-item">
-				 	<img class="cover" src="images/library1.png" alt="">
-				 	<div class="item-btn">
-						<img class="avatar" src="images/shuijiao.jpg" alt="">
-						<span class="mui-icon-extra mui-icon-extra-share"></span>
-				 		<h4>视频标题</h4>
-				 		<p>描述描述，描述描述，描述描述，描述描述，描述描述</p>
-				 		<p>
-						<span class="tgs">推广人数 3</span>
-						<span class="yds">1金币/阅读数</span>
-						<div style="clear: both;"></div>
-				 		</p>
-						<p><span>奖金池剩余 400</span></p>
-						<p><span>截止2020/02/02</span></p>
-						
-				 	</div>
-				 </div> <div class="list-item">
-				 	<img class="cover" src="images/library1.png" alt="">
-				 	<div class="item-btn">
-						<img class="avatar" src="images/shuijiao.jpg" alt="">
-						<span class="mui-icon-extra mui-icon-extra-share"></span>
-				 		<h4>视频标题</h4>
-				 		<p>描述描述，描述描述，描述描述，描述描述，描述描述</p>
-				 		<p>
-						<span class="tgs">推广人数 3</span>
-						<span class="yds">1金币/阅读数</span>
-						<div style="clear: both;"></div>
-				 		</p>
-						<p><span>奖金池剩余 400</span></p>
-						<p><span>截止2020/02/02</span></p>
-						
-				 	</div>
-				 </div> 
-				 
-				  
-				  
+				 </div> -->
 				 
 			</div>
 			
@@ -280,6 +229,14 @@
 			
 			mui.plusReady(function(){
 			})
+			initArticles(1);
+			function initArticles(page){
+				_ajx({
+					url:"/task/articles",data:{currentPage:page},type:"get",
+					suc:function(data){
+					}
+				})
+			}
 		</script>
 	</body>
 
