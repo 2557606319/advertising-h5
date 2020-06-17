@@ -234,6 +234,25 @@
 				_ajx({
 					url:"/task/articles",data:{currentPage:page},type:"get",
 					suc:function(data){
+						var html = '';
+						$.each(data.message,function(i,v){
+							var imgUrl = formatterImgUrl(v.previews);
+							var avatar = formatterImgUrl(v.avatar);
+							html+='<div class="list-item">';
+							html+='<img class="cover" src="'+imgUrl+'" alt="">';
+							html+='<div class="item-btn">';
+							html+='<img class="avatar" src="'+avatar+'" alt="">';
+							html+='<span class="mui-icon-extra mui-icon-extra-share"></span>';
+							html+='<h4>'+v.title+'</h4>';
+							html+='<p><span class="tgs">推广人数 '+v.generalizeCount+'</span><span class="yds">'+v.award+'金币/阅读数</span><div style="clear: both;"></div></p>';
+							html+='<p><span>奖金池剩余 '+v.sumAward+'</span></p>';
+							html+='<p><span>截止'+v.expire+'</span></p></div></div>';
+						})
+						if(page==1){
+							$(".wenzhang-list").html(html);
+						}else{
+							$(".wenzhang-list").append(html);
+						}
 					}
 				})
 			}
@@ -241,3 +260,4 @@
 	</body>
 
 </html>
+gi
