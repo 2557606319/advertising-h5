@@ -73,7 +73,7 @@
 			margin-top: -2px;right: 8px;font-size: 18px;
 		}
 		.list-item .cover{width: 100%;max-height: 150px;}
-		.list-item h4{font-weight: 300;font-size: 14px;}
+		.list-item h4{font-weight: 300;font-size: 14px;line-height: 1.4;}
 		.list-item p{font-size: 12px;margin-bottom:0px;}
 		.list-item p .yds{float: right;}
 		.list-item p .tgs{float: left;}
@@ -116,7 +116,8 @@
 			
 			<!-- 视频部分 -->
 			<div class="tab-panel video-list">
-				 <div class="list-item">
+				<p style="text-align:center;position: absolute;width: 100%;margin-top: 10px;">暂无数据</p>
+				<!-- <div class="list-item">
 				 	<img class="cover" src="images/library1.png" alt="">
 				 	<div class="item-btn">
 						<img class="avatar" src="images/shuijiao.jpg" alt="">
@@ -131,56 +132,7 @@
 						<p><span>奖金池剩余 400</span></p>
 						<p><span>截止2020/02/02</span></p>
 				 	</div>
-				 </div>
-				 <div class="list-item">
-				 	<img class="cover" src="images/library1.png" alt="">
-				 	<div class="item-btn">
-						<img class="avatar" src="images/shuijiao.jpg" alt="">
-						<span class="mui-icon-extra mui-icon-extra-share"></span>
-				 		<h4>视频标题</h4>
-				 		<p>描述描述，描述描述，描述描述</p>
-				 		<p>
-						<span class="tgs">推广人数 3</span>
-						<span class="yds">1金币/阅读数</span>
-						<div style="clear: both;"></div>
-				 		</p>
-						<p><span>奖金池剩余 400</span></p>
-						<p><span>截止2020/02/02</span></p>
-				 						
-				 	</div>
-				 </div> <div class="list-item">
-				 	<img class="cover" src="images/library1.png" alt="">
-				 	<div class="item-btn">
-						<img class="avatar" src="images/shuijiao.jpg" alt="">
-						<span class="mui-icon-extra mui-icon-extra-share"></span>
-				 		<h4>视频标题</h4>
-				 		<p>描述描述，描述描述，描述描述，描述描述，描述描述</p>
-				 		<p>
-						<span class="tgs">推广人数 3</span>
-						<span class="yds">1金币/阅读数</span>
-						<div style="clear: both;"></div>
-				 		</p>
-						<p><span>奖金池剩余 400</span></p>
-						<p><span>截止2020/02/02</span></p>
-				 						
-				 	</div>
-				 </div> <div class="list-item">
-				 	<img class="cover" src="images/library1.png" alt="">
-				 	<div class="item-btn">
-						<img class="avatar" src="images/shuijiao.jpg" alt="">
-						<span class="mui-icon-extra mui-icon-extra-share"></span>
-				 		<h4>视频标题</h4>
-				 		<p>描述描述，描述描述，描述描述，描述描述，描述描述</p>
-				 		<p>
-						<span class="tgs">推广人数 3</span>
-						<span class="yds">1金币/阅读数</span>
-						<div style="clear: both;"></div>
-				 		</p>
-						<p><span>奖金池剩余 400</span></p>
-						<p><span>截止2020/02/02</span></p>
-				 	</div>
-				 </div>
-				 
+				 </div> -->
 			</div>
 		</content>
 		<bottom>
@@ -230,6 +182,7 @@
 			mui.plusReady(function(){
 			})
 			initArticles(1);
+			initVideos(1);
 			function initArticles(page){
 				_ajx({
 					url:"/task/articles",data:{currentPage:page},type:"get",
@@ -252,6 +205,33 @@
 							$(".wenzhang-list").html(html);
 						}else{
 							$(".wenzhang-list").append(html);
+						}
+					}
+				})
+			}
+			
+			function initVideos(page){
+				_ajx({
+					url:"/task/videos",data:{currentPage:page},type:"get",
+					suc:function(data){
+						var html = '';
+						$.each(data.message,function(i,v){
+							var imgUrl = formatterImgUrl(v.previews);
+							var avatar = formatterImgUrl(v.avatar);
+							html+='<div class="list-item">';
+							html+='<img class="cover" src="'+imgUrl+'" alt="">';
+							html+='<div class="item-btn">';
+							html+='<img class="avatar" src="'+avatar+'" alt="">';
+							html+='<span class="mui-icon-extra mui-icon-extra-share"></span>';
+							html+='<h4>'+v.title+'</h4>';
+							html+='<p><span class="tgs">推广人数 '+v.generalizeCount+'</span><span class="yds">'+v.award+'金币/阅读数</span><div style="clear: both;"></div></p>';
+							html+='<p><span>奖金池剩余 '+v.sumAward+'</span></p>';
+							html+='<p><span>截止'+v.expire+'</span></p></div></div>';
+						})
+						if(page==1){
+							$(".video-list").html(html);
+						}else{
+							$(".video-list").append(html);
 						}
 					}
 				})
