@@ -8,6 +8,7 @@
 		<link href="css/mui.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="css/icons-extra.css">
 		<link rel="stylesheet" type="text/css" href="css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="css/fakeLoader.css"/>
 	</head>
 	<style type="text/css">
 		content{top: 80px;background-color: #fff;padding-bottom: 50px;}
@@ -82,10 +83,21 @@
 			position: absolute;right: 4px;margin-top: -50px;
 			box-shadow: 0px 1px 5px 0px rgba(80, 80, 80, 0.43);
 		}
+		.share-module {
+			display: none;
+			position: fixed;
+			z-index: 999999;
+			background-image: url(images/share-module.png);
+			background-repeat: no-repeat;
+			background-size: 100% 100%;
+			bottom: 0;
+			top: 0;
+			width: 100%;
+		}
 	</style>
 	<body>
 		<header>
-			<span class="mui-icon mui-icon-undo"></span> 
+			<span class="mui-icon mui-icon-bars"></span>
 			<h1>金币任务</h1>
 		</header>
 		<div class="top-tab">
@@ -135,6 +147,7 @@
 				 </div> -->
 			</div>
 		</content>
+		<div class="share-module"></div>
 		<bottom>
 			<div class="b-item do_page" page-url="home1.html" open-anim="fade-in">
 				<span class="mui-icon mui-icon-home"></span>
@@ -160,6 +173,9 @@
 		<script src="js/mui.js"></script>
 		<script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/common.js" type="text/javascript" charset="utf-8"></script> 
+		<script src="http://res2.wx.qq.com/open/js/jweixin-1.4.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/wxConfig.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/fakeLoader.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.init()
 			
@@ -191,11 +207,12 @@
 						$.each(data.message,function(i,v){
 							var imgUrl = formatterImgUrl(v.previews);
 							var avatar = formatterImgUrl(v.avatar);
-							html+='<div class="list-item">';
+							var shareUrl='module/articleShareDetails.html?issueId='+v.issueId;
+							html+='<div class="list-item" page-url="'+shareUrl+'">';
 							html+='<img class="cover" src="'+imgUrl+'" alt="">';
 							html+='<div class="item-btn">';
 							html+='<img class="avatar" src="'+avatar+'" alt="">';
-							html+='<span class="mui-icon-extra mui-icon-extra-share"></span>';
+							html+='<span class="mui-icon-extra mui-icon-extra-share" data-title="'+v.title+'" data-previews="'+v.previews+'" data-shareUrl="/'+shareUrl+'"></span>';
 							html+='<h4>'+v.title+'</h4>';
 							html+='<p><span class="tgs">推广人数 '+v.generalizeCount+'</span><span class="yds">'+v.award+'金币/阅读数</span><div style="clear: both;"></div></p>';
 							html+='<p><span>奖金池剩余 '+v.sumAward+'</span></p>';
@@ -218,11 +235,12 @@
 						$.each(data.message,function(i,v){
 							var imgUrl = formatterImgUrl(v.previews);
 							var avatar = formatterImgUrl(v.avatar);
-							html+='<div class="list-item">';
+							var shareUrl='module/videoShareDetails.html?issueId='+v.issueId;
+							html+='<div class="list-item" page-url="'+shareUrl+'">';
 							html+='<img class="cover" src="'+imgUrl+'" alt="">';
 							html+='<div class="item-btn">';
 							html+='<img class="avatar" src="'+avatar+'" alt="">';
-							html+='<span class="mui-icon-extra mui-icon-extra-share"></span>';
+							html+='<span class="mui-icon-extra mui-icon-extra-share" data-title="'+v.title+'" data-previews="'+v.previews+'" data-shareUrl="/'+shareUrl+'"></span>';
 							html+='<h4>'+v.title+'</h4>';
 							html+='<p><span class="tgs">推广人数 '+v.generalizeCount+'</span><span class="yds">'+v.award+'金币/阅读数</span><div style="clear: both;"></div></p>';
 							html+='<p><span>奖金池剩余 '+v.sumAward+'</span></p>';
@@ -236,6 +254,54 @@
 					}
 				})
 			}
+			
+			var clickFlag=true;
+			mui("body").on("tap",".share-module",function(){
+				$(this).fadeOut(200);
+			})
+			mui("body").on("tap",".list-item",function(){
+				if(clickFlag){
+					do_page($(this).attr("page-url"));
+				}else{
+					clickFlag=true;
+				}
+			})
+			mui("body").on("tap",".list-item .mui-icon-extra",function(){
+				clickFlag=false;
+				share($(this).attr("data-title"),$(this).attr("data-previews"),$(this).attr("data-shareUrl"),);
+			})
+			
+			function share(title,previews,url) {
+				var load=showLoading();
+				_ajx({
+					url:"/auth/isLogin",isAuth:true,
+					suc:function(uid){
+						if(!mui.os.plus){
+							var shareData = {
+								title: title, // 分享标题
+								// desc: "awef", // 分享描述
+								link: _CFG.webServer + url+"&shareUid"+uid, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+								imgUrl: formatterImgUrl(previews), // 分享图标
+								success: function() {
+									$(".share-module").fadeIn(200); //显示分享指引
+									load.hide();
+									load=null;
+								},
+							}
+							wx.updateAppMessageShareData(shareData);
+							wx.updateTimelineShareData(shareData);
+						}else{
+							//原生平台分享
+						}
+					},
+					err:function(data){
+						mui.toast("登录认证失败，请登录后再分享！");
+						load.hide();
+					}
+				})
+				
+			}
+			
 		</script>
 	</body>
 
