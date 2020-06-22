@@ -543,6 +543,20 @@
 					}
 				})
 			}
+			
+			/**
+			 * 处理金币任务，记录当前的观看人
+			 */
+			function initShareTask(){
+				var shareUid = getUrlParamByName("shareUid");
+				if(isNaN(shareUid)){
+					//观看20秒后再触发记录
+					setInterval(function(){
+						
+					},20000)
+				}
+			}
+			
 		 
 		</script>
 	</body>
