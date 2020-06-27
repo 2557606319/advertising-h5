@@ -104,7 +104,7 @@
 			right: 10px;
 			top: -148px;
 			color: #ffffff;
-			background: #ed3467b8;
+			background: red;
 			border-radius: 12px;
 			padding: 0px 8px;
 			font-size: 14px;
@@ -380,7 +380,7 @@
 			if (!isNaN(resourceUrl))
 				do_back();
 
-
+			var loading = showLoading();
 			var loadFLag = false;
 			$("#view-ctx").load(function() {
 				loadFLag = true;
@@ -390,11 +390,12 @@
 					$("content").animate({
 						scrollTop: h + 'px'
 					}, 200);
+					loading.hide();
 				}, 300)
 			})
 			//超过一定时间还没初始化完也显示页面
 			setTimeout(function() {
-				if (!loadFLag) {
+				// if (!loadFLag) {
 					var h = $("iframe").contents().find("body").height();
 					$("iframe").height(h);
 					setTimeout(function() {
@@ -402,13 +403,13 @@
 							scrollTop: h + 'px'
 						}, 200);
 					}, 300)
-				}
+				// }
+				loading.hide();
 			}, 500)
 
 			reqInfo();
 
 			function reqInfo() {
-				var loading = showLoading();
 				var setData = function(data) {
 					articleId = data.message.id;
 					articleInfo = data.message;
@@ -421,7 +422,6 @@
 							"height": "100%"
 						})
 					}
-					loading.hide();
 					commentList()
 					defaultAdvertising(data.message.advId);
 				}
@@ -544,7 +544,7 @@
 						mui.toast("加载超时");
 						load.hide();
 					}
-				},1000)
+				},5000)
 				if (!mui.os.plus) {
 					url = '/auth/article/setIssueAdvId',
 						//微信公众号平台分享
@@ -552,7 +552,7 @@
 						sucCallback = function(data) {
 							var shareData = {
 								title: articleInfo.title, // 分享标题
-								// desc: "awef", // 分享描述
+								desc: window.location.href, // 分享描述
 								link: _CFG.webServer + "/module/articleShareDetails.html?issueId=" + data.id, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
 								imgUrl: formatterImgUrl(articleInfo.previews), // 分享图标
 								success: function() {
@@ -582,6 +582,10 @@
 					},
 					suc: function(data) {
 						sucCallback(data);
+					},
+					err:function(data){
+						mui.toast(data.message);
+						load.hide();
 					}
 				})
 			}

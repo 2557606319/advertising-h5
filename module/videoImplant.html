@@ -478,6 +478,8 @@
 				if(videoHeidht<ctxHeight){
 					var marginHeight = (ctxHeight-videoHeidht)/2;
 					$dom.css({"margin-top":marginHeight+"px"});
+				}else{
+					$("#videos .player-wrap").css({"height":"100%"});
 				}
 			}
 			
@@ -544,6 +546,7 @@
 						sucCallback = function(data) {
 							var shareData = {
 								title: videoInfo.title, // 分享标题
+								desc: window.location.href, // 分享描述
 								link: _CFG.webServer + "/module/videoShareDetails.html?issueId=" + data.message.id, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
 								imgUrl: formatterImgUrl(videoInfo.previews), // 分享图标
 								success: function() {

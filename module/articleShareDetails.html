@@ -56,7 +56,7 @@
 			right: 10px;
 			top: -148px;
 			color: #ffffff;
-			background: #ed3467b8;
+			background: rgba(237, 52, 103, 0.72);
 			border-radius: 12px;
 			padding: 0px 8px;font-size: 14px;
 		}
@@ -200,25 +200,24 @@
 			})
 			var issueId = getUrlParamByName("issueId");
 			var articleId;
-
+			var loading = showLoading();
 			var loadFLag=false;
 			//文章页面加载完成
 			$("#view-ctx").load(function(){
 				loadFLag=true;
 				var h = $("iframe").contents().find("body").height();
 				$("iframe").height(h);
+				loading.hide();
 			})
 			//超过一定时间还没初始化完也显示页面
 			setTimeout(function(){
-				if(!loadFLag){
-					var h = $("iframe").contents().find("body").height();
-					$("iframe").height(h);
-				}
+				var h = $("iframe").contents().find("body").height();
+				$("iframe").height(h);
+				loading.hide();
 			},500)		
 			
 			reqInfo();
 			function reqInfo(){
-				var loading = showLoading();
 				var setData = function(data){
 					articleId=data.message.id;
 					$("title").text(data.message.title);
@@ -229,7 +228,6 @@
 					if(mui.os.ios&&mui.os.plus){ 
 						$("#view-ctx").css({"height":"100%"})
 					}
-					loading.hide();  
 					commentList()
 					defaultAdvertising(data.message.advId);
 				}
