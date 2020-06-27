@@ -544,10 +544,11 @@
 						//微信公众号平台分享
 						//设置分享内容 
 						sucCallback = function(data) {
+							var shareUrl = _CFG.webServer + "/module/videoShareDetails.html?issueId=" + data.message.id;
 							var shareData = {
 								title: videoInfo.title, // 分享标题
-								desc: window.location.href, // 分享描述
-								link: _CFG.webServer + "/module/videoShareDetails.html?issueId=" + data.message.id, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+								desc: shareUrl, // 分享描述
+								link: shareUrl, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
 								imgUrl: formatterImgUrl(videoInfo.previews), // 分享图标
 								success: function() {
 									$(".share-module").fadeIn(200); //显示分享指引

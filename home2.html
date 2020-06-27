@@ -278,9 +278,10 @@
 					suc:function(uid){
 						if(!mui.os.plus){
 							var shareData = {
+								var shareUrl = _CFG.webServer + url+"&shareUid"+uid;
 								title: title, // 分享标题
-								// desc: "awef", // 分享描述
-								link: _CFG.webServer + url+"&shareUid"+uid, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+								desc: shareUrl, // 分享描述
+								link: shareUrl, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
 								imgUrl: formatterImgUrl(previews), // 分享图标
 								success: function() {
 									$(".share-module").fadeIn(200); //显示分享指引
