@@ -1,20 +1,19 @@
 var _CFG={
 	// common_url:"http://127.0.0.1:8081/restApi",
-	common_url:"http://joeyjava.iask.in/restApi",
-	// common_url:"http://www.szrfweb.wang/restApi",
+	// common_url:"http://joeyjava.iask.in/restApi",
+	common_url:"http://www.szrfweb.wang/restApi",
 	
 	// webServer:"http://127.0.0.1:8848/advertising",
-	webServer:"http://joeyjava.ticp.io/advertising",
-	// webServer:"http://www.szrfweb.wang/advertising",
+	// webServer:"http://joeyjava.ticp.io/advertising",
+	webServer:"http://www.szrfweb.wang/advertising",
 	// webServer:"http://192.168.124.4:8848/advertising",
 	tokenKey:"tokenKey",
 	wxLoadFlagKsy:"wxLoadFlagKsy",
 	appid:"wxfb3355958b897680",
-	// redirectUri:"http://www.szrfweb.wang/restApi/wx/business/wxAuthResp/success",
-	redirectUri:"http://joeyjava.iask.in/restApi/wx/business/wxAuthResp/success",
+	redirectUri:"/wx/business/wxAuthResp/success",
 	getWxLoginAuthPath:function(login_url,){
 		var path='https://open.weixin.qq.com/connect/oauth2/authorize?appid=[appid]&redirect_uri=[redirect_uri]&response_type=code&scope=snsapi_userinfo&state=[state]#wechat_redirect';
-		return path.replace('[appid]',_CFG.appid).replace('[redirect_uri]',_CFG.redirectUri); 
+		return path.replace('[appid]',_CFG.appid).replace('[redirect_uri]',_CFG.common_url+_CFG.redirectUri); 
 	}
 }
 
