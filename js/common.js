@@ -1,12 +1,8 @@
 var _CFG={
-	// common_url:"http://127.0.0.1:8081/restApi",
-	// common_url:"http://joeyjava.iask.in/restApi",
 	common_url:"http://www.szrfweb.wang/restApi",
-	
-	// webServer:"http://127.0.0.1:8848/advertising",
-	// webServer:"http://joeyjava.ticp.io/advertising",
 	webServer:"http://www.szrfweb.wang/advertising",
-	// webServer:"http://192.168.124.4:8848/advertising",
+	// common_url:"http://joeyjava.iask.in/restApi",
+	// webServer:"http://joeyjava.ticp.io/advertising",
 	tokenKey:"tokenKey",
 	wxLoadFlagKsy:"wxLoadFlagKsy",
 	appid:"wxfb3355958b897680",
@@ -17,7 +13,6 @@ var _CFG={
 	}
 }
 
-//localStorage.setItem(_CFG.tokenKey,'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNTkxOTIwOTc5LCJpYXQiOjE1OTEzMTYxNzl9.DWcJ7wY1qQq2gqGo3rbSVcoMrbvzSquIOVlaG1ZrTMTaLouXcyG_TaPa_BpKbSiVK7NhBtlTiqRBw7eRTUFy-g')
 //获取登录成功token
 var token = getUrlParamByName("token");
 if(token)localStorage.setItem(_CFG.tokenKey,token);
