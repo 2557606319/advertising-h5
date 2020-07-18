@@ -421,11 +421,17 @@
 							setData(data);
 							$("#view-ctx").load(function() {
 								loadFLag = true;
+								var h = $("iframe").contents().find("body").height();
+								$("iframe").height(h);
 								doBottom()
 							})
 							//超过一定时间还没初始化完也显示页面
 							setTimeout(function() {
-								doBottom()
+								if(!loadFLag){
+									var h = $("iframe").contents().find("body").height();
+									$("iframe").height(h);
+									doBottom()
+								}
 							}, 500)
 						},
 						err: function(err) {
