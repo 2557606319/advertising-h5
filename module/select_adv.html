@@ -251,6 +251,8 @@
 						var view = plus.webview.currentWebview().opener();
 						mui.fire(view, 'refresh',{advId:itemId});
 					}
+					// 标记上页要刷新
+					sessionStorage.setItem("need-refresh", true);
 					load.hide();
 					do_back();
 				}

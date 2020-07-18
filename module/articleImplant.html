@@ -365,13 +365,9 @@
 		<script src="../js/wxConfig.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/fakeLoader.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
+			
 			mui.init()
-			_auth(location.href);
-			mui.plusReady(function() {
-				window.addEventListener('refresh', function(e) { //执行刷新
-					defaultAdvertising(e.detail.advId);
-				})
-			})
+			var loading,loadFLag;
 			var resourceUrl = getUrlParamByName("url");
 			var articleId = getUrlParamByName("articleId");
 			var advId;
@@ -379,12 +375,23 @@
 			var typeId = getUrlParamByName("type");
 			if (!isNaN(resourceUrl))
 				do_back();
-
-			var loading = showLoading();
-			var loadFLag = false;
+			// 检测是否需要刷新
+			let needRefresh = sessionStorage.getItem("need-refresh");
+			if(needRefresh){
+			  sessionStorage.removeItem("need-refresh");
+			  location.reload();
+			}else{
+				loading = showLoading();
+				var loadFLag = false;
+				reqInfo();
+			}
 			
-
-			reqInfo();
+			_auth(location.href);
+			mui.plusReady(function() {
+				window.addEventListener('refresh', function(e) { //执行刷新
+					defaultAdvertising(e.detail.advId);
+				})
+			})
 
 			function reqInfo() {
 				var setData = function(data) {
