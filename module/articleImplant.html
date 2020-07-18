@@ -376,16 +376,19 @@
 			if (!isNaN(resourceUrl))
 				do_back();
 			// 检测是否需要刷新
-			let needRefresh = sessionStorage.getItem("need-refresh");
-			alert(needRefresh)
-			if(needRefresh){
-			  sessionStorage.removeItem("need-refresh");
-			  location.reload();
-			}else{
-				loading = showLoading();
-				var loadFLag = false;
-				reqInfo();
-			}
+			window.addEventListener('pageshow',function(){
+				let needRefresh = sessionStorage.getItem("need-refresh");
+				alert(needRefresh)
+				if(needRefresh){
+				  sessionStorage.removeItem("need-refresh");
+				  location.reload();
+				}else{
+					loading = showLoading();
+					var loadFLag = false;
+					reqInfo();
+				}
+			})
+			
 			
 			_auth(location.href);
 			mui.plusReady(function() {
