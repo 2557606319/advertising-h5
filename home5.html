@@ -8,6 +8,7 @@
 		<link href="css/mui.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="css/icons-extra.css">
 		<link rel="stylesheet" type="text/css" href="css/common.css" />
+		<link rel="stylesheet" type="text/css" href="css/fakeLoader.css"/>
 	</head>
 	<style type="text/css">
 		content {
@@ -812,8 +813,8 @@
 				</div>
 				<p class="checkbox"><input type="checkbox" name="" id="" value="" />阅读并同意开通VIP协议</p>
 				<p class="btns">
-					<span class="comm-bg1 comm-btn">支付 199元/年</span>&nbsp;&nbsp;
-					<span class="comm-bg2 comm-btn">支付 19.9元/月</span>
+					<span class="comm-bg1 comm-btn" pay-amount-type="VIP_YEARS">支付 199元/年</span>&nbsp;&nbsp;
+					<span class="comm-bg2 comm-btn" pay-amount-type="VIP_MONTH">支付 19.9元/月</span>
 				</p>
 			</div>
 		</div>
@@ -843,6 +844,9 @@
 		<script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/jquery.qrcode.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/fakeLoader.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="http://res2.wx.qq.com/open/js/jweixin-1.4.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/wxConfig.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.init()
 			if (!mui.os.plus) {
@@ -878,6 +882,50 @@
 				$(this).addClass('sed');
 				$('#ge-target').attr('placeholder', $(this).attr('plac'));
 				$('#ge-target').val('');
+			})
+			
+			mui("body").on('tap','.gain-vip .comm-btn',function(){
+				var type=$(this).attr("pay-amount-type");
+				var load = showLoading();
+				_ajx({
+					url:'/auth/pay/create/'+type,
+					isAuth:true,
+					suc:function(data){
+						wx.chooseWXPay({
+							timestamp: data.timeStamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+							nonceStr: data.nonceStr, // 支付签名随机串，不长于 32 位
+							package:data.packageValue, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
+							signType: data.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+							paySign: data.paySign, // 支付签名
+							success: function (res) { // 支付成功后的回调函数
+								// res.errMsg === 'chooseWXPay:ok'方式判断前端返回,微信团队郑重提示：
+								// res.errMsg将在用户支付成功后返回ok，但并不保证它绝对可靠， 切记。
+								if (res.errMsg === 'chooseWXPay:ok') {
+									//支付成功
+									mui.toast("支付成功");
+									setTimeout(function(){
+										window.location.reload();
+									},1000)
+								}
+								if (res.errMsg === 'chooseWXPay:cancel') {
+								}
+								load.hide();
+							},
+							cancel: function (res) { // 支付取消回调函数
+								mui.toast('用户取消支付');
+								load.hide();	
+							 }, 
+							fail: function (res) { // 支付失败回调函数
+								mui.toast('支付失败');
+								load.hide();
+							}
+						}); 
+					},
+					err:function(data){
+						load.hide();
+						mui.toast(data.message);
+					}
+				})
 			})
 
 			initData();
