@@ -356,7 +356,10 @@
 			})
 			mui("body").on("tap","#advert-ctx",function(){
 				if(clickAdvFlag){
-					location.href=$(this).attr("data-href");
+					var hrefUrl=$(this).attr("data-href");
+					if(hrefUrl.indexOf("http")==-1)
+						hrefUrl="http://"+hrefUrl;
+					location.href=hrefUrl;
 				}else{
 					clickAdvFlag=true;
 				}
