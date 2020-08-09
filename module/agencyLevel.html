@@ -9,6 +9,7 @@
 		<link rel="stylesheet" type="text/css" href="../css/icons-extra.css">
 		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
 		<link rel="stylesheet" type="text/css" href="../css/swiper.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/fakeLoader.css"/>
 	</head>
 	<style type="text/css">
 		 content{padding: 20px 20px;background-color: #fff;overflow-x:hidden ;}
@@ -48,24 +49,21 @@
 			     <div class="swiper-wrapper">
 			       <div class="swiper-slide">
 					   <h4>青铜代理</h4>
-					   <p>当前拥有</p>
 					   <span>直推收益 <val id="level1">0</val>%</span>
 				   </div>
 			       <div class="swiper-slide">
-					   <h4>青铜代理</h4>
-					   <p>当前拥有</p>
+					   <h4>黄金代理</h4>
 					   <span>直推收益 <val id="level2">0</val>%</span>
 				   </div>
 			       <div class="swiper-slide">
 					   <h4>钻石代理</h4>
-					   <p>返佣达到2000自动升级</p>
 					   <span>直推返佣 <val id="level3">0</val>% + 二级推广<val id="level3_2">0</val>% + 三级推广 <val id="level3_3">0</val>%</span>
 				   </div>
 			     </div>
 			   </div>
 			   
 			   <p style="text-align: center;margin-bottom: 30px;">
-				   <span class="comm-bg1 comm-btn" style="padding: 8px 20px;font-weight: 400;">立即升级</span>
+				   <span id="upgrade" class="comm-bg1 comm-btn" style="padding: 8px 20px;font-weight: 400;">立即升级</span>
 			   </p>
 			   
 			   <p>注：以下规则只适用于本 “视你广告” 产品</p>
@@ -85,13 +83,13 @@
 			    	<tr>
 			    	 <td style="color:#ffa501 ;font-weight: bold;">黄金代理</td>
 			    	 <td>总收益≥2000</td> 
-			    	 <td>¥899</th> 
+			    	 <td id="level2_amount">¥0</th> 
 			    	</tr> 
 			   	
 			   	<tr>
 			   	 <td style="color:#01b9ff ;font-weight: bold;">钻石代理</td>
 			   	 <td>总收益≥7000</td> 
-			   	 <td>¥1699</th> 
+			   	 <td id="level3_amount">¥0</th> 
 			   	</tr> 
 			   	  
 			    </table>
@@ -111,6 +109,8 @@
 		</div>
 		<script src="../js/mui.js"></script>
 		<script src="../js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/fakeLoader.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="http://res2.wx.qq.com/open/js/jweixin-1.4.0.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/swiper.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script> 
 		<script type="text/javascript">
@@ -118,8 +118,8 @@
 			mui.plusReady(function(){
 
 			})
-			
-			 
+			var currentLevel=0;
+			var levels=["AGENT_1","AGENT_2","AGENT_3"];
 			var swiper = new Swiper('.swiper-container',{
 				on:{
 					init:function(){
@@ -127,17 +127,67 @@
 				}
 			});
 			
+			//支付
+			mui("body").on("tap","#upgrade",function(){
+				if(swiper.realIndex>currentLevel){
+					var load = showLoading();
+					_ajx({
+						url:'/auth/pay/create/'+levels[swiper.realIndex],
+						isAuth:true,
+						suc:function(data){
+							wx.chooseWXPay({
+								timestamp: data.timeStamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+								nonceStr: data.nonceStr, // 支付签名随机串，不长于 32 位
+								package:data.packageValue, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
+								signType: data.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+								paySign: data.paySign, // 支付签名
+								success: function (res) { // 支付成功后的回调函数
+									// res.errMsg === 'chooseWXPay:ok'方式判断前端返回,微信团队郑重提示：
+									// res.errMsg将在用户支付成功后返回ok，但并不保证它绝对可靠， 切记。
+									if (res.errMsg === 'chooseWXPay:ok') {
+										//支付成功
+										mui.toast("支付成功");
+										setTimeout(function(){
+											window.location.reload();
+										},1000)
+									}
+									if (res.errMsg === 'chooseWXPay:cancel') {
+									}
+									load.hide();
+								},
+								cancel: function (res) { // 支付取消回调函数
+									mui.toast('用户取消支付');
+									load.hide();	
+								 }, 
+								fail: function (res) { // 支付失败回调函数
+									mui.toast('支付失败');
+									load.hide();
+								}
+							}); 
+						},
+						err:function(data){
+							load.hide();
+							mui.toast(data.message);
+						}
+					})
+				}
+			})
+			
 			initData();
 			function initData(){
 				_ajx({
 					url:'/auth/user/levelInfo',isAuth:true,type:'get',
 					suc:function(data){
+						currentLevel=data.message.level;
 						swiper.slideTo(data.message.level);
-						$("#level1").text(data.message.levelInfo[0].val*100);
-						$("#level2").text(data.message.levelInfo[3].val*100);
-						$("#level3").text(data.message.levelInfo[7].val*100);
-						$("#level3_2").text(data.message.levelInfo[8].val*100);
-						$("#level3_3").text(data.message.levelInfo[9].val*100);
+						$("#level2_amount").text("￥"+data.message.levelInfo[3].amount);
+						$("#level3_amount").text("￥"+data.message.levelInfo[4].amount);
+						$("#level"+(data.message.level+1)).parent().before("<p>当前拥有</p>");
+						$("#level1").text(data.message.levelInfo[2].agentRebate.rate1*100);
+						$("#level2").text(data.message.levelInfo[3].agentRebate.rate1*100);
+						$("#level3").text(data.message.levelInfo[4].agentRebate.rate1*100);
+						$("#level3_2").text(data.message.levelInfo[4].agentRebate.rate2*100);
+						$("#level3_3").text(data.message.levelInfo[4].agentRebate.rate3*100);
 					},
 					err:function(){
 						
