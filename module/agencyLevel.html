@@ -110,10 +110,10 @@
 		<script src="../js/mui.js"></script>
 		<script src="../js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/swiper.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/fakeLoader.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="http://res2.wx.qq.com/open/js/jweixin-1.4.0.js" type="text/javascript" charset="utf-8"></script>
-		<script src="js/wxConfig.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../js/swiper.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/wxConfig.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.init()
 			mui.plusReady(function(){
@@ -136,7 +136,6 @@
 						url:'/auth/pay/create/'+levels[swiper.realIndex],
 						isAuth:true,
 						suc:function(data){
-							alert(JSON.stringify(data))
 							wx.chooseWXPay({
 								appId: data.appId,
 								timestamp: data.timeStamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
