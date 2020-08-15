@@ -378,7 +378,6 @@
 			// 检测是否需要刷新
 			window.addEventListener('pageshow',function(){
 				let needRefresh = sessionStorage.getItem("need-refresh");
-				alert(needRefresh)
 				if(needRefresh){
 				  sessionStorage.removeItem("need-refresh");
 				  location.reload();
@@ -387,6 +386,9 @@
 					var loadFLag = false;
 					reqInfo();
 				}
+			})
+			$(function(){
+				alert(1);
 			})
 			
 			
