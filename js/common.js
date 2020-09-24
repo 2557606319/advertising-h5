@@ -1,8 +1,8 @@
 var _CFG={
-	// common_url:"http://www.szrfweb.wang/restApi",
-	// webServer:"http://www.szrfweb.wang/advertising",
-	common_url:"http://joeyjava.iask.in/restApi",
-	webServer:"http://joeyjava.ticp.io/advertising",
+	 common_url:"http://www.szrfweb.wang/restApi",
+	 webServer:"http://www.szrfweb.wang/advertising",
+	//common_url:"http://joeyjava.iask.in/restApi",
+	//webServer:"http://joeyjava.ticp.io/advertising",
 	tokenKey:"tokenKey",
 	wxLoadFlagKsy:"wxLoadFlagKsy",
 	appid:"wxfb3355958b897680",
