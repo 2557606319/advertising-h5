@@ -9,7 +9,7 @@ var _CFG={
 	redirectUri:"/wx/business/wxAuthResp/success",
 	getWxLoginAuthPath:function(login_url,invitation){
 		var path='https://open.weixin.qq.com/connect/oauth2/authorize?appid=[appid]&redirect_uri=[redirect_uri]&response_type=code&scope=snsapi_userinfo&state=[state]#wechat_redirect';
-		return path.replace('[appid]',_CFG.appid).replace('[redirect_uri]',_CFG.common_url+_CFG.redirectUri).path.replace('[state]',invitation);
+		return path.replace('[appid]',_CFG.appid).replace('[redirect_uri]',_CFG.common_url+_CFG.redirectUri).replace('[state]',invitation);
 	}
 }
 
