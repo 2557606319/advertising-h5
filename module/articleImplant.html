@@ -388,7 +388,6 @@
 				}
 			})
 			$(function(){
-				alert(1);
 			})
 			
 			
@@ -458,7 +457,7 @@
 								if(!loadFLag){
 									doBottom()
 								}
-							}, 500)
+							}, 2000)
 						},
 						err: function(err) {
 							loading.hide();
@@ -469,7 +468,7 @@
 			}
 
 			function doBottom(){
-				var h = $("iframe").contents().find("body").height();
+				var h = $("iframe").contents().find("html").height();
 				$("iframe").height(h);
 				setTimeout(function() {
 					$("content").animate({

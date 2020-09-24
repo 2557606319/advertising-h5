@@ -240,7 +240,9 @@
 							html+='</div>';
 							html+='</div>';
 						})
-						$(".advertising-list").html(html);
+						if(html!=""){
+							$(".advertising-list").html(html);
+						}
 						if(callback)
 							callback();
 					},

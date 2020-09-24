@@ -22,7 +22,7 @@
 		 .top-info .ti-top h4 .level3{background-color: #7ca2c7;}
 		 .top-info .ti-top img{border-radius: 50%;width: 50px;height: 50px;display: block;float: left;margin-right: 15px;}
 		 .top-info .ti-top .process{height: 3px;border-radius: 10px;background: #d2988e;width: 180px;margin-left: 65px;margin-bottom: 5px;margin-top: 8px;}
-		 .top-info .ti-top .process .bar{height: 3px;width: 70%;background: #ed3467;border-radius: 10px;}
+		 .top-info .ti-top .process .bar{height: 3px;width: 0%;background: #ed3467;border-radius: 10px;}
 		 .top-info .ti-top .distance{font-size: 12px}
 		 
 		 .introduce div{width: 33.333%;float: left;text-align: center;color: #fff;}
@@ -49,31 +49,31 @@
 		<content>
 			 <div class="top-info">
 				 <div class="ti-top">
-					 <img src="../images/shuijiao.jpg" alt="">
-					 <h4>昵称 <span  class="level2">黄金代理</span></h4>
+					 <img id="avatar" src="../images/default_avatar.png" alt="">
+					 <h4><nick id="nick">昵称</nick> <span id="level"  class="level1">青铜代理</span></h4>
 					 <div class="process">
 						 <p class="bar"></p>
 					 </div>
-					 <p class="distance">还差2000收益升级钻石代理</p>
+					 <p class="distance">还差 <val id="differUpgrade">0</val> 收益升级钻石代理</p>
 					 
 				 </div>
 				 <div class="introduce">
 					 <div>
-						<h4>40%</h4>
+						<h4 id="lower1Ratio">40%</h4>
 						<p>直推收益分成</p>
 					 </div>
 					 <div>
-						<h4>10% + 5%</h4>
+						<h4 id="beforeLower">0% + 0%</h4>
 						<p>下级分成</p>
 					 </div>
 					 <div style="margin-top: -4px;">
-						<h3 style="">¥0.00</h3>
+						<h3 style="" id="totalRevenue">¥0</h3>
 						<p>累计收益</p>
 					 </div>
 					 <p style="clear: both;"></p>
 				 </div>
 				 
-				 <span class="upgrade">立即升级</span>
+				 <span class="upgrade do_page" page-url="agencyLevel.html">立即升级</span>
 			 </div>
 			 
 			 <style type="text/css">
@@ -85,23 +85,23 @@
 				.count-item div h4{padding-left: 6px;font-weight: 300;font-size: 20px;}
 				.count-item div p{padding-left: 6px;}
 			 </style>
-			 <div class="btn-ctx">
+			 <div id="countTab" class="btn-ctx">
 				 <div class="tab">
-					 <div class="sed">累计</div>
-					 <div>今日</div>
-					 <div>本月</div>
+					 <div class="sed" >累计</div>
+					 <div date-format="yyyy-MM-dd">今日</div>
+					 <div date-format="yyyy-MM">本月</div>
 					 <p style="clear: both;margin-bottom: 0px;"></p>
 				 </div>
 				 <div class="count-item">
 					 <div style="margin-right: 1%;" class="do_page" page-url="earningsDetails.html">
 						 <img src="../images/jinbi.png" alt="">
 						 <p>累计直推</p>
-						 <h4>¥0.00</h4>
+						 <h4 id="sumCommission">¥0</h4>
 					 </div>
 					 <div>
 						 <img src="../images/jinbi.png" alt="">
 						 <p>累计下级收益</p>
-						 <h4>¥0.00</h4>
+						 <h4 id="sumLower">¥0</h4>
 					 </div>
 				 </div>
 			 </div>
@@ -123,6 +123,55 @@
 					}
 				}
 			});
+			
+			_ajx({
+				url: "/auth/user/earnings",type:"get",isAuth:true,
+				suc:function(data){
+					data=data.message;
+					$("#avatar").attr("src",formatterImgUrl(data.avatar));
+					$("#nick").text(data.nick);
+					$("#level").addClass("level"+data.level);
+					if(data.level>1)$("#level").text(data.level==2? "黄金代理":"钻石代理");
+					$(".process .bar").css({"width":((data.totalRevenue/data.upgrade)*100)+ "%"})
+					$("#differUpgrade").text(data.upgrade-data.totalRevenue);
+					$("#lower1Ratio").text((data.lower1Ratio*100)+"%");
+					$("#beforeLower").text((data.lower2Ratio*100)+"% + "+(data.lower3Ratio*100)+"%");
+					$("#totalRevenue").text("¥"+data.totalRevenue);
+				},err:function(data){
+					
+				}
+			})
+			
+			count(null);
+			
+			function count(date){
+				_ajx({
+					url:"/auth/user/earnings/count?date="+date,type:"get",isAuth:true,
+					suc:function(data){
+						$("#sumCommission").text("￥"+data.message.sumCommission);
+						$("#sumLower").text("¥"+data.message.sumLower);
+					},
+					err:function(err){
+						
+					}
+				})
+			}
+			
+			mui("body").on('tap', '#countTab .tab div', function() {
+				var clazz = $(this).attr("class");
+				$("#countTab .sed").removeClass("sed");
+				$(this).addClass("sed");
+				 if(clazz==undefined||clazz.indexOf("sed")==-1){
+					 var dateFormat = $(this).attr("date-format");
+					 if(dateFormat){
+						 var now = new Date();
+						 count(now.Format(dateFormat));
+					 }else{
+						 count(null);
+					 }
+				 }
+			})
+			
 		</script>
 	</body>
 

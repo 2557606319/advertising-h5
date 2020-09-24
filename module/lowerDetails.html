@@ -11,7 +11,7 @@
 		<link rel="stylesheet" type="text/css" href="../css/swiper.min.css"/>
 	</head>
 	<style type="text/css">
-		.l-title{padding: 15px;background-color: #fff;border-bottom: 1px solid #e2e2e2;text-align: center;color: #242424;font-size: 14px}
+		.l-title{padding: 15px;background-color: #fff;border-bottom: 1px solid #efefef;text-align: center;color: #242424;font-size: 14px}
 		.l-title div:nth-child(1){width: 20%;float: left;}
 		.l-title div:nth-child(2){width: 30%;float: left;}
 		.l-title div:nth-child(3){width: 20%;float: left;}
@@ -37,8 +37,9 @@
 				   <div>总获佣金</div>
 				   <div>邀请时间</div>
 			   </div>
-			   <div class="list">
-				   <div class="l-item">
+			   <div id="invList" class="list">
+				   <p style="text-align:center;padding-top:10px">暂无数据</p>
+				   <!-- <div class="l-item">
 					   <div><img src="../images/shuijiao.jpg" alt=""></div>
 					   <div>沧海一声笑</div>
 					   <div>¥0</div>
@@ -49,7 +50,7 @@
 					   <div>沧海一声笑</div>
 					   <div>¥0</div>
 					   <div>2019-02-02 <br> 12:12</div>
-				   </div>
+				   </div> -->
 			   </div>
 			    
 		</content>
@@ -72,6 +73,29 @@
 				$(".date-list").fadeToggle(100);
 				$('.current-date').html($(this).text()+' ▾');
 			})
+			
+			initData();
+			
+			function initData(){
+				_ajx({
+					url:"/auth/user/invitation/list",type:"GET",isAuth:true,
+					suc:function(data){
+						var html ='';
+						$.each(data.message,function(i,v){
+							html+='<div class="l-item">';
+							html+='<div><img src="'+formatterImgUrl(v.avatar)+'" alt=""></div>';
+							html+='<div>'+v.nick+'</div>';
+							html+='<div>¥ '+v.sumCommission+'</div>';
+							html+='<div>'+new Date(v.ctime).Format("yyyy-MM-dd")+' <br> '+new Date(v.ctime).Format("HH:mm")+'</div>';
+							html+='</div>';
+						})
+						$("#invList").html(html);
+					},
+					err:function(data){
+						
+					}
+				})
+			}
 		</script>
 	</body>
 

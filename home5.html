@@ -220,15 +220,15 @@
 			font-weight: 300;
 		}
 
-		.agency-level.level0 p {
+		.agency-level.level1 p {
 			color: #c3776a;
 		}
 
-		.agency-level.level1 p {
+		.agency-level.level2 p {
 			color: #e8ad3a;
 		}
 
-		.agency-level.level2 p {
+		.agency-level.level3 p {
 			color: #748faf;
 		}
 
@@ -452,6 +452,7 @@
 			margin-top: 20px;
 			margin-bottom: 20px;
 		}
+		#qrcode img{width: 180px;height: 180px;}
 	</style>
 	<body>
 		<header>
@@ -466,7 +467,7 @@
 				<img class="avatar avatar_field" src="images/default_avatarx2.png" alt="">
 				<div class="top-right">
 					<div class="btns">
-						<img src="images/qrcode.png" alt="" onclick="$('.share-qr').fadeIn(200)">
+						<img src="images/qrcode.png" alt="" onclick="$('.qr-panel').fadeIn(200)">
 					</div>
 					<h4 class="nick">昵称</h4>
 					<p class="flags industry">行业</p>
@@ -506,15 +507,15 @@
 					</p>
 				</div>
 				<div style="clear: both;"></div>
-				<div class="agency-level level0">
+				<div class="agency-level level1">
 					<img src="images/agency-l-1.png">
 					<p>青铜代理</p>
 				</div>
-				<div class="agency-level level1">
+				<div class="agency-level level2">
 					<img class="agency-level-icon" src="images/agency-l-2.png">
 					<p>黄金代理</p>
 				</div>
-				<div class="agency-level level2">
+				<div class="agency-level level3">
 					<img class="agency-level-icon" src="images/agency-l-3.png">
 					<p>钻石代理</p>
 				</div>
@@ -523,7 +524,7 @@
 			<div class="agency-menu">
 				<div class="do_page" page-url="module/meEarnings.html">查看收益</div>
 				<div class="do_page" page-url="module/lowerDetails.html">我的邀请</div>
-				<div>推广赚钱</div>
+				<div onclick="$('.tg-panel-1').fadeIn(200)">招募代理</div>
 				<div style="clear: both;"></div>
 			</div>
 			<div class="menus">
@@ -539,7 +540,7 @@
 					<img src="images/money1.png" alt="">
 					<p>收益提现</p>
 				</div>
-				<div class="menus-item">
+				<div class="menus-item" onclick="$('.tg-panel-2').fadeIn(200)">
 					<img src="images/ticket.png" alt="">
 					<p>分享赚钱</p>
 				</div>
@@ -595,10 +596,10 @@
 			}
 
 			.share-qr .sq-panel img {
-				width: 80%;
+				width: 95%;
 				margin-top: 10px;
 				margin-bottom: 10px;
-				box-shadow: 0px 2px 15px rgba(221, 82, 77, 0.25)
+				box-shadow: 0px 0px 5px rgba(221, 82, 77, 0.15)
 			}
 
 			.share-qr .sq-panel p {
@@ -662,10 +663,14 @@
 			.gold-extract .btns {
 				text-align: center;
 				margin-bottom: 15px;
+				bottom: 0px;
+				position: inherit;
+				margin-top: 5px;
 			}
 
 			.gold-extract .btns {
 				margin-bottom: 0px;
+				margin-top: 25px;
 			}
 
 			.gold-extract .btns span {
@@ -745,13 +750,25 @@
 				font-weight: 400;
 				padding: 8px 15px;
 			}
+			
+			.share-tg img{
+				display: block;
+				width: 100%;
+			}
+			
+			.tg-panel-1 .sq-panel,.tg-panel-2 .sq-panel{margin-top: 5%;padding: 10px 10px;}
+			.tg-panel-1 .sq-panel,.tg-panel-2 .sq-panel{margin-top: 5%;padding: 15px 10px 10px 10px;}
+			.tg-panel-1 .sq-panel h4,.tg-panel-2 .sq-panel h4{font-size: 18px}
+			.tg-panel-1 .sq-panel img,.tg-panel-2 .sq-panel img{margin-top:5px;margin-bottom: 0px;}
 		</style>
 		<!-- 分享二维码 -->
-		<div class="share-qr">
+		<div class="share-qr qr-panel">
 			<div class="sq-panel">
 				<span class="mui-icon mui-icon-close" onclick="$(this).parent().parent().fadeOut(200)"></span>
 				<h4>推广二维码</h4>
-				<div id="qrcode"></div>
+				<div id="qrcode">
+					<img src="images/qrcode.png" alt="">
+				</div>
 				<button type="button">保存二维码</button>
 				<p>分享至
 					<i>
@@ -765,6 +782,23 @@
 				<p class="do_page" page-url="module/agencyRule.html">查看代理收益规则</p>
 			</div>
 		</div>
+		
+		<div class="share-qr tg-panel-1">
+			<div class="sq-panel">
+				<span class="mui-icon mui-icon-close" onclick="$(this).parent().parent().fadeOut(200)"></span>
+				<h4>招募代理推广海报</h4>
+				<img class="tg-img" id="tgImg1" src="./images/60x60.gif" alt="">
+				<p>长按图片保存至相册</p>
+			</div>
+		</div>
+		<div class="share-qr tg-panel-2">
+			<div class="sq-panel">
+				<span class="mui-icon mui-icon-close" onclick="$(this).parent().parent().fadeOut(200)"></span>
+				<h4>招募代理推广海报</h4>
+				<img class="tg-img" id="tgImg2" src="./images/60x60.gif" alt="">
+				<p>长按图片保存至相册</p>
+			</div>
+		</div>
 
 		<!-- 金币提现 -->
 		<div class="gold-extract">
@@ -776,10 +810,10 @@
 						<input type="number" class="bbottom" name="" id="goldBalance" value="0" disabled />
 					</div>
 					<div class="input-item">
-						<p class="input-label"><span class="must">*</span>金币提现数量（<span>1000</span>起提）</p>
-						<input type="number" placeholder="输入提现数量" value="0">
+						<p class="input-label"><span class="must">*</span>金币提现数量（<span>5000</span>起提）</p>
+						<input id="extractAmount" type="number" placeholder="输入提现数量" value="0">
 					</div>
-					<div class="input-item">
+					<!-- <div class="input-item">
 						<p class="input-label"><span class="must">*</span>提现到哪里
 							<span class="ge-type">
 								<span class="sed" plac="输入支付宝手机号">支付宝</span>
@@ -787,14 +821,14 @@
 							</span>
 						</p>
 						<input type="text" id="ge-target" placeholder="输入支付宝账号">
-					</div>
-					<p class="sygz">点击查看代理收益规则</p>
+					</div> -->
+					<p class="sygz do_page" page-url="module/agencyRule.html">点击查看代理收益规则</p>
 					<p class="checkbox">
 						<input type="checkbox" name="" id="" value="" />阅读并同意用户协议</p>
 
 					<p class="btns">
 						<span class="comm-bg1 comm-btn">分享赚钱</span>&nbsp;&nbsp;
-						<span class="comm-bg2 comm-btn">收益提现</span>
+						<span class="comm-bg2 comm-btn" onclick="extract()">收益提现</span>
 					</p>
 				</div>
 			</div>
@@ -849,10 +883,12 @@
 		<script src="js/wxConfig.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.init()
+			//邀请码
+			var invitationCode = getUrlParamByName("code");
 			if (!mui.os.plus) {
-				_auth();
+				_auth(null,invitationCode);
 			} else {
-				_auth("login.html");
+				_auth("login.html",invitationCode);
 			}
 			mui.plusReady(function() {
 				//savePicture('https://dss0.baidu.com/73F1bjeh1BF3odCf/it/u=1532486136,2866336138&fm=85&s=F6809543FAEC9CCE08C8BC1F030090C1');
@@ -960,20 +996,43 @@
 							$(".open-vip").hide();
 
 						}
-						if (data.message.agencyLevel == 2) $("#promote").hide();
+						if (data.message.agencyLevel == 3) $("#promote").hide();
 						$('.agency-level.level' + data.message.agencyLevel).show();
 
 						var url = _CFG.webServer + "/home5.html?code=" + data.message.id;
 						//生成二维码
-						$("#qrcode").qrcode({
-							width: 180, //宽度
-							height: 180, //高度
-							text: url //url
-						});
-
+						$("#qrcode img").attr("src",formatterImgUrl(data.message.qrImg));
+						$("#tgImg1").attr("src",formatterImgUrl(data.message.tgImg1));
+						$("#tgImg2").attr("src",formatterImgUrl(data.message.tgImg2));
 					},
 					err: function() {
 
+					}
+				})
+			}
+			
+			function extract(){
+				var extractAmount = Number($("#extractAmount").val());
+				var goldBalance = Number($("#goldBalance").val());
+				if(extractAmount>goldBalance){
+					mui.toast("账户金币余额不足");
+					return;
+				}
+				if(extractAmount<5000){
+					mui.toast("最低提现额为5000金币");
+					return;
+				}
+				_ajx({
+					url:"/auth/pay/extract",type:"POST",isAuth:true,
+					data:{amount:extractAmount},
+					suc:function(data){
+						mui.toast("提现成功,预计一个工作日转至微信账户");
+						var amount = goldBalance-extractAmount;
+						$("#goldBalance").val(amount);
+						$(".goldBalance").text(amount);
+					},
+					err:function(err){
+						mui.toast("提现失败，"+err.message);
 					}
 				})
 			}

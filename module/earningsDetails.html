@@ -40,37 +40,25 @@
 			  <div class="top-wrap">
 				  <span class="current-date" style="float: left;" >2020.03 ▾</span>
 				  <ul class="date-list">
-				  	<li>2020.03</li>
-				  	<li>2020.02</li>
-				  	<li>2020.01</li>
 				  </ul>
 				  <span style="float: right;">
 					  月总收益
-					  <span>¥0</span>
+					  <span id="countMoney">¥0</span>
 					  = 
-					  <span style="color: #FFA901;font-weight: 400;"> 0 金币</span>
+					  <span style="color: #FFA901;font-weight: 400;" id="countGold"> 0 金币</span>
 					  
 				  </span>
 				  <div style="clear: both;"></div>
 			  </div>
 			  <div class="details-list">
-				   
-				  <div class="dl-item">
+				  <!-- <div class="dl-item">
 						  <img src="../images/shuijiao.jpg" alt="">
 						  <span>昵称</span>
 						  <span>年V <br>￥199</span>
 						  <span>佣金<br>￥79.6</span>
 						  <span>金币 <br>+796</span>
 						  <span>02-21<br>12:12</span>
-				  </div>
-				  <div class="dl-item">
-						  <img src="../images/shuijiao.jpg" alt="">
-						  <span>昵称</span>
-						  <span>年V <br>￥199</span>
-						  <span>佣金<br>￥79.6</span>
-						  <span>金币 <br>+796</span>
-						  <span>02-21<br>12:12</span>
-				  </div>
+				  </div> -->
 			  </div>
 		</content>
 		</div>
@@ -91,7 +79,60 @@
 			mui("body").on("tap",'.date-list li',function(){
 				$(".date-list").fadeToggle(100);
 				$('.current-date').html($(this).text()+' ▾');
+				initData($(this).text());
 			})
+			
+			//初始化近一年的月份
+			var now = new Date();
+			for (var i = 0; i < 13; i++) {
+				var nowStr = now.Format("yyyy-MM");
+				if(i==0){
+					$(".top-wrap .current-date").html(nowStr+" ▾");
+					initData(nowStr)
+				}
+				$(".top-wrap ul").append('<li>'+nowStr+'</li>');
+				now.setMonth(now.getMonth()-1);
+			}
+			
+			
+			function initData(dateStr){
+				var data={};
+				if(dateStr){
+					data.date=dateStr
+				}
+				_ajx({
+					url:"/auth/user/earnings/details",type:"GET",isAuth:true,
+					data:data,
+					suc:function(data){
+						var html='';
+						var countMoney=0,countGold=0;
+						$.each(data.message,function(i,v){
+							html+='<div class="dl-item">';
+							html+='<img src="'+formatterImgUrl(v.targetAvatar)+'" alt="">';
+							html+=' <span>'+v.targetNick+'</span>';
+							html+='<span>金额 <br>￥'+v.proMoney+'</span>';
+							html+='<span>佣金<br>￥'+v.commission+'</span>';
+							html+=' <span>金币 <br>+'+v.gold+'</span>';
+							html+='<span>'+new Date(v.ctime).Format("MM-dd")+'<br>'+new Date(v.ctime).Format("HH:mm")+'</span>';
+							html+='</div>';
+							countMoney+=Number(v.proMoney);
+							countGold+=Number(v.gold);
+						})
+						
+						$(".details-list").html(html.length==0?"<p style='text-align:center;padding-top:10px'>暂无数据</p>":html);
+						$("#countMoney").text("￥"+countMoney);
+						$("#countGold").text(countGold+" 金币");
+					},
+					err:function(data){
+						mui.toast(data.message);
+					}
+				})
+			}
+			
+			
+			
+			
+			
 		</script>
 	</body>
 

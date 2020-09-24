@@ -119,7 +119,7 @@
 			mui.plusReady(function(){
 
 			})
-			var currentLevel=0;
+			var currentLevel=1;
 			var levels=["AGENT_1","AGENT_2","AGENT_3"];
 			var swiper = new Swiper('.swiper-container',{
 				on:{
@@ -130,10 +130,10 @@
 			
 			//支付
 			mui("body").on("tap","#upgrade",function(){
-				if(swiper.realIndex>currentLevel){
+				if(swiper.realIndex+1>currentLevel){
 					var load = showLoading();
 					_ajx({
-						url:'/auth/pay/create/'+levels[swiper.realIndex],
+						url:'/auth/pay/create/'+levels[swiper.realIndex-1],
 						isAuth:true,
 						suc:function(data){
 							wx.chooseWXPay({
@@ -181,7 +181,7 @@
 					url:'/auth/user/levelInfo',isAuth:true,type:'get',
 					suc:function(data){
 						currentLevel=data.message.level;
-						swiper.slideTo(data.message.level);
+						swiper.slideTo(data.message.level-1);
 						$("#level2_amount").text("￥"+data.message.levelInfo[3].amount);
 						$("#level3_amount").text("￥"+data.message.levelInfo[4].amount);
 						$("#level"+(data.message.level+1)).parent().before("<p>当前拥有</p>");

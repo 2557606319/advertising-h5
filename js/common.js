@@ -1,15 +1,15 @@
 var _CFG={
-	common_url:"http://www.szrfweb.wang/restApi",
-	webServer:"http://www.szrfweb.wang/advertising",
-	// common_url:"http://joeyjava.iask.in/restApi",
-	// webServer:"http://joeyjava.ticp.io/advertising",
+	// common_url:"http://www.szrfweb.wang/restApi",
+	// webServer:"http://www.szrfweb.wang/advertising",
+	common_url:"http://joeyjava.iask.in/restApi",
+	webServer:"http://joeyjava.ticp.io/advertising",
 	tokenKey:"tokenKey",
 	wxLoadFlagKsy:"wxLoadFlagKsy",
 	appid:"wxfb3355958b897680",
 	redirectUri:"/wx/business/wxAuthResp/success",
-	getWxLoginAuthPath:function(login_url,){
+	getWxLoginAuthPath:function(login_url,invitation){
 		var path='https://open.weixin.qq.com/connect/oauth2/authorize?appid=[appid]&redirect_uri=[redirect_uri]&response_type=code&scope=snsapi_userinfo&state=[state]#wechat_redirect';
-		return path.replace('[appid]',_CFG.appid).replace('[redirect_uri]',_CFG.common_url+_CFG.redirectUri); 
+		return path.replace('[appid]',_CFG.appid).replace('[redirect_uri]',_CFG.common_url+_CFG.redirectUri).path.replace('[state]',invitation);
 	}
 }
 
@@ -148,13 +148,13 @@ function _ajx(opt){
 	})
 }
  
-function _auth(login_url){
+function _auth(login_url,invitation){
 	var token = localStorage.getItem(_CFG.tokenKey);
 	var authFun=function(){
 		if(mui.os.plus){
 			window.location.href=login_url;
 		}else{
-			window.location.href=_CFG.getWxLoginAuthPath(login_url);
+			window.location.href=_CFG.getWxLoginAuthPath(login_url,invitation);
 		}
 	}
 	if(token){
