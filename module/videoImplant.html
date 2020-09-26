@@ -367,6 +367,13 @@
 			
 			function reqVideoInfo(callback){
 				var loading = showLoading();
+				var getInfo = function(id){
+					_ajx({
+						url:'/video/info/'+id,isAuth:true,type:"get",cache:false,
+						suc:function(data){ setData(data);},
+						err:function(err){loading.hide();mui.toast(err.message);}
+					})
+				}
 				var setData = function(data){
 					videoInfo=data.message;
 					vid=data.message.id;
@@ -385,18 +392,17 @@
 					defaultAdvertising(data.message.advId);
 				}
 				if(resourceUrl){
+					//收集视频
 					_ajx({
 						url:'/auth/video/collect',isAuth:true,
 						data:{"targetUrl":resourceUrl,"typeId":typeId},
-						suc:function(data){setData(data);},
+						suc:function(data){
+							getInfo(data.message.id);
+						},
 						err:function(err){loading.hide();mui.toast(err.message);}
 					})
 				}else{
-					_ajx({
-						url:'/video/info/'+vid,isAuth:true,type:"get",cache:false,
-						suc:function(data){ setData(data);},
-						err:function(err){loading.hide();mui.toast(err.message);}
-					})
+					getInfo(vid);
 				}
 			}
 			

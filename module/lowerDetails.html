@@ -82,11 +82,12 @@
 					suc:function(data){
 						var html ='';
 						$.each(data.message,function(i,v){
+							console.log(new Date(v.ctime).Format("yyyy-MM-dd"));
 							html+='<div class="l-item">';
 							html+='<div><img src="'+formatterImgUrl(v.avatar)+'" alt=""></div>';
 							html+='<div>'+v.nick+'</div>';
 							html+='<div>¥ '+v.sumCommission+'</div>';
-							html+='<div>'+new Date(v.ctime).Format("yyyy-MM-dd")+' <br> '+new Date(v.ctime).Format("HH:mm")+'</div>';
+							html+='<div>'+v.ctime.split(" ")[0]+' <br> '+v.ctime.split(" ")[1].substring(0,5)+'</div>';
 							html+='</div>';
 						})
 						$("#invList").html(html);
